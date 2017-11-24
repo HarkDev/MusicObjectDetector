@@ -14,7 +14,7 @@ class FasterRcnnConfiguration(object):
                  use_vertical_flip_augmentation: bool = False,
                  use_90_degree_rotation_augmentation: bool = False,
                  verbose: bool = True,
-                 image_channel_mean: List[float] = [103.939, 116.779, 123.68],
+                 image_channel_mean: List[float] = [0, 0, 0],
                  image_scaling_factor: float = 1.0,
                  number_of_ROIs_at_once: int = 32,
                  rpn_stride: int = 16,
