@@ -21,6 +21,7 @@ from omrdatasettools.downloaders.MuscimaPlusPlusDatasetDownloader import Muscima
 
 import keras_frcnn.roi_helpers as roi_helpers
 from keras_frcnn import faster_rcnn_losses, data_generators
+from keras_frcnn.DatasetSplitter import DatasetSplitter
 from keras_frcnn.configurations.ConfigurationFactory import ConfigurationFactory
 from keras_frcnn.muscima_image_cutter import delete_unused_images, cut_images
 from keras_frcnn.muscima_pp_cropped_image_parser import get_data
@@ -61,7 +62,8 @@ def train_model(dataset_directory: str, model_name: str, delete_and_recreate_dat
     network = NetworkFactory.get_network_by_name(model_name)
 
     try:
-        all_images, classes_count, class_mapping = get_data(muscima_cropped_directory)
+        training_images, validation_images, test_images, classes_count, class_mapping = \
+            get_data(dataset_directory, os.path.join(dataset_directory, "Annotations.txt"))
         data_loaded = True
     except:
         print("Could not load dataset. Automatically downloading and recreating dataset.")
@@ -88,7 +90,11 @@ def train_model(dataset_directory: str, model_name: str, delete_and_recreate_dat
         shutil.copy("Staff-Vertical-Positions.txt", dataset_directory)
 
         cut_images(muscima_image_directory, os.path.join(dataset_directory, "Staff-Vertical-Positions.txt"),
-                   muscima_cropped_directory, muscima_pp_raw_dataset_directory, os.path.join(dataset_directory, "Annotations.txt"))
+                   muscima_cropped_directory, muscima_pp_raw_dataset_directory,
+                   os.path.join(dataset_directory, "Annotations.txt"))
+
+        dataset_splitter = DatasetSplitter(muscima_cropped_directory, dataset_directory)
+        dataset_splitter.split_images_into_training_validation_and_test_set()
 
     # pass the settings from the command line, and persist them in the config object
     C = ConfigurationFactory.get_configuration_by_name(configuration_name)
@@ -96,7 +102,8 @@ def train_model(dataset_directory: str, model_name: str, delete_and_recreate_dat
     start_time = time.time()
 
     if not data_loaded:
-        all_images, classes_count, class_mapping = get_data(muscima_cropped_directory)
+        training_images, validation_images, test_images, classes_count, class_mapping = \
+            get_data(dataset_directory, os.path.join(dataset_directory, "Annotations.txt"))
 
     if 'bg' not in classes_count:
         classes_count['bg'] = 0
@@ -118,29 +125,26 @@ def train_model(dataset_directory: str, model_name: str, delete_and_recreate_dat
     with open(config_output_filename, 'wb') as config_f:
         pickle.dump(C, config_f)
         print('Config has been written to {}, and can be loaded when testing to ensure correct results'.format(
-                config_output_filename))
+            config_output_filename))
 
     random.seed(1)
-    random.shuffle(all_images)
+    random.shuffle(training_images)
 
-    # num_imgs = len(all_images)
-
-    train_imgs = [s for s in all_images if s['imageset'] == 'train']
-    val_imgs = [s for s in all_images if s['imageset'] == 'val']
-
-    print('Num train samples {}'.format(len(train_imgs)))
-    print('Num val samples {}'.format(len(val_imgs)))
+    print('Number of training samples: {}'.format(len(training_images)))
+    print('Number of validation samples: {}'.format(len(validation_images)))
+    print('Number of test samples: {}'.format(len(test_images)))
 
     if not use_fast_data_generators:
         print("Using standard data_generator")
-        data_gen_train = data_generators.get_anchor_gt(train_imgs, classes_count, C, network.get_img_output_length,
+        data_gen_train = data_generators.get_anchor_gt(training_images, classes_count, C, network.get_img_output_length,
                                                        mode='train')
-        data_gen_val = data_generators.get_anchor_gt(val_imgs, classes_count, C, network.get_img_output_length, mode='val')
+        data_gen_val = data_generators.get_anchor_gt(validation_images, classes_count, C, network.get_img_output_length,
+                                                     mode='val')
     else:
         print("Using fast data_generator")
-        data_gen_train = data_generators_fast.get_anchor_gt(train_imgs, classes_count, C, network.get_img_output_length,
+        data_gen_train = data_generators_fast.get_anchor_gt(training_images, classes_count, C, network.get_img_output_length,
                                                             mode='train')
-        data_gen_val = data_generators_fast.get_anchor_gt(val_imgs, classes_count, C, network.get_img_output_length,
+        data_gen_val = data_generators_fast.get_anchor_gt(validation_images, classes_count, C, network.get_img_output_length,
                                                           mode='val')
 
     input_shape_img = (None, None, 3)
@@ -164,7 +168,7 @@ def train_model(dataset_directory: str, model_name: str, delete_and_recreate_dat
     model_all = Model([img_input, roi_input], rpn[:2] + classifier)
     start_of_training = datetime.date.today()
     tensorboard_callback = TensorBoard(
-            log_dir="./logs/{0}_{1}/".format(start_of_training, configuration_name))
+        log_dir="./logs/{0}_{1}/".format(start_of_training, configuration_name))
     tensorboard_callback.set_model(model_all)
 
     try:
@@ -186,7 +190,7 @@ def train_model(dataset_directory: str, model_name: str, delete_and_recreate_dat
     model_all.compile(optimizer=Adadelta(), loss='mae')
 
     epoch_length = 1000
-    validation_epoch_length = len(val_imgs)
+    validation_epoch_length = len(validation_images)
     validation_interval = 1
 
     losses = np.zeros((epoch_length, 5))
@@ -226,11 +230,11 @@ def train_model(dataset_directory: str, model_name: str, delete_and_recreate_dat
                     mean_overlapping_bboxes = float(sum(rpn_accuracy_rpn_monitor)) / len(rpn_accuracy_rpn_monitor)
                     rpn_accuracy_rpn_monitor = []
                     print(
-                            '\nAverage number of overlapping bounding boxes from RPN = {} for {} previous iterations'.format(
-                                    mean_overlapping_bboxes, epoch_length))
+                        '\nAverage number of overlapping bounding boxes from RPN = {} for {} previous iterations'.format(
+                            mean_overlapping_bboxes, epoch_length))
                     if mean_overlapping_bboxes == 0:
                         print(
-                                'RPN is not producing bounding boxes that overlap the ground truth boxes. Check RPN settings or keep training.')
+                            'RPN is not producing bounding boxes that overlap the ground truth boxes. Check RPN settings or keep training.')
 
                 X, Y, img_data = next(data_gen_train)
 
@@ -317,7 +321,7 @@ def train_model(dataset_directory: str, model_name: str, delete_and_recreate_dat
         if C.verbose:
             print('[INFO TRAINING]')
             print('Mean number of bounding boxes from RPN overlapping ground truth boxes: {}'.format(
-                    mean_overlapping_bboxes))
+                mean_overlapping_bboxes))
             print('Classifier accuracy for bounding boxes from RPN: {}'.format(class_acc))
             print('Loss RPN classifier: {}'.format(loss_rpn_cls))
             print('Loss RPN regression: {}'.format(loss_rpn_regr))
@@ -435,7 +439,7 @@ def train_model(dataset_directory: str, model_name: str, delete_and_recreate_dat
         if C.verbose:
             print('[INFO VALIDATION]')
             print('Mean number of bounding boxes from RPN overlapping ground truth boxes: {}'.format(
-                    mean_overlapping_bboxes))
+                mean_overlapping_bboxes))
             print('Classifier accuracy for bounding boxes from RPN: {}'.format(class_acc))
             print('Loss RPN classifier: {}'.format(loss_rpn_cls))
             print('Loss RPN regression: {}'.format(loss_rpn_regr))
@@ -470,7 +474,7 @@ def train_model(dataset_directory: str, model_name: str, delete_and_recreate_dat
             current_learning_rate = K.get_value(model_classifier.optimizer.lr)
             new_learning_rate = current_learning_rate * learning_rate_reduction_factor
             print("Not improved validation accuracy for {0} epochs. Reducing learning rate from {1} to {2}".format(
-                    learning_rate_reduction_patience, current_learning_rate, new_learning_rate))
+                learning_rate_reduction_patience, current_learning_rate, new_learning_rate))
             K.set_value(model_classifier.optimizer.lr, new_learning_rate)
             K.set_value(model_rpn.optimizer.lr, new_learning_rate)
             K.set_value(model_all.optimizer.lr, new_learning_rate)
@@ -487,7 +491,9 @@ def train_model(dataset_directory: str, model_name: str, delete_and_recreate_dat
     TelegramNotifier.send_message_via_telegram(notification_message)
 
     today = "{0:02d}.{1:02d}.{2}".format(start_of_training.day, start_of_training.month, start_of_training.year)
-    GoogleSpreadsheetReporter.append_result_to_spreadsheet(dataset_size=len(all_images),
+    total_number_of_images = len(training_images) + len(validation_images) + len(test_images)
+
+    GoogleSpreadsheetReporter.append_result_to_spreadsheet(dataset_size=total_number_of_images,
                                                            model_name=model_name,
                                                            configuration_name=configuration_name,
                                                            data_augmentation="",
