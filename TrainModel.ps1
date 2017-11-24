@@ -30,6 +30,18 @@ cd ..
 ################################################
 # Upcoming Trainings 
 ################################################
+$model_name = "Vgg16"
+$configuration_name = "muscima_pp_1"
+$base_name = "2017-11-24"
+Start-Transcript -path "$($pathToTranscript)$($base_name)_$($model_name)_$($configuration_name).txt" -append
+python "$($pathToTranscript)TrainModel.py" --model_name $model_name --configuration_name $configuration_name --output_weight_path "$($base_name)_$($model_name)_$($configuration_name).hdf5" --config_filename "$($base_name)_$($model_name)_$($configuration_name).pickle" --num_epochs 200
+Stop-Transcript
+
+
+################################################
+# Postponed Trainings 
+################################################
+exit
 
 $model_name = "simple_resnet"
 $configuration_name = "small_anchor_box_scales"
