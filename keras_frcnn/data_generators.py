@@ -19,6 +19,10 @@ def union(au, bu, area_intersection):
     return area_union
 
 
+def area(a):
+    return (a[2] - a[0]) * (a[3] - a[1])
+
+
 def intersection(ai, bi):
     x = max(ai[0], bi[0])
     y = max(ai[1], bi[1])

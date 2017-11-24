@@ -13,7 +13,7 @@ from omrdatasettools.downloaders.CvcMuscimaDatasetDownloader import CvcMuscimaDa
 from omrdatasettools.downloaders.MuscimaPlusPlusDatasetDownloader import MuscimaPlusPlusDatasetDownloader
 from omrdatasettools.image_generators.MuscimaPlusPlusImageGenerator import MuscimaPlusPlusImageGenerator
 from tqdm import tqdm
-from keras_frcnn.data_generators import iou
+from keras_frcnn.data_generators import intersection, area
 
 
 def cut_images(muscima_image_directory: str, staff_vertical_positions_file: str, output_path: str,
@@ -87,7 +87,7 @@ def cut_images(muscima_image_directory: str, staff_vertical_positions_file: str,
 
                     for crop_object in crop_objects_of_image:
                         # if bounding_box_in(image_crop_bounding_box, crop_object.bounding_box):
-                        if iou(image_crop_bounding_box, crop_object.bounding_box) > 0.9:
+                        if intersection(image_crop_bounding_box, crop_object.bounding_box) / area(crop_object.bounding_box) > 0.9:
                             top, left, bottom, right = crop_object.bounding_box
                             translated_bounding_box = (
                                 top - y_top, left - previous_width, bottom - y_top, right - previous_width)
@@ -145,7 +145,7 @@ def delete_unused_images(muscima_image_directory: str):
 
 
 if __name__ == "__main__":
-    dataset_directory = "../data"
+    dataset_directory = "data"
     muscima_pp_raw_dataset_directory = os.path.join(dataset_directory, "muscima_pp_raw")
     muscima_image_directory = os.path.join(dataset_directory, "cvcmuscima_staff_removal")
 
@@ -165,7 +165,7 @@ if __name__ == "__main__":
     # We would like to work with black-on-white images instead of white-on-black images
     inverter.invert_images(muscima_image_directory, "*.png")
 
-    shutil.copy("../Staff-Vertical-Positions.txt", dataset_directory)
+    shutil.copy("Staff-Vertical-Positions.txt", dataset_directory)
 
-    cut_images("../data/cvcmuscima_staff_removal", "../data/Staff-Vertical-Positions.txt",
-               "../data/muscima_pp_cropped_images", "../data/muscima_pp_raw", "../data/Annotations.txt")
+    cut_images("data/cvcmuscima_staff_removal", "data/Staff-Vertical-Positions.txt",
+               "data/muscima_pp_cropped_images", "data/muscima_pp_raw", "data/Annotations.txt")
