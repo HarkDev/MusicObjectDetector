@@ -13,6 +13,7 @@ from omrdatasettools.downloaders.CvcMuscimaDatasetDownloader import CvcMuscimaDa
 from omrdatasettools.downloaders.MuscimaPlusPlusDatasetDownloader import MuscimaPlusPlusDatasetDownloader
 from omrdatasettools.image_generators.MuscimaPlusPlusImageGenerator import MuscimaPlusPlusImageGenerator
 from tqdm import tqdm
+from keras_frcnn.data_generators import iou
 
 
 def cut_images(muscima_image_directory: str, staff_vertical_positions_file: str, output_path: str,
@@ -85,7 +86,8 @@ def cut_images(muscima_image_directory: str, staff_vertical_positions_file: str,
                     file_name = "{0}_{1}_{2}.png".format(writer, page, i)
 
                     for crop_object in crop_objects_of_image:
-                        if bounding_box_in(image_crop_bounding_box, crop_object.bounding_box):
+                        # if bounding_box_in(image_crop_bounding_box, crop_object.bounding_box):
+                        if iou(image_crop_bounding_box, crop_object.bounding_box) > 0.9:
                             top, left, bottom, right = crop_object.bounding_box
                             translated_bounding_box = (
                                 top - y_top, left - previous_width, bottom - y_top, right - previous_width)
