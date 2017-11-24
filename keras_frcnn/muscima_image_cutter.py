@@ -16,11 +16,11 @@ from tqdm import tqdm
 
 
 def cut_images(muscima_image_directory: str, staff_vertical_positions_file: str, output_path: str,
-               muscima_pp_raw_data_directory: str, ):
+               muscima_pp_raw_data_directory: str, exported_annotations_file_path:str):
     image_paths = [y for x in os.walk(muscima_image_directory) for y in glob(os.path.join(x[0], '*.png'))]
     os.makedirs(output_path, exist_ok=True)
 
-    with open(os.path.join(output_path, "Annotations.txt"), "w") as annotations_file:
+    with open(exported_annotations_file_path, "w") as annotations_file:
 
         image_generator = MuscimaPlusPlusImageGenerator()
         all_xml_files = image_generator.get_all_xml_file_paths(muscima_pp_raw_data_directory)
@@ -160,4 +160,4 @@ if __name__ == "__main__":
     shutil.copy("../Staff-Vertical-Positions.txt", dataset_directory)
 
     cut_images("../data/cvcmuscima_staff_removal", "../data/Staff-Vertical-Positions.txt",
-               "../data/muscima_pp_cropped_images", "../data/muscima_pp_raw")
+               "../data/muscima_pp_cropped_images", "../data/muscima_pp_raw", "../data/Annotations.txt")

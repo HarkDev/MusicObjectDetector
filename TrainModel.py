@@ -88,7 +88,7 @@ def train_model(dataset_directory: str, model_name: str, delete_and_recreate_dat
         shutil.copy("Staff-Vertical-Positions.txt", dataset_directory)
 
         cut_images(muscima_image_directory, os.path.join(dataset_directory, "Staff-Vertical-Positions.txt"),
-                   muscima_cropped_directory, muscima_pp_raw_dataset_directory)
+                   muscima_cropped_directory, muscima_pp_raw_dataset_directory, os.path.join(dataset_directory, "Annotations.txt"))
 
     # pass the settings from the command line, and persist them in the config object
     C = ConfigurationFactory.get_configuration_by_name(configuration_name)
