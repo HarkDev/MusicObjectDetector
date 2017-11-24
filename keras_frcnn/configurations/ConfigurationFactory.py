@@ -8,6 +8,7 @@ from keras_frcnn.configurations.ManyAnchorBoxScalesManyRoisMediumStrideConfig im
     ManyAnchorBoxScalesManyRoisMediumStrideConfig
 from keras_frcnn.configurations.ManyAnchorBoxScalesManyRoisSmallStrideConfig import \
     ManyAnchorBoxScalesManyRoisSmallStrideConfig
+from keras_frcnn.configurations.MuscimaPp1Config import MuscimaPp1Config
 from keras_frcnn.configurations.SmallAnchorBoxScalesManyRoisConfig import SmallAnchorBoxScalesManyRoisConfig
 from keras_frcnn.configurations.SmallImagesConfig import SmallImagesConfig
 from keras_frcnn.configurations.StretchedAnchorBoxRatiosConfig import StretchedAnchorBoxRatiosConfig
@@ -41,7 +42,8 @@ class ConfigurationFactory:
                           SmallImagesConfig(),
                           ManyAnchorBoxRatiosConfig(),
                           AutomaticConfig(),
-                          SmallAnchorBoxScalesManyRoisConfig()]
+                          SmallAnchorBoxScalesManyRoisConfig(),
+                          MuscimaPp1Config()]
         return configurations
 
 
