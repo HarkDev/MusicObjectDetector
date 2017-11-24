@@ -2,7 +2,7 @@ import os
 import re
 import shutil
 from glob import glob
-from typing import Tuple, List
+from typing import Tuple, List, Dict
 
 import cv2
 import numpy as np
@@ -55,6 +55,7 @@ def cut_images(muscima_image_directory: str, staff_vertical_positions_file: str,
             if coordinates is not None:
                 images_to_cut.append((image_path, writer, page, coordinates))
 
+        crop_bounding_boxes: Dict[str, List[Tuple[int, int, int, int]]] = {}
         for image_to_cut in tqdm(images_to_cut, desc="Cutting images"):
             path, writer, page, coordinates = image_to_cut
             staff_line_pairs = coordinates.split(',')
@@ -98,6 +99,10 @@ def cut_images(muscima_image_directory: str, staff_vertical_positions_file: str,
                                                                                       crop_object.clsname))
 
                     cropped_image = image.crop(image_crop_bounding_box).convert('RGB')
+                    key = file_name
+                    if key not in crop_bounding_boxes.keys():
+                        crop_bounding_boxes[key] = []
+                    crop_bounding_boxes[key].append(image_crop_bounding_box)
 
                     # draw_bounding_boxes(cropped_image, objects_of_cropped_image)
 
@@ -105,6 +110,7 @@ def cut_images(muscima_image_directory: str, staff_vertical_positions_file: str,
                     cropped_image.save(output_file)
                     previous_width = crop_width - overlap
                     i += 1
+    np.savez(os.path.join(output_path, "crop_bounding_boxes.npz"), crop_bounding_boxes=crop_bounding_boxes)
 
 
 def bounding_box_in(image_crop_bounding_box: Tuple[int, int, int, int],
