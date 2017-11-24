@@ -44,6 +44,15 @@ then run TrainModel like this
     MusicObjectDetector> python TrainModel.py --network resnet50 --output_weight_path "resnet50.hdf5"
     
 
+# Dataset
+If you are just interested in the dataset, the split and the annotations used in this project, you can run the following scripts to reproduce the dataset locally:
+
+    cd keras_frcnn
+    python muscima_image_cutter.py
+    python DatasetSplitter.py
+    
+These two scripts will download the datasets automatically, generate cropped images along an Annotation.txt file and split the images into three reproducible parts for training, validation and test. 
+
 # License
 
 Published under MIT License,
