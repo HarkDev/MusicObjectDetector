@@ -1,0 +1,610 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20171111171710
+Username: DONKEY\Alex
+RunAs User: DONKEY\Alex
+Configuration Name: 
+Machine: DONKEY (Microsoft Windows NT 10.0.16299.0)
+Host Application: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe C:\Users\Alex\Repositories\MusicObjectDetector\TrainModel.ps1
+Process ID: 4860
+PSVersion: 5.1.16299.19
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.16299.19
+BuildVersion: 10.0.16299.19
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is C:\Users\Alex\Repositories\MusicObjectDetector\2017-11-11_1200-rpns_0.7-overlap_resnet50_small_anchor_box_scales.txt
+Elapsed time: 701.705393075943
+Total validation loss decreased from 1.412 to 1.332, saving weights to 2017-11-11_1200-rpns_0.7-overlap_resnet50_small_anchor_box_scales.hdf5
+Epoch 10/200
+1000/1000 [==============================] - 905s - rpn_cls: 0.4291 - rpn_regr: 0.2572 - detector_cls: 0.4715 - detector_regr: 0.1160
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 25.205
+Classifier accuracy for bounding boxes from RPN: 0.8593125
+Loss RPN classifier: 0.4254597191890562
+Loss RPN regression: 0.24890698046144097
+Loss Detector classifier: 0.48094728814437987
+Loss Detector regression: 0.11804719518637284
+Elapsed time: 15126.516827583313
+Best loss for training: 1.314
+Total training loss decreased from 1.314 to 1.273, saving weights to 2017-11-11_1200-rpns_0.7-overlap_resnet50_small_anchor_box_scales_training.hdf5
+193/895 [=====>........................] - ETA: 551s - rpn_cls: 0.4469 - rpn_regr: 0.2868 - detector_cls: 0.4533 - detector_regr: 0.1155Exception during validation: 'NoneType' object is not subscriptable
+266/895 [=======>......................] - ETA: 494s - rpn_cls: 0.4419 - rpn_regr: 0.2796 - detector_cls: 0.4563 - detector_regr: 0.1158Exception during validation: 'NoneType' object is not subscriptable
+895/895 [==============================] - 703s - rpn_cls: 0.4199 - rpn_regr: 0.2599 - detector_cls: 0.4593 - detector_regr: 0.1155
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 25.4468085106383
+Classifier accuracy for bounding boxes from RPN: 0.8593125
+Loss RPN classifier: 0.4072334275949774
+Loss RPN regression: 0.24519441355560911
+Loss Detector classifier: 0.4565014120524323
+Loss Detector regression: 0.11400218634676272
+Current validation loss: 1.223, Best validation loss: 1.332 at epoch: 8
+Elapsed time: 704.3695452213287
+Total validation loss decreased from 1.332 to 1.223, saving weights to 2017-11-11_1200-rpns_0.7-overlap_resnet50_small_anchor_box_scales.hdf5
+Epoch 11/200
+1000/1000 [==============================] - 911s - rpn_cls: 0.3856 - rpn_regr: 0.2401 - detector_cls: 0.4929 - detector_regr: 0.1179
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 24.515
+Classifier accuracy for bounding boxes from RPN: 0.85978125
+Loss RPN classifier: 0.38064005493533043
+Loss RPN regression: 0.23362063002539799
+Loss Detector classifier: 0.4785021664025262
+Loss Detector regression: 0.11558792893233476
+Elapsed time: 16743.13317346573
+Best loss for training: 1.273
+Total training loss decreased from 1.273 to 1.208, saving weights to 2017-11-11_1200-rpns_0.7-overlap_resnet50_small_anchor_box_scales_training.hdf5
+182/895 [=====>........................] - ETA: 554s - rpn_cls: 0.4755 - rpn_regr: 0.2737 - detector_cls: 0.4179 - detector_regr: 0.1075Exception during validation: 'NoneType' object is not subscriptable
+255/895 [=======>......................] - ETA: 498s - rpn_cls: 0.4615 - rpn_regr: 0.2688 - detector_cls: 0.4298 - detector_regr: 0.1084Exception during validation: 'NoneType' object is not subscriptable
+895/895 [==============================] - 698s - rpn_cls: 0.4202 - rpn_regr: 0.2536 - detector_cls: 0.4458 - detector_regr: 0.1104
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 21.721164613661813
+Classifier accuracy for bounding boxes from RPN: 0.85978125
+Loss RPN classifier: 0.4051463642401021
+Loss RPN regression: 0.24207639097230893
+Loss Detector classifier: 0.4485208339063066
+Loss Detector regression: 0.11027060557240048
+Current validation loss: 1.206, Best validation loss: 1.223 at epoch: 9
+Elapsed time: 698.5477523803711
+Total validation loss decreased from 1.223 to 1.206, saving weights to 2017-11-11_1200-rpns_0.7-overlap_resnet50_small_anchor_box_scales.hdf5
+Epoch 12/200
+1000/1000 [==============================] - 912s - rpn_cls: 0.3917 - rpn_regr: 0.2263 - detector_cls: 0.4660 - detector_regr: 0.1161
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 24.119
+Classifier accuracy for bounding boxes from RPN: 0.86346875
+Loss RPN classifier: 0.3874705978797241
+Loss RPN regression: 0.23571268097218126
+Loss Detector classifier: 0.46239866682619324
+Loss Detector regression: 0.11624036336272547
+Elapsed time: 18356.157987117767
+Best loss for training: 1.208
+Total training loss decreased from 1.208 to 1.202, saving weights to 2017-11-11_1200-rpns_0.7-overlap_resnet50_small_anchor_box_scales_training.hdf5
+171/895 [====>.........................] - ETA: 563s - rpn_cls: 0.4415 - rpn_regr: 0.2905 - detector_cls: 0.4965 - detector_regr: 0.1105Exception during validation: 'NoneType' object is not subscriptable
+244/895 [=======>......................] - ETA: 506s - rpn_cls: 0.4354 - rpn_regr: 0.2830 - detector_cls: 0.4897 - detector_regr: 0.1121Exception during validation: 'NoneType' object is not subscriptable
+895/895 [==============================] - 699s - rpn_cls: 0.4121 - rpn_regr: 0.2664 - detector_cls: 0.4699 - detector_regr: 0.1131
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 21.596864501679732
+Classifier accuracy for bounding boxes from RPN: 0.86346875
+Loss RPN classifier: 0.40889215069548007
+Loss RPN regression: 0.256932316540985
+Loss Detector classifier: 0.46571898244050797
+Loss Detector regression: 0.11231867943958031
+Current validation loss: 1.244, Best validation loss: 1.206 at epoch: 10
+Elapsed time: 700.0293350219727
+Epoch 13/200
+1000/1000 [==============================] - 907s - rpn_cls: 0.3808 - rpn_regr: 0.2347 - detector_cls: 0.4452 - detector_regr: 0.1113
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 24.172
+Classifier accuracy for bounding boxes from RPN: 0.87065625
+Loss RPN classifier: 0.38141281293185236
+Loss RPN regression: 0.24109795578569174
+Loss Detector classifier: 0.4435534408725798
+Loss Detector regression: 0.1115226940731518
+Elapsed time: 19964.131113052368
+Best loss for training: 1.202
+Total training loss decreased from 1.202 to 1.178, saving weights to 2017-11-11_1200-rpns_0.7-overlap_resnet50_small_anchor_box_scales_training.hdf5
+160/895 [====>.........................] - ETA: 569s - rpn_cls: 0.3727 - rpn_regr: 0.2280 - detector_cls: 0.4269 - detector_regr: 0.1072Exception during validation: 'NoneType' object is not subscriptable
+233/895 [======>.......................] - ETA: 513s - rpn_cls: 0.3728 - rpn_regr: 0.2272 - detector_cls: 0.4263 - detector_regr: 0.1084Exception during validation: 'NoneType' object is not subscriptable
+895/895 [==============================] - 698s - rpn_cls: 0.3731 - rpn_regr: 0.2242 - detector_cls: 0.4234 - detector_regr: 0.1080
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 23.42105263157895
+Classifier accuracy for bounding boxes from RPN: 0.87065625
+Loss RPN classifier: 0.38115784261551106
+Loss RPN regression: 0.22282554015059378
+Loss Detector classifier: 0.424736821199195
+Loss Detector regression: 0.10644684021761797
+Current validation loss: 1.135, Best validation loss: 1.206 at epoch: 10
+Elapsed time: 699.3542983531952
+Total validation loss decreased from 1.206 to 1.135, saving weights to 2017-11-11_1200-rpns_0.7-overlap_resnet50_small_anchor_box_scales.hdf5
+Epoch 14/200
+1000/1000 [==============================] - 897s - rpn_cls: 0.3865 - rpn_regr: 0.2396 - detector_cls: 0.3861 - detector_regr: 0.1038
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 24.799
+Classifier accuracy for bounding boxes from RPN: 0.88146875
+Loss RPN classifier: 0.3875945478685978
+Loss RPN regression: 0.23341698160208763
+Loss Detector classifier: 0.39531090604432395
+Loss Detector regression: 0.10177077320311219
+Elapsed time: 21560.84320783615
+Best loss for training: 1.178
+Total training loss decreased from 1.178 to 1.118, saving weights to 2017-11-11_1200-rpns_0.7-overlap_resnet50_small_anchor_box_scales_training.hdf5
+149/895 [===>..........................] - ETA: 580s - rpn_cls: 0.3628 - rpn_regr: 0.2836 - detector_cls: 0.4846 - detector_regr: 0.1158Exception during validation: 'NoneType' object is not subscriptable
+222/895 [======>.......................] - ETA: 525s - rpn_cls: 0.3720 - rpn_regr: 0.2884 - detector_cls: 0.4808 - detector_regr: 0.1176Exception during validation: 'NoneType' object is not subscriptable
+895/895 [==============================] - 707s - rpn_cls: 0.3808 - rpn_regr: 0.2955 - detector_cls: 0.4560 - detector_regr: 0.1183
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 22.097424412094064
+Classifier accuracy for bounding boxes from RPN: 0.88146875
+Loss RPN classifier: 0.3897057416348972
+Loss RPN regression: 0.29815031569971384
+Loss Detector classifier: 0.44276301035262106
+Loss Detector regression: 0.11799470753325722
+Current validation loss: 1.249, Best validation loss: 1.135 at epoch: 12
+Elapsed time: 707.4088625907898
+Epoch 15/200
+1000/1000 [==============================] - 910s - rpn_cls: 0.3641 - rpn_regr: 0.2210 - detector_cls: 0.4329 - detector_regr: 0.1038
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 23.502
+Classifier accuracy for bounding boxes from RPN: 0.87503125
+Loss RPN classifier: 0.35110252434331607
+Loss RPN regression: 0.2128384471712634
+Loss Detector classifier: 0.4286473251974821
+Loss Detector regression: 0.10533857472974341
+Elapsed time: 23178.938791513443
+Best loss for training: 1.118
+Total training loss decreased from 1.118 to 1.098, saving weights to 2017-11-11_1200-rpns_0.7-overlap_resnet50_small_anchor_box_scales_training.hdf5
+138/895 [===>..........................] - ETA: 573s - rpn_cls: 0.3849 - rpn_regr: 0.2114 - detector_cls: 0.4942 - detector_regr: 0.1169Exception during validation: 'NoneType' object is not subscriptable
+211/895 [======>.......................] - ETA: 522s - rpn_cls: 0.3848 - rpn_regr: 0.2169 - detector_cls: 0.4838 - detector_regr: 0.1162Exception during validation: 'NoneType' object is not subscriptable
+895/895 [==============================] - 694s - rpn_cls: 0.3721 - rpn_regr: 0.2218 - detector_cls: 0.4443 - detector_regr: 0.1122
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 25.42889137737962
+Classifier accuracy for bounding boxes from RPN: 0.87503125
+Loss RPN classifier: 0.3768833084459804
+Loss RPN regression: 0.22067626200918128
+Loss Detector classifier: 0.4225814892572231
+Loss Detector regression: 0.10898157578773339
+Current validation loss: 1.129, Best validation loss: 1.135 at epoch: 12
+Elapsed time: 694.6452963352203
+Total validation loss decreased from 1.135 to 1.129, saving weights to 2017-11-11_1200-rpns_0.7-overlap_resnet50_small_anchor_box_scales.hdf5
+Epoch 16/200
+1000/1000 [==============================] - 901s - rpn_cls: 0.3614 - rpn_regr: 0.2180 - detector_cls: 0.4034 - detector_regr: 0.1036
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 24.12
+Classifier accuracy for bounding boxes from RPN: 0.87796875
+Loss RPN classifier: 0.36463228152170357
+Loss RPN regression: 0.21568164239358156
+Loss Detector classifier: 0.403887995461002
+Loss Detector regression: 0.10278610559325899
+Elapsed time: 24775.123356342316
+Best loss for training: 1.098
+Total training loss decreased from 1.098 to 1.087, saving weights to 2017-11-11_1200-rpns_0.7-overlap_resnet50_small_anchor_box_scales_training.hdf5
+127/895 [===>..........................] - ETA: 584s - rpn_cls: 0.3595 - rpn_regr: 0.2270 - detector_cls: 0.4709 - detector_regr: 0.1095Exception during validation: 'NoneType' object is not subscriptable
+200/895 [=====>........................] - ETA: 533s - rpn_cls: 0.3679 - rpn_regr: 0.2316 - detector_cls: 0.4605 - detector_regr: 0.1094Exception during validation: 'NoneType' object is not subscriptable
+895/895 [==============================] - 700s - rpn_cls: 0.3747 - rpn_regr: 0.2338 - detector_cls: 0.4211 - detector_regr: 0.1061
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 22.26875699888018
+Classifier accuracy for bounding boxes from RPN: 0.87796875
+Loss RPN classifier: 0.3779575956780958
+Loss RPN regression: 0.23055390451602928
+Loss Detector classifier: 0.40731157669329277
+Loss Detector regression: 0.10445341225713492
+Current validation loss: 1.120, Best validation loss: 1.129 at epoch: 14
+Elapsed time: 700.9423720836639
+Total validation loss decreased from 1.129 to 1.120, saving weights to 2017-11-11_1200-rpns_0.7-overlap_resnet50_small_anchor_box_scales.hdf5
+Epoch 17/200
+1000/1000 [==============================] - 915s - rpn_cls: 0.3264 - rpn_regr: 0.1983 - detector_cls: 0.3687 - detector_regr: 0.1015
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 24.224
+Classifier accuracy for bounding boxes from RPN: 0.88503125
+Loss RPN classifier: 0.343702214618491
+Loss RPN regression: 0.21134783766930923
+Loss Detector classifier: 0.384993339874316
+Loss Detector regression: 0.10075009061893797
+Elapsed time: 26392.069679260254
+Best loss for training: 1.087
+Total training loss decreased from 1.087 to 1.041, saving weights to 2017-11-11_1200-rpns_0.7-overlap_resnet50_small_anchor_box_scales_training.hdf5
+116/895 [==>...........................] - ETA: 580s - rpn_cls: 0.4009 - rpn_regr: 0.2265 - detector_cls: 0.5032 - detector_regr: 0.1217Exception during validation: 'NoneType' object is not subscriptable
+189/895 [=====>........................] - ETA: 533s - rpn_cls: 0.3978 - rpn_regr: 0.2263 - detector_cls: 0.4812 - detector_regr: 0.1191Exception during validation: 'NoneType' object is not subscriptable
+895/895 [==============================] - 692s - rpn_cls: 0.3785 - rpn_regr: 0.2190 - detector_cls: 0.4356 - detector_regr: 0.1114
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 25.456886898096304
+Classifier accuracy for bounding boxes from RPN: 0.88503125
+Loss RPN classifier: 0.37907125579999335
+Loss RPN regression: 0.21367138989436227
+Loss Detector classifier: 0.42774207127025593
+Loss Detector regression: 0.10824402684668423
+Current validation loss: 1.129, Best validation loss: 1.120 at epoch: 15
+Elapsed time: 692.9629924297333
+Epoch 18/200
+1000/1000 [==============================] - 904s - rpn_cls: 0.3380 - rpn_regr: 0.2057 - detector_cls: 0.4057 - detector_regr: 0.1011
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 23.558
+Classifier accuracy for bounding boxes from RPN: 0.88446875
+Loss RPN classifier: 0.33824675722560055
+Loss RPN regression: 0.20497345038037748
+Loss Detector classifier: 0.3877726274744491
+Loss Detector regression: 0.0984087933958508
+Elapsed time: 27989.760106801987
+Best loss for training: 1.041
+Total training loss decreased from 1.041 to 1.029, saving weights to 2017-11-11_1200-rpns_0.7-overlap_resnet50_small_anchor_box_scales_training.hdf5
+105/895 [==>...........................] - ETA: 594s - rpn_cls: 0.3363 - rpn_regr: 0.2603 - detector_cls: 0.4051 - detector_regr: 0.0945Exception during validation: 'NoneType' object is not subscriptable
+178/895 [====>.........................] - ETA: 548s - rpn_cls: 0.3457 - rpn_regr: 0.2550 - detector_cls: 0.4119 - detector_regr: 0.0960Exception during validation: 'NoneType' object is not subscriptable
+895/895 [==============================] - 699s - rpn_cls: 0.3552 - rpn_regr: 0.2421 - detector_cls: 0.4237 - detector_regr: 0.0979
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 22.156774916013436
+Classifier accuracy for bounding boxes from RPN: 0.88446875
+Loss RPN classifier: 0.3651531332003286
+Loss RPN regression: 0.23674874377863575
+Loss Detector classifier: 0.4311879689727166
+Loss Detector regression: 0.09884501166769184
+Current validation loss: 1.132, Best validation loss: 1.120 at epoch: 15
+Elapsed time: 699.9324133396149
+Epoch 19/200
+1000/1000 [==============================] - 915s - rpn_cls: 0.3258 - rpn_regr: 0.1962 - detector_cls: 0.3563 - detector_regr: 0.0927
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 23.714
+Classifier accuracy for bounding boxes from RPN: 0.88790625
+Loss RPN classifier: 0.3305647451258758
+Loss RPN regression: 0.19751867350935937
+Loss Detector classifier: 0.3655634159966139
+Loss Detector regression: 0.09297681171007208
+Elapsed time: 29605.557243585587
+Best loss for training: 1.029
+Total training loss decreased from 1.029 to 0.987, saving weights to 2017-11-11_1200-rpns_0.7-overlap_resnet50_small_anchor_box_scales_training.hdf5
+ 94/895 [==>...........................] - ETA: 604s - rpn_cls: 0.3829 - rpn_regr: 0.2042 - detector_cls: 0.4130 - detector_regr: 0.0880Exception during validation: 'NoneType' object is not subscriptable
+167/895 [====>.........................] - ETA: 556s - rpn_cls: 0.3790 - rpn_regr: 0.2110 - detector_cls: 0.4145 - detector_regr: 0.0934Exception during validation: 'NoneType' object is not subscriptable
+895/895 [==============================] - 697s - rpn_cls: 0.3597 - rpn_regr: 0.2140 - detector_cls: 0.4127 - detector_regr: 0.0980
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 24.929451287793952
+Classifier accuracy for bounding boxes from RPN: 0.88790625
+Loss RPN classifier: 0.3573843296127523
+Loss RPN regression: 0.21115560401074962
+Loss Detector classifier: 0.4160274002175549
+Loss Detector regression: 0.09917883146840392
+Current validation loss: 1.084, Best validation loss: 1.120 at epoch: 15
+Elapsed time: 698.047465801239
+Total validation loss decreased from 1.120 to 1.084, saving weights to 2017-11-11_1200-rpns_0.7-overlap_resnet50_small_anchor_box_scales.hdf5
+Epoch 20/200
+1000/1000 [==============================] - 906s - rpn_cls: 0.3458 - rpn_regr: 0.1997 - detector_cls: 0.3627 - detector_regr: 0.0917
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 24.075
+Classifier accuracy for bounding boxes from RPN: 0.8890625
+Loss RPN classifier: 0.34402998737007207
+Loss RPN regression: 0.20182712653838097
+Loss Detector classifier: 0.3724376582656987
+Loss Detector regression: 0.09336046501650708
+Elapsed time: 31210.42444562912
+Best loss for training: 0.987
+ 83/895 [=>............................] - ETA: 612s - rpn_cls: 0.4026 - rpn_regr: 0.2331 - detector_cls: 0.3443 - detector_regr: 0.0910Exception during validation: 'NoneType' object is not subscriptable
+156/895 [====>.........................] - ETA: 566s - rpn_cls: 0.3939 - rpn_regr: 0.2266 - detector_cls: 0.3605 - detector_regr: 0.0955Exception during validation: 'NoneType' object is not subscriptable
+895/895 [==============================] - 696s - rpn_cls: 0.3740 - rpn_regr: 0.2132 - detector_cls: 0.3929 - detector_regr: 0.0989
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 22.65509518477044
+Classifier accuracy for bounding boxes from RPN: 0.8890625
+Loss RPN classifier: 0.3724185896015784
+Loss RPN regression: 0.20866133012241742
+Loss Detector classifier: 0.40651574898966425
+Loss Detector regression: 0.097545635852021
+Current validation loss: 1.085, Best validation loss: 1.084 at epoch: 18
+Elapsed time: 696.0950081348419
+Epoch 21/200
+1000/1000 [==============================] - 907s - rpn_cls: 0.3527 - rpn_regr: 0.2127 - detector_cls: 0.3680 - detector_regr: 0.0952
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 22.163
+Classifier accuracy for bounding boxes from RPN: 0.891
+Loss RPN classifier: 0.3416054015357141
+Loss RPN regression: 0.2055978529867716
+Loss Detector classifier: 0.36488208968518304
+Loss Detector regression: 0.0912302212784416
+Elapsed time: 32814.218304395676
+Best loss for training: 0.987
+ 72/895 [=>............................] - ETA: 630s - rpn_cls: 0.4522 - rpn_regr: 0.2292 - detector_cls: 0.3990 - detector_regr: 0.0908Exception during validation: 'NoneType' object is not subscriptable
+145/895 [===>..........................] - ETA: 579s - rpn_cls: 0.4146 - rpn_regr: 0.2269 - detector_cls: 0.3982 - detector_regr: 0.0989Exception during validation: 'NoneType' object is not subscriptable
+895/895 [==============================] - 699s - rpn_cls: 0.3569 - rpn_regr: 0.2145 - detector_cls: 0.3942 - detector_regr: 0.1025
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 25.070548712206048
+Classifier accuracy for bounding boxes from RPN: 0.891
+Loss RPN classifier: 0.348507604021535
+Loss RPN regression: 0.20865540732343438
+Loss Detector classifier: 0.39533285534415163
+Loss Detector regression: 0.10135707699709348
+Current validation loss: 1.054, Best validation loss: 1.084 at epoch: 18
+Elapsed time: 699.3944416046143
+Total validation loss decreased from 1.084 to 1.054, saving weights to 2017-11-11_1200-rpns_0.7-overlap_resnet50_small_anchor_box_scales.hdf5
+Epoch 22/200
+1000/1000 [==============================] - 911s - rpn_cls: 0.3159 - rpn_regr: 0.1748 - detector_cls: 0.3438 - detector_regr: 0.0872
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 23.988
+Classifier accuracy for bounding boxes from RPN: 0.89303125
+Loss RPN classifier: 0.3349277932340511
+Loss RPN regression: 0.19162077985005455
+Loss Detector classifier: 0.3592865332670626
+Loss Detector regression: 0.08960358583187918
+Elapsed time: 34425.824548482895
+Best loss for training: 0.987
+Total training loss decreased from 0.987 to 0.975, saving weights to 2017-11-11_1200-rpns_0.7-overlap_resnet50_small_anchor_box_scales_training.hdf5
+ 61/895 [=>............................] - ETA: 635s - rpn_cls: 0.5966 - rpn_regr: 0.2479 - detector_cls: 0.5011 - detector_regr: 0.1074Exception during validation: 'NoneType' object is not subscriptable
+134/895 [===>..........................] - ETA: 585s - rpn_cls: 0.4939 - rpn_regr: 0.2356 - detector_cls: 0.4699 - detector_regr: 0.1032Exception during validation: 'NoneType' object is not subscriptable
+895/895 [==============================] - 693s - rpn_cls: 0.3829 - rpn_regr: 0.2104 - detector_cls: 0.4139 - detector_regr: 0.0970
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 22.75363941769317
+Classifier accuracy for bounding boxes from RPN: 0.89303125
+Loss RPN classifier: 0.3582930276181338
+Loss RPN regression: 0.20278522774015226
+Loss Detector classifier: 0.40603025632587847
+Loss Detector regression: 0.09600263547006599
+Current validation loss: 1.063, Best validation loss: 1.054 at epoch: 20
+Elapsed time: 694.2162871360779
+Epoch 23/200
+1000/1000 [==============================] - 907s - rpn_cls: 0.3204 - rpn_regr: 0.2014 - detector_cls: 0.3343 - detector_regr: 0.0860
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 23.182
+Classifier accuracy for bounding boxes from RPN: 0.90128125
+Loss RPN classifier: 0.3293280012873748
+Loss RPN regression: 0.19504424485052005
+Loss Detector classifier: 0.3282082019164227
+Loss Detector regression: 0.08594995735122939
+Elapsed time: 36027.3676507473
+Best loss for training: 0.975
+Total training loss decreased from 0.975 to 0.939, saving weights to 2017-11-11_1200-rpns_0.7-overlap_resnet50_small_anchor_box_scales_training.hdf5
+ 50/895 [>.............................] - ETA: 649s - rpn_cls: 0.3348 - rpn_regr: 0.2332 - detector_cls: 0.3495 - detector_regr: 0.0926Exception during validation: 'NoneType' object is not subscriptable
+123/895 [===>..........................] - ETA: 599s - rpn_cls: 0.3476 - rpn_regr: 0.2255 - detector_cls: 0.3741 - detector_regr: 0.0981Exception during validation: 'NoneType' object is not subscriptable
+895/895 [==============================] - 701s - rpn_cls: 0.3408 - rpn_regr: 0.2091 - detector_cls: 0.3960 - detector_regr: 0.0978
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 23.881298992161256
+Classifier accuracy for bounding boxes from RPN: 0.90128125
+Loss RPN classifier: 0.3480377772714415
+Loss RPN regression: 0.20692768395493358
+Loss Detector classifier: 0.3976451037045797
+Loss Detector regression: 0.09559205008915225
+Current validation loss: 1.048, Best validation loss: 1.054 at epoch: 20
+Elapsed time: 701.6719677448273
+Total validation loss decreased from 1.054 to 1.048, saving weights to 2017-11-11_1200-rpns_0.7-overlap_resnet50_small_anchor_box_scales.hdf5
+Epoch 24/200
+1000/1000 [==============================] - 904s - rpn_cls: 0.3149 - rpn_regr: 0.1747 - detector_cls: 0.3557 - detector_regr: 0.0872
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 23.108
+Classifier accuracy for bounding boxes from RPN: 0.899875
+Loss RPN classifier: 0.3129466335226335
+Loss RPN regression: 0.17853391252923756
+Loss Detector classifier: 0.3371801249901764
+Loss Detector regression: 0.08667992062016856
+Elapsed time: 37634.047058582306
+Best loss for training: 0.939
+Total training loss decreased from 0.939 to 0.915, saving weights to 2017-11-11_1200-rpns_0.7-overlap_resnet50_small_anchor_box_scales_training.hdf5
+ 39/895 [>.............................] - ETA: 657s - rpn_cls: 0.2765 - rpn_regr: 0.2249 - detector_cls: 0.4950 - detector_regr: 0.0880Exception during validation: 'NoneType' object is not subscriptable
+112/895 [==>...........................] - ETA: 607s - rpn_cls: 0.2980 - rpn_regr: 0.2209 - detector_cls: 0.4399 - detector_regr: 0.0931Exception during validation: 'NoneType' object is not subscriptable
+895/895 [==============================] - 698s - rpn_cls: 0.3217 - rpn_regr: 0.2056 - detector_cls: 0.4013 - detector_regr: 0.0935
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 21.40649496080627
+Classifier accuracy for bounding boxes from RPN: 0.899875
+Loss RPN classifier: 0.3342266199430243
+Loss RPN regression: 0.20053179708918215
+Loss Detector classifier: 0.4032984377171076
+Loss Detector regression: 0.09388832511346495
+Current validation loss: 1.032, Best validation loss: 1.048 at epoch: 22
+Elapsed time: 698.5824563503265
+Total validation loss decreased from 1.048 to 1.032, saving weights to 2017-11-11_1200-rpns_0.7-overlap_resnet50_small_anchor_box_scales.hdf5
+Epoch 25/200
+1000/1000 [==============================] - 916s - rpn_cls: 0.3021 - rpn_regr: 0.1716 - detector_cls: 0.3609 - detector_regr: 0.0868
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 23.462
+Classifier accuracy for bounding boxes from RPN: 0.89540625
+Loss RPN classifier: 0.3080657653641804
+Loss RPN regression: 0.17453125525824725
+Loss Detector classifier: 0.3468815302013536
+Loss Detector regression: 0.08549804154678714
+Elapsed time: 39249.14108681679
+Best loss for training: 0.915
+Total training loss decreased from 0.915 to 0.915, saving weights to 2017-11-11_1200-rpns_0.7-overlap_resnet50_small_anchor_box_scales_training.hdf5
+ 28/895 [..............................] - ETA: 646s - rpn_cls: 0.5412 - rpn_regr: 0.3204 - detector_cls: 0.2939 - detector_regr: 0.0885Exception during validation: 'NoneType' object is not subscriptable
+101/895 [==>...........................] - ETA: 605s - rpn_cls: 0.4339 - rpn_regr: 0.2511 - detector_cls: 0.3521 - detector_regr: 0.0909Exception during validation: 'NoneType' object is not subscriptable
+895/895 [==============================] - 689s - rpn_cls: 0.3584 - rpn_regr: 0.2044 - detector_cls: 0.3771 - detector_regr: 0.0884
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 25.162374020156776
+Classifier accuracy for bounding boxes from RPN: 0.89540625
+Loss RPN classifier: 0.35815225695291847
+Loss RPN regression: 0.19903914087332328
+Loss Detector classifier: 0.37440719729882543
+Loss Detector regression: 0.08654147227809832
+Current validation loss: 1.018, Best validation loss: 1.032 at epoch: 23
+Elapsed time: 689.8534533977509
+Total validation loss decreased from 1.032 to 1.018, saving weights to 2017-11-11_1200-rpns_0.7-overlap_resnet50_small_anchor_box_scales.hdf5
+Epoch 26/200
+1000/1000 [==============================] - 906s - rpn_cls: 0.3261 - rpn_regr: 0.1957 - detector_cls: 0.3352 - detector_regr: 0.0871
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 23.362
+Classifier accuracy for bounding boxes from RPN: 0.89775
+Loss RPN classifier: 0.3295792994404583
+Loss RPN regression: 0.19503385495138353
+Loss Detector classifier: 0.34657895390689375
+Loss Detector regression: 0.08832839267741656
+Elapsed time: 40845.390097379684
+Best loss for training: 0.915
+ 17/895 [..............................] - ETA: 676s - rpn_cls: 0.3750 - rpn_regr: 0.1941 - detector_cls: 0.2928 - detector_regr: 0.1094Exception during validation: 'NoneType' object is not subscriptable
+ 90/895 [==>...........................] - ETA: 624s - rpn_cls: 0.3567 - rpn_regr: 0.1844 - detector_cls: 0.3462 - detector_regr: 0.1027Exception during validation: 'NoneType' object is not subscriptable
+895/895 [==============================] - 695s - rpn_cls: 0.3265 - rpn_regr: 0.1928 - detector_cls: 0.3672 - detector_regr: 0.0911
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 21.443449048152296
+Classifier accuracy for bounding boxes from RPN: 0.89775
+Loss RPN classifier: 0.33210644836888475
+Loss RPN regression: 0.19650307155666905
+Loss Detector classifier: 0.3656687398815746
+Loss Detector regression: 0.08902490893704036
+Current validation loss: 0.983, Best validation loss: 1.018 at epoch: 24
+Elapsed time: 695.7391953468323
+Total validation loss decreased from 1.018 to 0.983, saving weights to 2017-11-11_1200-rpns_0.7-overlap_resnet50_small_anchor_box_scales.hdf5
+Epoch 27/200
+1000/1000 [==============================] - 898s - rpn_cls: 0.2872 - rpn_regr: 0.1808 - detector_cls: 0.3366 - detector_regr: 0.0834
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 21.423
+Classifier accuracy for bounding boxes from RPN: 0.9055625
+Loss RPN classifier: 0.285928613070936
+Loss RPN regression: 0.18011146062240005
+Loss Detector classifier: 0.30824390090547965
+Loss Detector regression: 0.07902654856696609
+Elapsed time: 42440.22350716591
+Best loss for training: 0.915
+Total training loss decreased from 0.915 to 0.853, saving weights to 2017-11-11_1200-rpns_0.7-overlap_resnet50_small_anchor_box_scales_training.hdf5
+  6/895 [..............................] - ETA: 667s - rpn_cls: 0.1411 - rpn_regr: 0.2389 - detector_cls: 0.3195 - detector_regr: 0.1471Exception during validation: 'NoneType' object is not subscriptable
+ 79/895 [=>............................] - ETA: 634s - rpn_cls: 0.2452 - rpn_regr: 0.1829 - detector_cls: 0.3477 - detector_regr: 0.1099Exception during validation: 'NoneType' object is not subscriptable
+890/895 [============================>.] - ETA: 3s - rpn_cls: 0.3109 - rpn_regr: 0.2019 - detector_cls: 0.3728 - detector_regr: 0.0935Exception during validation: 'NoneType' object is not subscriptable
+895/895 [==============================] - 699s - rpn_cls: 0.3110 - rpn_regr: 0.2019 - detector_cls: 0.3728 - detector_regr: 0.0935
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 21.02017937219731
+Classifier accuracy for bounding boxes from RPN: 0.9055625
+Loss RPN classifier: 0.3344513674655687
+Loss RPN regression: 0.20837979395899858
+Loss Detector classifier: 0.3726310591983437
+Loss Detector regression: 0.09095479806091028
+Current validation loss: 1.006, Best validation loss: 0.983 at epoch: 25
+Elapsed time: 699.5724456310272
+Epoch 28/200
+1000/1000 [==============================] - 906s - rpn_cls: 0.3088 - rpn_regr: 0.1678 - detector_cls: 0.3046 - detector_regr: 0.0793
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 23.03
+Classifier accuracy for bounding boxes from RPN: 0.90753125
+Loss RPN classifier: 0.3092374796641925
+Loss RPN regression: 0.17261122999619694
+Loss Detector classifier: 0.3089573289783439
+Loss Detector regression: 0.08078703591530212
+Elapsed time: 44046.10084748268
+Best loss for training: 0.853
+ 68/895 [=>............................] - ETA: 644s - rpn_cls: 0.2781 - rpn_regr: 0.1699 - detector_cls: 0.3136 - detector_regr: 0.0901Exception during validation: 'NoneType' object is not subscriptable
+879/895 [============================>.] - ETA: 12s - rpn_cls: 0.3173 - rpn_regr: 0.1887 - detector_cls: 0.3536 - detector_regr: 0.0904Exception during validation: 'NoneType' object is not subscriptable
+895/895 [==============================] - 694s - rpn_cls: 0.3176 - rpn_regr: 0.1887 - detector_cls: 0.3537 - detector_regr: 0.0904
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 23.405375139977604
+Classifier accuracy for bounding boxes from RPN: 0.90753125
+Loss RPN classifier: 0.33118269532104866
+Loss RPN regression: 0.19194266843822833
+Loss Detector classifier: 0.35968530148855676
+Loss Detector regression: 0.09018740888292168
+Current validation loss: 0.973, Best validation loss: 0.983 at epoch: 25
+Elapsed time: 694.422443151474
+Total validation loss decreased from 0.983 to 0.973, saving weights to 2017-11-11_1200-rpns_0.7-overlap_resnet50_small_anchor_box_scales.hdf5
+Epoch 29/200
+1000/1000 [==============================] - 904s - rpn_cls: 0.2901 - rpn_regr: 0.1780 - detector_cls: 0.3172 - detector_regr: 0.0844
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 23.044
+Classifier accuracy for bounding boxes from RPN: 0.90415625
+Loss RPN classifier: 0.304867033702488
+Loss RPN regression: 0.175754296252504
+Loss Detector classifier: 0.3163213225147047
+Loss Detector regression: 0.08163837352831615
+Elapsed time: 45644.94764184952
+Best loss for training: 0.853
+ 57/895 [>.............................] - ETA: 647s - rpn_cls: 0.3617 - rpn_regr: 0.1692 - detector_cls: 0.3850 - detector_regr: 0.0748Exception during validation: 'NoneType' object is not subscriptable
+868/895 [============================>.] - ETA: 20s - rpn_cls: 0.3268 - rpn_regr: 0.1833 - detector_cls: 0.3617 - detector_regr: 0.0814Exception during validation: 'NoneType' object is not subscriptable
+895/895 [==============================] - 692s - rpn_cls: 0.3271 - rpn_regr: 0.1834 - detector_cls: 0.3617 - detector_regr: 0.0814
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 21.97872340425532
+Classifier accuracy for bounding boxes from RPN: 0.90415625
+Loss RPN classifier: 0.3343991134872198
+Loss RPN regression: 0.18718149993131614
+Loss Detector classifier: 0.36012773869517545
+Loss Detector regression: 0.08290035891549548
+Current validation loss: 0.965, Best validation loss: 0.973 at epoch: 27
+Elapsed time: 692.8457493782043
+Total validation loss decreased from 0.973 to 0.965, saving weights to 2017-11-11_1200-rpns_0.7-overlap_resnet50_small_anchor_box_scales.hdf5
+Epoch 30/200
+1000/1000 [==============================] - 900s - rpn_cls: 0.3000 - rpn_regr: 0.1957 - detector_cls: 0.3056 - detector_regr: 0.0766
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 19.729
+Classifier accuracy for bounding boxes from RPN: 0.90475
+Loss RPN classifier: 0.28058927929346555
+Loss RPN regression: 0.18248831420531497
+Loss Detector classifier: 0.3188756854473031
+Loss Detector regression: 0.07890477696375456
+Elapsed time: 47238.40688586235
+Best loss for training: 0.853
+ 46/895 [>.............................] - ETA: 655s - rpn_cls: 0.3009 - rpn_regr: 0.1537 - detector_cls: 0.4295 - detector_regr: 0.1026Exception during validation: 'NoneType' object is not subscriptable
+857/895 [===========================>..] - ETA: 29s - rpn_cls: 0.3086 - rpn_regr: 0.1889 - detector_cls: 0.3605 - detector_regr: 0.0852Exception during validation: 'NoneType' object is not subscriptable
+895/895 [==============================] - 695s - rpn_cls: 0.3088 - rpn_regr: 0.1891 - detector_cls: 0.3604 - detector_regr: 0.0851
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 19.69652855543113
+Classifier accuracy for bounding boxes from RPN: 0.90475
+Loss RPN classifier: 0.31318063102531657
+Loss RPN regression: 0.19288283577344936
+Loss Detector classifier: 0.36008960618943175
+Loss Detector regression: 0.08488994341723455
+Current validation loss: 0.951, Best validation loss: 0.965 at epoch: 28
+Elapsed time: 695.5624713897705
+Total validation loss decreased from 0.965 to 0.951, saving weights to 2017-11-11_1200-rpns_0.7-overlap_resnet50_small_anchor_box_scales.hdf5
+Epoch 31/200
+1000/1000 [==============================] - 895s - rpn_cls: 0.2699 - rpn_regr: 0.1725 - detector_cls: 0.3171 - detector_regr: 0.0763
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 20.781
+Classifier accuracy for bounding boxes from RPN: 0.90621875
+Loss RPN classifier: 0.2768525360796018
+Loss RPN regression: 0.1742059892672114
+Loss Detector classifier: 0.3103712686598301
+Loss Detector regression: 0.07691131702519488
+Elapsed time: 48829.67566847801
+Best loss for training: 0.853
+Total training loss decreased from 0.853 to 0.838, saving weights to 2017-11-11_1200-rpns_0.7-overlap_resnet50_small_anchor_box_scales_training.hdf5
+ 35/895 [>.............................] - ETA: 680s - rpn_cls: 0.2940 - rpn_regr: 0.1795 - detector_cls: 0.4653 - detector_regr: 0.0996Exception during validation: 'NoneType' object is not subscriptable
+846/895 [===========================>..] - ETA: 38s - rpn_cls: 0.3031 - rpn_regr: 0.2060 - detector_cls: 0.3779 - detector_regr: 0.0935Exception during validation: 'NoneType' object is not subscriptable
+895/895 [==============================] - 696s - rpn_cls: 0.3033 - rpn_regr: 0.2060 - detector_cls: 0.3773 - detector_regr: 0.0934
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 21.067189249720045
+Classifier accuracy for bounding boxes from RPN: 0.90621875
+Loss RPN classifier: 0.30714042934620306
+Loss RPN regression: 0.20494914488013646
+Loss Detector classifier: 0.36828015889232985
+Loss Detector regression: 0.09245225328941668
+Current validation loss: 0.973, Best validation loss: 0.951 at epoch: 29
+Elapsed time: 696.6681973934174
+Epoch 32/200
+1000/1000 [==============================] - 904s - rpn_cls: 0.2580 - rpn_regr: 0.1833 - detector_cls: 0.3013 - detector_regr: 0.0784
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 20.867
+Classifier accuracy for bounding boxes from RPN: 0.90846875
+Loss RPN classifier: 0.2651960263413867
+Loss RPN regression: 0.16725807905802503
+Loss Detector classifier: 0.3023002810482867
+Loss Detector regression: 0.07549078466388164
+Elapsed time: 50431.162165641785
+Best loss for training: 0.838
+Total training loss decreased from 0.838 to 0.810, saving weights to 2017-11-11_1200-rpns_0.7-overlap_resnet50_small_anchor_box_scales_training.hdf5
+ 24/895 [..............................] - ETA: 702s - rpn_cls: 0.2459 - rpn_regr: 0.2166 - detector_cls: 0.3670 - detector_regr: 0.0753Exception during validation: 'NoneType' object is not subscriptable
+835/895 [==========================>...] - ETA: 47s - rpn_cls: 0.3033 - rpn_regr: 0.2096 - detector_cls: 0.4232 - detector_regr: 0.0936Exception during validation: 'NoneType' object is not subscriptable
+895/895 [==============================] - 706s - rpn_cls: 0.3040 - rpn_regr: 0.2096 - detector_cls: 0.4240 - detector_regr: 0.0937
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 20.67525195968645
+Classifier accuracy for bounding boxes from RPN: 0.90846875
+Loss RPN classifier: 0.31288760425034323
+Loss RPN regression: 0.20781237541869615
+Loss Detector classifier: 0.43564247063376715
+Loss Detector regression: 0.09606910293932235
+Current validation loss: 1.052, Best validation loss: 0.951 at epoch: 29
+Elapsed time: 706.6858415603638
+Epoch 33/200
+1000/1000 [==============================] - 911s - rpn_cls: 0.2465 - rpn_regr: 0.1676 - detector_cls: 0.3034 - detector_regr: 0.0756
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 21.557
+Classifier accuracy for bounding boxes from RPN: 0.910125
+Loss RPN classifier: 0.2550666644516796
+Loss RPN regression: 0.16490634495881387
+Loss Detector classifier: 0.29349246686266267
+Loss Detector regression: 0.07578157171769999
+Elapsed time: 52049.412642240524
+Best loss for training: 0.810
+Total training loss decreased from 0.810 to 0.789, saving weights to 2017-11-11_1200-rpns_0.7-overlap_resnet50_small_anchor_box_scales_training.hdf5
+ 13/895 [..............................] - ETA: 672s - rpn_cls: 0.3147 - rpn_regr: 0.3023 - detector_cls: 0.2570 - detector_regr: 0.0768Exception during validation: 'NoneType' object is not subscriptable
+421/895 [=============>................] - ETA: 893s - rpn_cls: 0.2827 - rpn_regr: 0.2063 - detector_cls: 0.3469 - detector_regr: 0.0897forrtl: error (200): program aborting due to control-C event
+Image              PC                Routine            Line        Source
+libifcoremd.dll    00007FFB9DE443E4  Unknown               Unknown  Unknown
+KERNELBASE.dll     00007FFBFA7C7EDD  Unknown               Unknown  Unknown
+KERNEL32.DLL       00007FFBFDE51FE4  Unknown               Unknown  Unknown
+ntdll.dll          00007FFBFE20EF91  Unknown               Unknown  Unknown
+PS>TerminatingError(): "The pipeline has been stopped."
+>> TerminatingError(): "The pipeline has been stopped."
+>> TerminatingError(): "The pipeline has been stopped."
+>> $global:?
+False
+**********************
+Windows PowerShell transcript end
+End time: 20171112075814
+**********************
