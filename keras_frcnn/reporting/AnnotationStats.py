@@ -42,7 +42,6 @@ class Box(object):
 
 
 def stat(values: np.array) -> List:
-    print(np.argmin(values), np.argmax(values))
     min_values = min(values)
     max_values = max(values)
     mean_values = np.mean(values)
