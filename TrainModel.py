@@ -418,7 +418,7 @@ def train_model(dataset_directory: str, model_name: str, delete_and_recreate_dat
                                               ('detector_cls', np.mean(losses_val[:iter_num + 1, 2])),
                                               ('detector_regr', np.mean(losses_val[:iter_num + 1, 3]))])
             except Exception as e:
-                print('Exception during validation: {}'.format(e))
+                #print('Exception during validation: {}'.format(e))
                 continue
 
         # Computer aggregated losses
