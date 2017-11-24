@@ -20,7 +20,8 @@ def union(au, bu, area_intersection):
 
 
 def area(a):
-    return (a[2] - a[0]) * (a[3] - a[1])
+    top, left, bottom, right = a
+    return (bottom - top) * (right - left)
 
 
 def intersection(ai, bi):

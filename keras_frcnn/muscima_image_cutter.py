@@ -82,12 +82,16 @@ def cut_images(muscima_image_directory: str, staff_vertical_positions_file: str,
                     if crop_width > width:
                         crop_width = width
                     image_crop_bounding_box = (previous_width, y_top, crop_width, y_bottom)
+                    image_crop_bounding_box_top_left_bottom_right = (y_top, previous_width, y_bottom, crop_width)
 
                     file_name = "{0}_{1}_{2}.png".format(writer, page, i)
 
                     for crop_object in crop_objects_of_image:
-                        # if bounding_box_in(image_crop_bounding_box, crop_object.bounding_box):
-                        if intersection(image_crop_bounding_box, crop_object.bounding_box) / area(crop_object.bounding_box) > 0.9:
+                        # crop_fully_contains_bounding_box = bounding_box_in(image_crop_bounding_box, crop_object.bounding_box)
+                        # if crop_fully_contains_bounding_box:
+                        intersection_over_area = intersection(image_crop_bounding_box_top_left_bottom_right, crop_object.bounding_box) / area(
+                            crop_object.bounding_box)
+                        if intersection_over_area > 0.8:
                             top, left, bottom, right = crop_object.bounding_box
                             translated_bounding_box = (
                                 top - y_top, left - previous_width, bottom - y_top, right - previous_width)
