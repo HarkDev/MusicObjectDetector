@@ -2,6 +2,7 @@ import argparse
 import numpy as np
 from collections import Counter
 from typing import List
+import matplotlib.pyplot as plt
 
 
 class Box(object):
@@ -85,7 +86,26 @@ class AnnotationStats(object):
         widths = np.array([x.width for x in boxes])
         heights = np.array([x.height for x in boxes])
         areas = np.array([x.area for x in boxes])
+        fig = plt.figure()
+        ax = fig.add_subplot(2, 1, 1)
+        ax.hist2d(widths, heights, bins=500)
+        ax.set_yscale('log')
+        ax.set_xscale('log')
+        fig.savefig("width_heights.png")
+        plt.close()
+        fig = plt.figure()
+        ax = fig.add_subplot(2, 1, 1)
+        ax.hist(areas, bins=500)
+        ax.set_yscale('log')
+        fig.savefig("areas.png")
+        plt.close()
         ratios = widths / heights
+        fig = plt.figure()
+        ax = fig.add_subplot(2, 1, 1)
+        ax.hist(ratios, bins=500)
+        ax.set_yscale('log')
+        fig.savefig("ratios.png")
+        plt.close()
         stat_areas = stat(areas)
         stat_ratios = stat(ratios)
         print("------------------------------------------------------------")
