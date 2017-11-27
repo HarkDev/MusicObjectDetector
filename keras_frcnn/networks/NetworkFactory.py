@@ -32,7 +32,8 @@ class NetworkFactory:
             if configurations[i].name() == name:
                 return configurations[i]
 
-        raise Exception("No configuration found by name {0}".format(name))
+        available_names = ", ".join([c.name() for c in NetworkFactory.get_all_configurations()])
+        raise Exception("No network model found by name {0}. Available names: {1}".format(name, available_names))
 
     @staticmethod
     def get_all_configurations() -> List[FasterRcnnNetwork]:
