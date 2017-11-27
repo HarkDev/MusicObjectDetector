@@ -15,6 +15,7 @@ from tqdm import tqdm
 
 from keras_frcnn import roi_helpers
 from keras_frcnn.configurations.FasterRcnnConfiguration import FasterRcnnConfiguration
+from keras_frcnn.networks.NetworkFactory import NetworkFactory
 
 parser = ArgumentParser()
 
@@ -46,6 +47,10 @@ parser.add_argument("--classification_accuracy_threshold",
                     type=float,
                     dest="classification_accuracy_threshold",
                     help="Threshold to accept classifications as hits (between 0.0 - 1.0)", default=0.4)
+parser.add_argument("--create_annotated_images",
+                    dest="create_annotated_images",
+                    action="store_true",
+                    help="Provide this flag, if you want to create annotated output images in the image_results/ folder")
 
 options, unparsed = parser.parse_known_args()
 
@@ -58,21 +63,15 @@ model_path = options.model_path
 model_name = options.model_name
 path_to_test_images = options.testdata_path
 num_rois = int(options.num_rois)
+create_annotated_images = options.create_annotated_images
 non_max_suppression_overlap_threshold = options.non_max_suppression_overlap_threshold
 non_max_suppression_max_boxes = int(options.non_max_suppression_max_boxes)
 classification_accuracy_threshold = options.classification_accuracy_threshold
 
-if model_name not in ['resnet50', 'vgg']:
-    raise ValueError(
-        "Currently only resnet50 and vgg are supported model names, but {0} was provided".format(model_name))
+model = NetworkFactory.get_network_by_name(model_name)
 
 with open(config_output_filename, 'rb') as f_in:
     C: FasterRcnnConfiguration = pickle.load(f_in)
-
-if model_name == 'resnet50':
-    import keras_frcnn.networks.ResNet50 as nn
-elif model_name == 'vgg':
-    import keras_frcnn.vgg as nn
 
 # turn off any data augmentation at test time
 C.use_horizontal_flips = False
@@ -138,10 +137,7 @@ np.random.seed(1)  # For creating reproducible random-colors
 class_to_color = {class_mapping[v]: np.random.randint(0, 255, 3) for v in class_mapping}
 C.num_rois = int(num_rois)
 
-if model_name == 'resnet50':
-    num_features = 1024
-elif model_name == 'vgg':
-    num_features = 512
+num_features = model.number_of_features_in_base_network()
 
 input_shape_img = (None, None, 3)
 input_shape_features = (None, None, num_features)
@@ -151,13 +147,13 @@ roi_input = Input(shape=(num_rois, 4))
 feature_map_input = Input(shape=input_shape_features)
 
 # define the base network (resnet here, can be VGG, Inception, etc)
-shared_layers = nn.nn_base(img_input, trainable=True)
+shared_layers = model.nn_base(img_input, trainable=True)
 
 # define the RPN, built on the base layers
 num_anchors = len(C.anchor_box_scales) * len(C.anchor_box_ratios)
-rpn_layers = nn.rpn(shared_layers, num_anchors)
+rpn_layers = model.rpn(shared_layers, num_anchors)
 
-classifier = nn.classifier(feature_map_input, roi_input, num_rois, nb_classes=len(class_mapping), trainable=True)
+classifier = model.classifier(feature_map_input, roi_input, num_rois, nb_classes=len(class_mapping), trainable=True)
 
 model_rpn = Model(img_input, rpn_layers)
 model_classifier = Model([feature_map_input, roi_input], classifier)
@@ -177,6 +173,8 @@ if verbose:
     test_images = sorted(os.listdir(path_to_test_images))
 else:
     test_images = tqdm(sorted(os.listdir(path_to_test_images)), desc="Detecting music objects")
+
+all_results = []
 
 for img_name in test_images:
     try:
@@ -274,9 +272,9 @@ for img_name in test_images:
                 detected_instances += 1
                 (x1, y1, x2, y2) = new_boxes[jk, :]
 
-                (real_x1, real_y1, real_x2, real_y2) = get_real_coordinates(ratio, x1, y1, x2, y2)
+                (left, top, right, bottom) = get_real_coordinates(ratio, x1, y1, x2, y2)
 
-                cv2.rectangle(img, (real_x1, real_y1), (real_x2, real_y2),
+                cv2.rectangle(img, (left, top), (right, bottom),
                               (int(class_to_color[key][0]), int(class_to_color[key][1]), int(class_to_color[key][2])),
                               2)
 
@@ -284,7 +282,9 @@ for img_name in test_images:
                 all_detected_objects.append((key, "{0:0.2f}".format(100 * new_probs[jk])))
 
                 (retval, baseLine) = cv2.getTextSize(textLabel, cv2.FONT_HERSHEY_COMPLEX, 1, 1)
-                textOrg = (real_x1, real_y1 - 0)
+                textOrg = (left, top - 0)
+                class_name = key
+                all_results.append("{},{},{},{},{},{}".format(img_name, left, top, right, bottom, class_name))
 
                 # cv2.rectangle(img, (textOrg[0] - 5, textOrg[1] + baseLine - 5),
                 #              (textOrg[0] + retval[0] + 5, textOrg[1] - retval[1] - 5), (0, 0, 0), 2)
@@ -298,12 +298,19 @@ for img_name in test_images:
                                                                                time.time() - starting_time))
             print(all_detected_objects)
             print("")
-        # cv2.imshow('img', img)
-        # cv2.waitKey(0)
-        file_name_without_extension = os.path.splitext(os.path.basename(img_name))[0]
-        cv2.imwrite('./image_results/{0}_detect_{1}-rois_{2}-boxes_{3}-overlap_{4}-accuracy-threshold.png'
-                    .format(file_name_without_extension, num_rois, non_max_suppression_max_boxes,
-                            non_max_suppression_overlap_threshold, classification_accuracy_threshold), img)
+
+        if create_annotated_images:
+            file_name_without_extension = os.path.splitext(os.path.basename(img_name))[0]
+            cv2.imwrite('./image_results/{0}_detect_{1}-rois_{2}-boxes_{3}-overlap_{4}-accuracy-threshold.png'
+                        .format(file_name_without_extension, num_rois, non_max_suppression_max_boxes,
+                                non_max_suppression_overlap_threshold, classification_accuracy_threshold), img)
 
     except Exception as ex:
         print("Error while detecting objects in {0}: {1}".format(img_name, ex))
+
+model_name_without_extension = os.path.splitext(os.path.basename(model_path))[0]
+results_path = "Results_{0}_{1}-rois_{2}-boxes_{3}-overlap_{4}-accuracy-threshold.txt".format(model_name_without_extension,num_rois, non_max_suppression_max_boxes,
+                                                                                              non_max_suppression_overlap_threshold, classification_accuracy_threshold)
+print("Writing results to {0}".format(results_path))
+with open(results_path, "w") as results_file:
+    results_file.write("\n".join(all_results))
