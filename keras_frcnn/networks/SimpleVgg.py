@@ -57,6 +57,9 @@ class SimpleVgg(FasterRcnnNetwork):
 
         return x
 
+    def number_of_features_in_base_network(self) -> int:
+        return 256
+
     def rpn(self, base_layers, num_anchors):
         x = Conv2D(256, (3, 3), padding='same', activation='relu', kernel_initializer='normal', name='rpn_conv1')(
                 base_layers)

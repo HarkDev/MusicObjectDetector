@@ -35,6 +35,12 @@ class FasterRcnnNetwork(object):
         pass
 
     @abstractmethod
+    def number_of_features_in_base_network(self) -> int:
+        """ Returns the name features extracted from the base network that is shared layer for the
+            Region-Proposal Network and the classification network """
+        pass
+
+    @abstractmethod
     def rpn(self, base_layers: Layer, num_anchors: int):
         """Returns the Region Proposal network, which takes the base layers for feature
         extraction and adds a few more layers that generate region proposals"""

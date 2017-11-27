@@ -200,6 +200,9 @@ class ResNet50(FasterRcnnNetwork):
 
         return x
 
+    def number_of_features_in_base_network(self) -> int:
+        return 1024
+
     def classifier_layers(self, x, input_shape, trainable=False):
         # compile times on theano tend to be very high, so we use smaller ROI pooling regions to workaround
         # (hence a smaller stride in the region that follows the ROI pool)
