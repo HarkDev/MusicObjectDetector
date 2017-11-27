@@ -22,7 +22,6 @@ from tqdm import tqdm
 
 
 if __name__ == "__main__":
-    import autodebug
     parser = argparse.ArgumentParser()
     parser.add_argument("ground_truth", type=str,
                         help="Path to ground_truth file")
