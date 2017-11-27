@@ -222,3 +222,4 @@ testdata
 image_results
 *.pickle
 logs
+client_secret.json
