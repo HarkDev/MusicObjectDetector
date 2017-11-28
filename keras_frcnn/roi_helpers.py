@@ -11,8 +11,12 @@ def calc_iou(R, img_data, C: FasterRcnnConfiguration, class_mapping):
     bboxes = img_data['bboxes']
     (width, height) = (img_data['width'], img_data['height'])
     # get image dimensions for resizing
-    (resized_width, resized_height) = data_generators.get_new_img_size(width, height,
-                                                                       C.resize_smallest_side_of_image_to)
+    if C.scale_images:
+        (resized_width, resized_height) = data_generators.get_new_img_size(width, height,
+                                                                           C.resize_smallest_side_of_image_to)
+    else:
+        (resized_width, resized_height) = (width, height)
+
 
     gta = np.zeros((len(bboxes), 4))
 

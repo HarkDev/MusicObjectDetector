@@ -81,6 +81,9 @@ C.rot_90 = False
 
 def format_img_size(img, C: FasterRcnnConfiguration):
     """ formats the image size based on config """
+    if not C.scale_images:
+        return img, 1.0
+
     img_min_side = float(C.resize_smallest_side_of_image_to)
     (height, width, _) = img.shape
 
@@ -92,6 +95,7 @@ def format_img_size(img, C: FasterRcnnConfiguration):
         ratio = img_min_side / height
         new_width = int(ratio * width)
         new_height = int(img_min_side)
+
     img = cv2.resize(img, (new_width, new_height), interpolation=cv2.INTER_CUBIC)
     return img, ratio
 
@@ -256,7 +260,7 @@ for img_name in test_images:
                 except Exception as ex:
                     traceback.print_exc()
                 bboxes[cls_name].append(
-                    [C.rpn_stride * x, C.rpn_stride * y, C.rpn_stride * (x + w), C.rpn_stride * (y + h)])
+                        [C.rpn_stride * x, C.rpn_stride * y, C.rpn_stride * (x + w), C.rpn_stride * (y + h)])
                 probs[cls_name].append(max_classification)
 
         all_detected_objects = []
@@ -284,7 +288,9 @@ for img_name in test_images:
                 (retval, baseLine) = cv2.getTextSize(textLabel, cv2.FONT_HERSHEY_COMPLEX, 1, 1)
                 textOrg = (left, top - 0)
                 class_name = key
-                all_results.append("{},{},{},{},{},{}".format(img_name, left, top, right, bottom, class_name))
+                certainty = int(100 * new_probs[jk])
+                all_results.append(
+                    "{},{},{},{},{},{},{}".format(img_name, left, top, right, bottom, class_name, certainty))
 
                 # cv2.rectangle(img, (textOrg[0] - 5, textOrg[1] + baseLine - 5),
                 #              (textOrg[0] + retval[0] + 5, textOrg[1] - retval[1] - 5), (0, 0, 0), 2)
@@ -309,8 +315,9 @@ for img_name in test_images:
         print("Error while detecting objects in {0}: {1}".format(img_name, ex))
 
 model_name_without_extension = os.path.splitext(os.path.basename(model_path))[0]
-results_path = "Results_{0}_{1}-rois_{2}-boxes_{3}-overlap_{4}-accuracy-threshold.txt".format(model_name_without_extension,num_rois, non_max_suppression_max_boxes,
-                                                                                              non_max_suppression_overlap_threshold, classification_accuracy_threshold)
+results_path = "Results_{0}_{1}-rois_{2}-boxes_{3}-overlap_{4}-accuracy-threshold.txt".format(
+    model_name_without_extension, num_rois, non_max_suppression_max_boxes,
+    non_max_suppression_overlap_threshold, classification_accuracy_threshold)
 print("Writing results to {0}".format(results_path))
 with open(results_path, "w") as results_file:
     results_file.write("\n".join(all_results))

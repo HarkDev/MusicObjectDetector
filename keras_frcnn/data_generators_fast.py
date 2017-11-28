@@ -438,7 +438,10 @@ def get_anchor_gt(all_img_data: List, classes_count: dict, C: FasterRcnnConfigur
     image_anchors = {}
     for img_data in tqdm(all_img_data, desc="Pre-computing anchors for resized images"):
         (width, height) = (img_data['width'], img_data['height'])
-        (resized_width, resized_height) = get_new_img_size(width, height, C.resize_smallest_side_of_image_to)
+        if C.scale_images:
+            resized_width, resized_height = get_new_img_size(width, height, C.resize_smallest_side_of_image_to)
+        else:
+            resized_width, resized_height = width, height
         anchors = get_anchors(C, width, height, resized_width, resized_height, img_length_calc_function)
         image_anchors[img_data['filepath']] = anchors
 
@@ -466,10 +469,11 @@ def get_anchor_gt(all_img_data: List, classes_count: dict, C: FasterRcnnConfigur
                 assert rows == height
 
                 # get image dimensions for resizing
-                (resized_width, resized_height) = get_new_img_size(width, height, C.resize_smallest_side_of_image_to)
-
-                # resize the image so that smalles side is length = 600px
-                x_img = cv2.resize(x_img, (resized_width, resized_height), interpolation=cv2.INTER_CUBIC)
+                if C.scale_images:
+                    (resized_width, resized_height) = get_new_img_size(width, height, C.resize_smallest_side_of_image_to)
+                    x_img = cv2.resize(x_img, (resized_width, resized_height), interpolation=cv2.INTER_CUBIC)
+                else:
+                    (resized_width, resized_height) = (width, height)
 
                 try:
                     # start_time = time.time()

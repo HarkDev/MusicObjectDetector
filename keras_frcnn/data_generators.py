@@ -287,10 +287,11 @@ def get_anchor_gt(all_img_data: List[dict], class_count: dict, C: FasterRcnnConf
                 assert rows == height
 
                 # get image dimensions for resizing
-                (resized_width, resized_height) = get_new_img_size(width, height, C.resize_smallest_side_of_image_to)
-
-                # resize the image so that smalles side is length = 600px
-                x_img = cv2.resize(x_img, (resized_width, resized_height), interpolation=cv2.INTER_CUBIC)
+                if C.scale_images:
+                    (resized_width, resized_height) = get_new_img_size(width, height, C.resize_smallest_side_of_image_to)
+                    x_img = cv2.resize(x_img, (resized_width, resized_height), interpolation=cv2.INTER_CUBIC)
+                else:
+                    (resized_width, resized_height) = (width, height)
 
                 try:
                     y_rpn_cls, y_rpn_regr = calc_rpn(C, img_data_aug, width, height, resized_width, resized_height,

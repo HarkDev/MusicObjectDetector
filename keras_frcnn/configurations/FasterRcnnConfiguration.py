@@ -24,7 +24,8 @@ class FasterRcnnConfiguration(object):
                  rpn_min_overlap: float = 0.3,
                  rpn_max_overlap: float = 0.7,
                  classifier_min_overlap: float = 0.1,
-                 classifier_max_overlap: float = 0.5):
+                 classifier_max_overlap: float = 0.5,
+                 scale_images:bool = True):
         self.verbose = verbose
 
         # setting for data augmentation
@@ -40,6 +41,7 @@ class FasterRcnnConfiguration(object):
 
         # size to resize the smallest side of the image
         self.resize_smallest_side_of_image_to = resize_smallest_side_of_image_to
+        self.scale_images = scale_images
 
         # image channel-wise mean to subtract
         self.img_channel_mean = image_channel_mean
@@ -76,7 +78,10 @@ class FasterRcnnConfiguration(object):
         """ Returns the string that summarizes this configuration """
 
         summary = "Summary of {0}\n==============================================\n".format(self.name())
-        summary += "Resizing images, so smallest side has {0} pixel\n".format(self.resize_smallest_side_of_image_to)
+        if self.scale_images:
+            summary += "Resizing images, so smallest side has {0} pixel\n".format(self.resize_smallest_side_of_image_to)
+        else:
+            summary += "Keeping image size and not rescaling image"
         summary += "Anchor box scales: {0}, Anchor box ratios: {1}\n".format(self.anchor_box_scales,
                                                                              self.anchor_box_ratios)
         summary += "Data-augmentation: Horizontal flip: {0}, vertical flip: {1}, 90° rotation: {2}\n".format(
