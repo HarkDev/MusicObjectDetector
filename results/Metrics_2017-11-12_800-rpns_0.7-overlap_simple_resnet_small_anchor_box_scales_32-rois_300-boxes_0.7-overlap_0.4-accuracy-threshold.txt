@@ -1,0 +1,3 @@
+results/Results_2017-11-12_800-rpns_0.7-overlap_simple_resnet_small_anchor_box_scales_32-rois_300-boxes_0.7-overlap_0.4-accuracy-threshold.txt
+mAP: 0.140416995216
+mean corlocs: 0.257539103592

@@ -28,17 +28,37 @@ if __name__ == "__main__":
     parser.add_argument("detection", type=str,
                         help="Path to detection results file")
     args = parser.parse_args()
+    print("Evaluating for", args.detection)
 
+    # load ground-truth and detections
     gt = np.genfromtxt(
         args.ground_truth, dtype=None, delimiter=',')
+    detect = np.genfromtxt(
+        args.detection, dtype=None, delimiter=',')
+    # process class labels
     class_labels = list(set([x[5].decode() for x in gt]))
     le = preprocessing.LabelEncoder()
     le.fit(class_labels)
     num_groundtruth_classes = len(class_labels)
     print(num_groundtruth_classes)
+    # filter out non used gt files
+    gt_filenames = np.array([x[0] for x in gt])
+    detect_filenames = np.array(list(set([x[0] for x in detect])))
+    indexes = np.array([], dtype=int)
+    not_found = []
+    for f in tqdm(detect_filenames):
+        if len(np.where(gt_filenames == f)[0]) == 0:
+            print(f, "not found")
+            not_found.append(f)
+        indexes = np.append(indexes, np.where(gt_filenames == f)[0])
+    gt = gt[indexes]
+    gt_filenames = set([x[0] for x in gt] + not_found)
+    detect_filenames = set([x[0] for x in detect])
+    print(len(gt_filenames), len(detect_filenames))
+    assert(set(gt_filenames) == set(detect_filenames))
+
     evaluator = ObjectDetectionEvaluation(
         num_groundtruth_classes)
-
     gt_dic: Dict = {}
     for (image_key, xmin, ymin, xmax, ymax, class_label) in tqdm(gt):
         if image_key not in gt_dic:
@@ -52,10 +72,8 @@ if __name__ == "__main__":
             key, np.array(value["boxes"], dtype="float32"),
             le.transform(value["class_labels"]))
 
-    detect = np.genfromtxt(
-        args.detection, dtype=None, delimiter=',')
     detect_dic: Dict = {}
-    for (image_key, xmin, ymin, xmax, ymax, class_label, score) in tqdm(detect):
+    for (image_key, xmin, ymin, xmax, ymax, class_label) in tqdm(detect):
         if image_key not in detect_dic:
             detect_dic[image_key] = {}
             detect_dic[image_key]["boxes"] = []
@@ -63,8 +81,8 @@ if __name__ == "__main__":
             detect_dic[image_key]["scores"] = []
         detect_dic[image_key]["boxes"].append([ymin, xmin, ymax, xmax])
         detect_dic[image_key]["class_labels"].append(class_label)
-        detect_dic[image_key]["scores"].append(score)
-    for key, value in tqdm(detect_dic.items()):
+        detect_dic[image_key]["scores"].append(1.0)
+    for key, value in detect_dic.items():
         evaluator.add_single_detected_image_info(
             key, np.array(value["boxes"], dtype="float32"),
             np.array(value["scores"]), le.transform(value["class_labels"]))
@@ -76,3 +94,8 @@ if __name__ == "__main__":
     # print("mean, std recall:", np.mean(precisions_per_class),
           # np.std(precisions_per_class))
     print("mean corlocs:", mean_corloc)
+    f = open(args.detection.replace("Results", "Metrics"), "w")
+    f.write(args.detection + "\n")
+    f.write("mAP: " + str(mAP) + "\n")
+    f.write("mean corlocs: " + str(mean_corloc) + "\n")
+    f.close()
