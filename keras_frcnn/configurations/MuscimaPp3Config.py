@@ -1,5 +1,4 @@
 import math
-from keras import backend as K
 
 from keras_frcnn.configurations.FasterRcnnConfiguration import FasterRcnnConfiguration
 
