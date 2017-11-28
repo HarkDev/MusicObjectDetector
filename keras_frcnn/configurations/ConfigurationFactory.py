@@ -50,6 +50,7 @@ class ConfigurationFactory:
                           MuscimaPp2Config(),
                           MuscimaPp3Config(),
                           MuscimaPp4Config(),
+                          MuscimaPp5Config(),
                           ]
         return configurations
 
