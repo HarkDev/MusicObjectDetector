@@ -72,6 +72,8 @@ model = NetworkFactory.get_network_by_name(model_name)
 
 with open(config_output_filename, 'rb') as f_in:
     C: FasterRcnnConfiguration = pickle.load(f_in)
+    if not hasattr(C, "scale_images"):
+        C.scale_images = True
 
 # turn off any data augmentation at test time
 C.use_horizontal_flips = False
