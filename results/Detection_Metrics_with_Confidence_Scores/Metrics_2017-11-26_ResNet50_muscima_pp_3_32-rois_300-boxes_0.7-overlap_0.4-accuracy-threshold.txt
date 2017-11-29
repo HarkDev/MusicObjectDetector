@@ -1,0 +1,3 @@
+results/Detection_Results_with_Confidence_Scores/Results_2017-11-26_ResNet50_muscima_pp_3_32-rois_300-boxes_0.7-overlap_0.4-accuracy-threshold.txt
+mAP: 0.104765580107
+mean corlocs: 0.154980627864

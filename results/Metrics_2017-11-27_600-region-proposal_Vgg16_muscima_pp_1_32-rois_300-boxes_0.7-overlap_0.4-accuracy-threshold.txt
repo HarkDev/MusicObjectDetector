@@ -1,3 +1,0 @@
-results/Results_2017-11-27_600-region-proposal_Vgg16_muscima_pp_1_32-rois_300-boxes_0.7-overlap_0.4-accuracy-threshold.txt
-mAP: 0.0332561602969
-mean corlocs: 0.0655261083612

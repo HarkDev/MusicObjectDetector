@@ -13,11 +13,13 @@ It supports the following operations:
 Note: This module operates on numpy boxes and box lists.
 """
 
+import os
 import numpy as np
 import argparse
 from typing import Dict
 from sklearn import preprocessing
-from object_detection.utils.object_detection_evaluation import ObjectDetectionEvaluation
+from object_detection.utils.object_detection_evaluation import \
+    ObjectDetectionEvaluation
 from tqdm import tqdm
 
 
@@ -73,7 +75,7 @@ if __name__ == "__main__":
             le.transform(value["class_labels"]))
 
     detect_dic: Dict = {}
-    for (image_key, xmin, ymin, xmax, ymax, class_label) in tqdm(detect):
+    for (image_key, xmin, ymin, xmax, ymax, class_label, score) in tqdm(detect):
         if image_key not in detect_dic:
             detect_dic[image_key] = {}
             detect_dic[image_key]["boxes"] = []
@@ -81,7 +83,7 @@ if __name__ == "__main__":
             detect_dic[image_key]["scores"] = []
         detect_dic[image_key]["boxes"].append([ymin, xmin, ymax, xmax])
         detect_dic[image_key]["class_labels"].append(class_label)
-        detect_dic[image_key]["scores"].append(1.0)
+        detect_dic[image_key]["scores"].append(score / 100.)
     for key, value in detect_dic.items():
         evaluator.add_single_detected_image_info(
             key, np.array(value["boxes"], dtype="float32"),
@@ -94,7 +96,10 @@ if __name__ == "__main__":
     # print("mean, std recall:", np.mean(precisions_per_class),
           # np.std(precisions_per_class))
     print("mean corlocs:", mean_corloc)
-    f = open(args.detection.replace("Results", "Metrics"), "w")
+    filename = args.detection.replace("Results", "Metrics")
+    if not os.path.exists(os.path.split(filename)[0]):
+        os.makedirs(os.path.split(filename)[0])
+    f = open(filename, "w")
     f.write(args.detection + "\n")
     f.write("mAP: " + str(mAP) + "\n")
     f.write("mean corlocs: " + str(mean_corloc) + "\n")
