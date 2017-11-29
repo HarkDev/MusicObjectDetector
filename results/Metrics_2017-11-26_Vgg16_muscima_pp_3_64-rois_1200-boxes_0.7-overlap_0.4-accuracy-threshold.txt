@@ -1,0 +1,3 @@
+results/Results_2017-11-26_Vgg16_muscima_pp_3_64-rois_1200-boxes_0.7-overlap_0.4-accuracy-threshold.txt
+mAP: 0.10391764673
+mean corlocs: 0.171649800164
