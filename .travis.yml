@@ -29,10 +29,20 @@ install:
   # install Pillow for processing images
   - conda install Pillow;
 
-  # Install Dependencies for object_detection
+  # Install Dependencies for object_detection (Part 1)
   - git clone https://github.com/tensorflow/models tensorflow-models
-  - cd tensorflow-models/research
-  - protoc object_detection/protos/*.proto --python_out=.
+
+  # Fix for Issue 1834 - failed protoc installation, see https://github.com/tensorflow/models/issues/1834
+  - mkdir protoc_3.5
+  - cd protoc_3.5 # in home/protoc_3.5
+  - wget wget https://github.com/google/protobuf/releases/download/v3.5.0/protoc-3.5.0-linux-x86_64.zip
+  - chmod 775 protoc-3.5.0-linux-x86_64.zip
+  - unzip protoc-3.5.0-linux-x86_64.zip
+  - cd .. # back in /home/
+
+  # Install Dependencies for object_detection (Part 2)
+  - cd tensorflow-models/research # in /home/tensorflow-models/research
+  - ../../protoc_3.5/bin/protoc object_detection/protos/*.proto --python_out=.
   - cd slim
   - python setup.py install # in tensorflow-models/research/slim
   - cd ..
