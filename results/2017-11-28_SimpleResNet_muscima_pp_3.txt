@@ -1,0 +1,2518 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20171127123839
+Username: ADS\alpa
+RunAs User: ADS\alpa
+Machine: VIEN0054 (Microsoft Windows NT 10.0.15063.0)
+Host Application: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -Command if((Get-ExecutionPolicy ) -ne 'AllSigned') { Set-ExecutionPolicy -Scope Process Bypass }; & 'C:\Users\alpa\Repositories\MusicObjectDetector\TrainModel.ps1'
+Process ID: 10368
+PSVersion: 5.1.15063.726
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.15063.726
+BuildVersion: 10.0.15063.726
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is C:\Users\alpa\Repositories\MusicObjectDetector\2017-11-28_SimpleResNet_muscima_pp_3.txt
+Using TensorFlow backend.
+2017-11-27 12:38:41.469223: I C:\tf_jenkins\home\workspace\rel-win\M\windows-gpu\PY\36\tensorflow\core\platform\cpu_feature_guard.cc:137] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX
+ AVX2
+2017-11-27 12:38:42.305202: I C:\tf_jenkins\home\workspace\rel-win\M\windows-gpu\PY\36\tensorflow\core\common_runtime\gpu\gpu_device.cc:1030] Found device 0 with properties:
+name: Quadro M2000M major: 5 minor: 0 memoryClockRate(GHz): 1.137
+pciBusID: 0000:01:00.0
+totalMemory: 4.00GiB freeMemory: 3.35GiB
+2017-11-27 12:38:42.305416: I C:\tf_jenkins\home\workspace\rel-win\M\windows-gpu\PY\36\tensorflow\core\common_runtime\gpu\gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:0) -> (device: 0, name: Quadro M2000M, pci
+bus id: 0000:01:00.0, compute capability: 5.0)
+Parsing annotation file: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 106893/106893 [00:16<00:00, 6439.23it/s]
+Training images per class:
+{'16th_flag': 603,
+ '16th_rest': 506,
+ '8th_flag': 2569,
+ '8th_rest': 1325,
+ 'accent': 292,
+ 'arpeggio_wobble': 25,
+ 'beam': 7208,
+ 'bg': 0,
+ 'breath_mark': 15,
+ 'c-clef': 189,
+ 'curved-line_(tie-or-slur)': 1,
+ 'dotted_horizontal_spanner': 3,
+ 'double_sharp': 42,
+ 'duration-dot': 2568,
+ 'dynamics_text': 839,
+ 'f-clef': 285,
+ 'fermata': 38,
+ 'flat': 1311,
+ 'g-clef': 402,
+ 'glissando': 28,
+ 'grace-notehead-full': 421,
+ 'grace_strikethrough': 83,
+ 'hairpin-cresc': 208,
+ 'hairpin-decr': 280,
+ 'half_rest': 241,
+ 'instrument_specific': 63,
+ 'key_signature': 698,
+ 'ledger_line': 8460,
+ 'letter_A': 12,
+ 'letter_C': 6,
+ 'letter_E': 2,
+ 'letter_F': 25,
+ 'letter_L': 16,
+ 'letter_M': 72,
+ 'letter_P': 120,
+ 'letter_R': 45,
+ 'letter_S': 1,
+ 'letter_T': 20,
+ 'letter_V': 6,
+ 'letter_a': 101,
+ 'letter_b': 8,
+ 'letter_c': 286,
+ 'letter_d': 224,
+ 'letter_e': 611,
+ 'letter_f': 636,
+ 'letter_g': 24,
+ 'letter_i': 112,
+ 'letter_j': 12,
+ 'letter_l': 109,
+ 'letter_m': 186,
+ 'letter_n': 111,
+ 'letter_o': 429,
+ 'letter_other': 39,
+ 'letter_p': 664,
+ 'letter_r': 505,
+ 'letter_s': 448,
+ 'letter_t': 346,
+ 'letter_u': 69,
+ 'letter_v': 13,
+ 'letter_x': 12,
+ 'letter_z': 52,
+ 'measure_separator': 2831,
+ 'multi-measure_rest': 50,
+ 'multi-staff_brace': 34,
+ 'multi-staff_bracket': 2,
+ 'multiple-note_tremolo': 126,
+ 'natural': 1295,
+ 'notehead-empty': 1978,
+ 'notehead-full': 25606,
+ 'numeral_0': 9,
+ 'numeral_1': 17,
+ 'numeral_2': 40,
+ 'numeral_3': 405,
+ 'numeral_4': 155,
+ 'numeral_5': 11,
+ 'numeral_6': 32,
+ 'numeral_7': 22,
+ 'numeral_8': 34,
+ 'ornament(s)': 87,
+ 'other-clef': 5,
+ 'other-dot': 286,
+ 'other_numeric_sign': 16,
+ 'other_text': 315,
+ 'quarter_rest': 959,
+ 'repeat': 77,
+ 'repeat-dot': 359,
+ 'repeat_measure': 18,
+ 'sharp': 2322,
+ 'slur': 2731,
+ 'staccato-dot': 1845,
+ 'staff_grouping': 41,
+ 'stem': 25658,
+ 'tempo_text': 113,
+ 'tenuto': 156,
+ 'thick_barline': 40,
+ 'thin_barline': 3290,
+ 'tie': 800,
+ 'time_signature': 221,
+ 'transposition_text': 4,
+ 'trill': 228,
+ 'trill_wobble': 42,
+ 'tuple': 303,
+ 'tuple_bracketline': 56,
+ 'unclassified': 30,
+ 'whole-time_mark': 36,
+ 'whole_rest': 183}
+Num classes (including bg) = 106
+Hyperparameters: 64 RoIs generated per run with 300 boxes remaining from non-max suppression and using non-max suppression threshold of 0.70
+Config has been written to 2017-11-28_SimpleResNet_muscima_pp_3.pickle, and can be loaded when testing to ensure correct results
+Number of training samples: 4275
+Number of validation samples: 534
+Number of test samples: 537
+Using fast data_generator
+2017-11-27 12:39:03.818190: I C:\tf_jenkins\home\workspace\rel-win\M\windows-gpu\PY\36\tensorflow\core\common_runtime\gpu\gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:0) -> (device: 0, name: Quadro M2000M, pci
+bus id: 0000:01:00.0, compute capability: 5.0)
+Loading weights from None
+Could not load pretrained model weights. Weights can be found in the keras application folder             https://github.com/fchollet/keras/tree/master/keras/applications
+__________________________________________________________________________________________________
+Layer (type)                    Output Shape         Param #     Connected to
+==================================================================================================
+input_1 (InputLayer)            (None, None, None, 3 0
+__________________________________________________________________________________________________
+zero_padding2d_1 (ZeroPadding2D (None, None, None, 3 0           input_1[0][0]
+__________________________________________________________________________________________________
+conv1 (Conv2D)                  (None, None, None, 6 9472        zero_padding2d_1[0][0]
+__________________________________________________________________________________________________
+bn_conv1 (FixedBatchNormalizati (None, None, None, 6 256         conv1[0][0]
+__________________________________________________________________________________________________
+activation_1 (Activation)       (None, None, None, 6 0           bn_conv1[0][0]
+__________________________________________________________________________________________________
+max_pooling2d_1 (MaxPooling2D)  (None, None, None, 6 0           activation_1[0][0]
+__________________________________________________________________________________________________
+res2a_branch2a (Conv2D)         (None, None, None, 6 4160        max_pooling2d_1[0][0]
+__________________________________________________________________________________________________
+bn2a_branch2a (FixedBatchNormal (None, None, None, 6 256         res2a_branch2a[0][0]
+__________________________________________________________________________________________________
+activation_2 (Activation)       (None, None, None, 6 0           bn2a_branch2a[0][0]
+__________________________________________________________________________________________________
+res2a_branch2b (Conv2D)         (None, None, None, 6 36928       activation_2[0][0]
+__________________________________________________________________________________________________
+bn2a_branch2b (FixedBatchNormal (None, None, None, 6 256         res2a_branch2b[0][0]
+__________________________________________________________________________________________________
+activation_3 (Activation)       (None, None, None, 6 0           bn2a_branch2b[0][0]
+__________________________________________________________________________________________________
+res2a_branch2c (Conv2D)         (None, None, None, 1 8320        activation_3[0][0]
+__________________________________________________________________________________________________
+res2a_branch1 (Conv2D)          (None, None, None, 1 8320        max_pooling2d_1[0][0]
+__________________________________________________________________________________________________
+bn2a_branch2c (FixedBatchNormal (None, None, None, 1 512         res2a_branch2c[0][0]
+__________________________________________________________________________________________________
+bn2a_branch1 (FixedBatchNormali (None, None, None, 1 512         res2a_branch1[0][0]
+__________________________________________________________________________________________________
+add_1 (Add)                     (None, None, None, 1 0           bn2a_branch2c[0][0]
+                                                                 bn2a_branch1[0][0]
+__________________________________________________________________________________________________
+activation_4 (Activation)       (None, None, None, 1 0           add_1[0][0]
+__________________________________________________________________________________________________
+res3a_branch2a (Conv2D)         (None, None, None, 1 16512       activation_4[0][0]
+__________________________________________________________________________________________________
+bn3a_branch2a (FixedBatchNormal (None, None, None, 1 512         res3a_branch2a[0][0]
+__________________________________________________________________________________________________
+activation_5 (Activation)       (None, None, None, 1 0           bn3a_branch2a[0][0]
+__________________________________________________________________________________________________
+res3a_branch2b (Conv2D)         (None, None, None, 1 147584      activation_5[0][0]
+__________________________________________________________________________________________________
+bn3a_branch2b (FixedBatchNormal (None, None, None, 1 512         res3a_branch2b[0][0]
+__________________________________________________________________________________________________
+activation_6 (Activation)       (None, None, None, 1 0           bn3a_branch2b[0][0]
+__________________________________________________________________________________________________
+res3a_branch2c (Conv2D)         (None, None, None, 2 33024       activation_6[0][0]
+__________________________________________________________________________________________________
+res3a_branch1 (Conv2D)          (None, None, None, 2 33024       activation_4[0][0]
+__________________________________________________________________________________________________
+bn3a_branch2c (FixedBatchNormal (None, None, None, 2 1024        res3a_branch2c[0][0]
+__________________________________________________________________________________________________
+bn3a_branch1 (FixedBatchNormali (None, None, None, 2 1024        res3a_branch1[0][0]
+__________________________________________________________________________________________________
+add_2 (Add)                     (None, None, None, 2 0           bn3a_branch2c[0][0]
+                                                                 bn3a_branch1[0][0]
+__________________________________________________________________________________________________
+activation_7 (Activation)       (None, None, None, 2 0           add_2[0][0]
+__________________________________________________________________________________________________
+res4a_branch2a (Conv2D)         (None, None, None, 2 65792       activation_7[0][0]
+__________________________________________________________________________________________________
+bn4a_branch2a (FixedBatchNormal (None, None, None, 2 1024        res4a_branch2a[0][0]
+__________________________________________________________________________________________________
+activation_8 (Activation)       (None, None, None, 2 0           bn4a_branch2a[0][0]
+__________________________________________________________________________________________________
+res4a_branch2b (Conv2D)         (None, None, None, 2 590080      activation_8[0][0]
+__________________________________________________________________________________________________
+bn4a_branch2b (FixedBatchNormal (None, None, None, 2 1024        res4a_branch2b[0][0]
+__________________________________________________________________________________________________
+activation_9 (Activation)       (None, None, None, 2 0           bn4a_branch2b[0][0]
+__________________________________________________________________________________________________
+res4a_branch2c (Conv2D)         (None, None, None, 5 131584      activation_9[0][0]
+__________________________________________________________________________________________________
+res4a_branch1 (Conv2D)          (None, None, None, 5 131584      activation_7[0][0]
+__________________________________________________________________________________________________
+bn4a_branch2c (FixedBatchNormal (None, None, None, 5 2048        res4a_branch2c[0][0]
+__________________________________________________________________________________________________
+bn4a_branch1 (FixedBatchNormali (None, None, None, 5 2048        res4a_branch1[0][0]
+__________________________________________________________________________________________________
+add_3 (Add)                     (None, None, None, 5 0           bn4a_branch2c[0][0]
+                                                                 bn4a_branch1[0][0]
+__________________________________________________________________________________________________
+activation_10 (Activation)      (None, None, None, 5 0           add_3[0][0]
+__________________________________________________________________________________________________
+input_2 (InputLayer)            (None, None, 4)      0
+__________________________________________________________________________________________________
+roi_pooling_conv_1 (RoiPoolingC (None, 64, 14, 14, 5 0           activation_10[0][0]
+                                                                 input_2[0][0]
+__________________________________________________________________________________________________
+res5a_branch2a (TimeDistributed (None, 64, 7, 7, 256 131328      roi_pooling_conv_1[0][0]
+__________________________________________________________________________________________________
+bn5a_branch2a (TimeDistributed) (None, 64, 7, 7, 256 1024        res5a_branch2a[0][0]
+__________________________________________________________________________________________________
+activation_11 (Activation)      (None, 64, 7, 7, 256 0           bn5a_branch2a[0][0]
+__________________________________________________________________________________________________
+res5a_branch2b (TimeDistributed (None, 64, 7, 7, 256 590080      activation_11[0][0]
+__________________________________________________________________________________________________
+bn5a_branch2b (TimeDistributed) (None, 64, 7, 7, 256 1024        res5a_branch2b[0][0]
+__________________________________________________________________________________________________
+activation_12 (Activation)      (None, 64, 7, 7, 256 0           bn5a_branch2b[0][0]
+__________________________________________________________________________________________________
+res5a_branch2c (TimeDistributed (None, 64, 7, 7, 102 263168      activation_12[0][0]
+__________________________________________________________________________________________________
+res5a_branch1 (TimeDistributed) (None, 64, 7, 7, 102 525312      roi_pooling_conv_1[0][0]
+__________________________________________________________________________________________________
+bn5a_branch2c (TimeDistributed) (None, 64, 7, 7, 102 4096        res5a_branch2c[0][0]
+__________________________________________________________________________________________________
+bn5a_branch1 (TimeDistributed)  (None, 64, 7, 7, 102 4096        res5a_branch1[0][0]
+__________________________________________________________________________________________________
+add_4 (Add)                     (None, 64, 7, 7, 102 0           bn5a_branch2c[0][0]
+                                                                 bn5a_branch1[0][0]
+__________________________________________________________________________________________________
+activation_13 (Activation)      (None, 64, 7, 7, 102 0           add_4[0][0]
+__________________________________________________________________________________________________
+res5b_branch2a (TimeDistributed (None, 64, 7, 7, 256 262400      activation_13[0][0]
+__________________________________________________________________________________________________
+bn5b_branch2a (TimeDistributed) (None, 64, 7, 7, 256 1024        res5b_branch2a[0][0]
+__________________________________________________________________________________________________
+activation_14 (Activation)      (None, 64, 7, 7, 256 0           bn5b_branch2a[0][0]
+__________________________________________________________________________________________________
+res5b_branch2b (TimeDistributed (None, 64, 7, 7, 256 590080      activation_14[0][0]
+__________________________________________________________________________________________________
+bn5b_branch2b (TimeDistributed) (None, 64, 7, 7, 256 1024        res5b_branch2b[0][0]
+__________________________________________________________________________________________________
+activation_15 (Activation)      (None, 64, 7, 7, 256 0           bn5b_branch2b[0][0]
+__________________________________________________________________________________________________
+res5b_branch2c (TimeDistributed (None, 64, 7, 7, 102 263168      activation_15[0][0]
+__________________________________________________________________________________________________
+bn5b_branch2c (TimeDistributed) (None, 64, 7, 7, 102 4096        res5b_branch2c[0][0]
+__________________________________________________________________________________________________
+add_5 (Add)                     (None, 64, 7, 7, 102 0           bn5b_branch2c[0][0]
+                                                                 activation_13[0][0]
+__________________________________________________________________________________________________
+activation_16 (Activation)      (None, 64, 7, 7, 102 0           add_5[0][0]
+__________________________________________________________________________________________________
+res5c_branch2a (TimeDistributed (None, 64, 7, 7, 256 262400      activation_16[0][0]
+__________________________________________________________________________________________________
+bn5c_branch2a (TimeDistributed) (None, 64, 7, 7, 256 1024        res5c_branch2a[0][0]
+__________________________________________________________________________________________________
+activation_17 (Activation)      (None, 64, 7, 7, 256 0           bn5c_branch2a[0][0]
+__________________________________________________________________________________________________
+res5c_branch2b (TimeDistributed (None, 64, 7, 7, 256 590080      activation_17[0][0]
+__________________________________________________________________________________________________
+bn5c_branch2b (TimeDistributed) (None, 64, 7, 7, 256 1024        res5c_branch2b[0][0]
+__________________________________________________________________________________________________
+activation_18 (Activation)      (None, 64, 7, 7, 256 0           bn5c_branch2b[0][0]
+__________________________________________________________________________________________________
+res5c_branch2c (TimeDistributed (None, 64, 7, 7, 102 263168      activation_18[0][0]
+__________________________________________________________________________________________________
+bn5c_branch2c (TimeDistributed) (None, 64, 7, 7, 102 4096        res5c_branch2c[0][0]
+__________________________________________________________________________________________________
+add_6 (Add)                     (None, 64, 7, 7, 102 0           bn5c_branch2c[0][0]
+                                                                 activation_16[0][0]
+__________________________________________________________________________________________________
+activation_19 (Activation)      (None, 64, 7, 7, 102 0           add_6[0][0]
+__________________________________________________________________________________________________
+avg_pool (TimeDistributed)      (None, 64, 1, 1, 102 0           activation_19[0][0]
+__________________________________________________________________________________________________
+time_distributed_1 (TimeDistrib (None, 64, 1024)     0           avg_pool[0][0]
+__________________________________________________________________________________________________
+dense_class_106 (TimeDistribute (None, 64, 106)      108650      time_distributed_1[0][0]
+__________________________________________________________________________________________________
+dense_regress_106 (TimeDistribu (None, 64, 420)      430500      time_distributed_1[0][0]
+==================================================================================================
+Total params: 5,530,254
+Trainable params: 5,496,718
+Non-trainable params: 33,536
+__________________________________________________________________________________________________
+Summary of muscima_pp_3
+==============================================
+Resizing images, so smallest side has 300 pixel
+Anchor box scales: [1, 2, 4, 8, 16], Anchor box ratios: [[1, 1], [2.0, 0.5], [0.7071067811865475, 1.414213562373095]]
+Data-augmentation: Horizontal flip: False, vertical flip: False, 90° rotation: False
+Image channel mean [0, 0, 0], Image scaling factor 1.0, STD scaling 4.0, classifier regr std [8.0, 8.0, 4.0, 4.0]
+Number of ROIs at once: 64, RPN Stride: 16
+Is the dataset balanced: False
+Region Proposal Network overlap: Minimum 0.3, Maximum 0.7
+Classifier overlap: Minimum 0.1, Maximum 0.5
+
+Starting training
+Epoch 1/200
+Pre-computing anchors for resized images: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 4275/4275 [00:02<00:00, 1523.79it/s]
+  32/1000 [..............................] - ETA: 31:54 - rpn_cls: 3.8723 - rpn_regr: 3.4268 - detector_cls: 0.8235 - detector_regr: 0.0000e+00Exception during training: a must be non-empty
+ 148/1000 [===>..........................] - ETA: 14:49 - rpn_cls: 2.5656 - rpn_regr: 2.8923 - detector_cls: 0.4145 - detector_regr: 0.0067Exception during training: a must be non-empty
+1000/1000 [==============================] - 603s 603ms/step - rpn_cls: 1.3715 - rpn_regr: 2.3035 - detector_cls: 0.4611 - detector_regr: 0.1409
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 8.636
+Classifier accuracy for bounding boxes from RPN: 0.865046875
+Loss RPN classifier: 0.8421229980159821
+Loss RPN regression: 1.997028494477272
+Loss Detector classifier: 0.5137987585831105
+Loss Detector regression: 0.178605582301534
+Elapsed time: 613.7175552845001
+Best loss for training: inf
+Total training loss decreased from inf to 3.532, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3_training.hdf5
+Pre-computing anchors for resized images: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 534/534 [00:00<00:00, 1608.86it/s]
+534/534 [==============================] - 169s 317ms/step - rpn_cls: 0.5310 - rpn_regr: 1.5864 - detector_cls: 0.4640 - detector_regr: 0.1514
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 11.815094339622641
+Classifier accuracy for bounding boxes from RPN: 0.865046875
+Loss RPN classifier: 0.5325702789755805
+Loss RPN regression: 1.6400483925355953
+Loss Detector classifier: 0.47067079459637934
+Loss Detector regression: 0.1537504453290069
+Current validation loss: 2.797, Best validation loss: inf at epoch: 0
+Elapsed time: 171.21759295463562
+Total validation loss decreased from inf to 2.797, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3.hdf5
+Epoch 2/200
+ 331/1000 [========>.....................] - ETA: 5:57 - rpn_cls: 0.5198 - rpn_regr: 1.6266 - detector_cls: 0.5270 - detector_regr: 0.1472forrtl: error (200): program aborting due to control-C event
+Image              PC                Routine            Line        Source
+libifcoremd.dll    00007FFCAC3443E4  Unknown               Unknown  Unknown
+KERNELBASE.dll     00007FFD04AC717D  Unknown               Unknown  Unknown
+KERNEL32.DLL       00007FFD06352774  Unknown               Unknown  Unknown
+ntdll.dll          00007FFD08610D51  Unknown               Unknown  Unknown
+PS>TerminatingError(): "The pipeline has been stopped."
+>> TerminatingError(): "The pipeline has been stopped."
+>> TerminatingError(): "The pipeline has been stopped."
+>> $global:?
+False
+**********************
+Windows PowerShell transcript end
+End time: 20171127125503
+**********************
+**********************
+Windows PowerShell transcript start
+Start time: 20171127174400
+Username: ADS\alpa
+RunAs User: ADS\alpa
+Machine: VIEN0054 (Microsoft Windows NT 10.0.15063.0)
+Host Application: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -Command if((Get-ExecutionPolicy ) -ne 'AllSigned') { Set-ExecutionPolicy -Scope Process Bypass }; & 'C:\Users\alpa\Repositories\MusicObjectDetector\TrainModel.ps1'
+Process ID: 11832
+PSVersion: 5.1.15063.726
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.15063.726
+BuildVersion: 10.0.15063.726
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is C:\Users\alpa\Repositories\MusicObjectDetector\2017-11-28_SimpleResNet_muscima_pp_3.txt
+2017-11-27 17:44:06.440616: I C:\tf_jenkins\home\workspace\rel-win\M\windows-gpu\PY\36\tensorflow\core\platform\cpu_feature_guard.cc:137] Your CPU supports instructions that this TensorFlow binary was not compiled to
+ use: AVX AVX2
+2017-11-27 17:44:07.381542: I C:\tf_jenkins\home\workspace\rel-win\M\windows-gpu\PY\36\tensorflow\core\common_runtime\gpu\gpu_device.cc:1030] Found device 0 with properties:
+name: Quadro M2000M major: 5 minor: 0 memoryClockRate(GHz): 1.137
+pciBusID: 0000:01:00.0
+totalMemory: 4.00GiB freeMemory: 3.35GiB
+2017-11-27 17:44:07.381727: I C:\tf_jenkins\home\workspace\rel-win\M\windows-gpu\PY\36\tensorflow\core\common_runtime\gpu\gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:0) -> (device: 0, name: Quadro M20
+00M, pci bus id: 0000:01:00.0, compute capability: 5.0)
+Parsing annotation file: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 106893/106893 [00:19<00:00, 5398.41it/s]
+Training images per class:
+{'16th_flag': 603,
+ '16th_rest': 506,
+ '8th_flag': 2569,
+ '8th_rest': 1325,
+ 'accent': 292,
+ 'arpeggio_wobble': 25,
+ 'beam': 7208,
+ 'bg': 0,
+ 'breath_mark': 15,
+ 'c-clef': 189,
+ 'curved-line_(tie-or-slur)': 1,
+ 'dotted_horizontal_spanner': 3,
+ 'double_sharp': 42,
+ 'duration-dot': 2568,
+ 'dynamics_text': 839,
+ 'f-clef': 285,
+ 'fermata': 38,
+ 'flat': 1311,
+ 'g-clef': 402,
+ 'glissando': 28,
+ 'grace-notehead-full': 421,
+ 'grace_strikethrough': 83,
+ 'hairpin-cresc': 208,
+ 'hairpin-decr': 280,
+ 'half_rest': 241,
+ 'instrument_specific': 63,
+ 'key_signature': 698,
+ 'ledger_line': 8460,
+ 'letter_A': 12,
+ 'letter_C': 6,
+ 'letter_E': 2,
+ 'letter_F': 25,
+ 'letter_L': 16,
+ 'letter_M': 72,
+ 'letter_P': 120,
+ 'letter_R': 45,
+ 'letter_S': 1,
+ 'letter_T': 20,
+ 'letter_V': 6,
+ 'letter_a': 101,
+ 'letter_b': 8,
+ 'letter_c': 286,
+ 'letter_d': 224,
+ 'letter_e': 611,
+ 'letter_f': 636,
+ 'letter_g': 24,
+ 'letter_i': 112,
+ 'letter_j': 12,
+ 'letter_l': 109,
+ 'letter_m': 186,
+ 'letter_n': 111,
+ 'letter_o': 429,
+ 'letter_other': 39,
+ 'letter_p': 664,
+ 'letter_r': 505,
+ 'letter_s': 448,
+ 'letter_t': 346,
+ 'letter_u': 69,
+ 'letter_v': 13,
+ 'letter_x': 12,
+ 'letter_z': 52,
+ 'measure_separator': 2831,
+ 'multi-measure_rest': 50,
+ 'multi-staff_brace': 34,
+ 'multi-staff_bracket': 2,
+ 'multiple-note_tremolo': 126,
+ 'natural': 1295,
+ 'notehead-empty': 1978,
+ 'notehead-full': 25606,
+ 'numeral_0': 9,
+ 'numeral_1': 17,
+ 'numeral_2': 40,
+ 'numeral_3': 405,
+ 'numeral_4': 155,
+ 'numeral_5': 11,
+ 'numeral_6': 32,
+ 'numeral_7': 22,
+ 'numeral_8': 34,
+ 'ornament(s)': 87,
+ 'other-clef': 5,
+ 'other-dot': 286,
+ 'other_numeric_sign': 16,
+ 'other_text': 315,
+ 'quarter_rest': 959,
+ 'repeat': 77,
+ 'repeat-dot': 359,
+ 'repeat_measure': 18,
+ 'sharp': 2322,
+ 'slur': 2731,
+ 'staccato-dot': 1845,
+ 'staff_grouping': 41,
+ 'stem': 25658,
+ 'tempo_text': 113,
+ 'tenuto': 156,
+ 'thick_barline': 40,
+ 'thin_barline': 3290,
+ 'tie': 800,
+ 'time_signature': 221,
+ 'transposition_text': 4,
+ 'trill': 228,
+ 'trill_wobble': 42,
+ 'tuple': 303,
+ 'tuple_bracketline': 56,
+ 'unclassified': 30,
+ 'whole-time_mark': 36,
+ 'whole_rest': 183}
+Num classes (including bg) = 106
+Hyperparameters: 64 RoIs generated per run with 300 boxes remaining from non-max suppression and using non-max suppression threshold of 0.70
+Config has been written to 2017-11-28_SimpleResNet_muscima_pp_3.pickle, and can be loaded when testing to ensure correct results
+Number of training samples: 4275
+Number of validation samples: 534
+Number of test samples: 537
+Using fast data_generator
+2017-11-27 17:44:33.307660: I C:\tf_jenkins\home\workspace\rel-win\M\windows-gpu\PY\36\tensorflow\core\common_runtime\gpu\gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:0) -> (device: 0, name: Quadro M20
+00M, pci bus id: 0000:01:00.0, compute capability: 5.0)
+Loading weights from None
+Could not load pretrained model weights. Weights can be found in the keras application folder             https://github.com/fchollet/keras/tree/master/keras/applications
+__________________________________________________________________________________________________
+Layer (type)                    Output Shape         Param #     Connected to
+==================================================================================================
+input_1 (InputLayer)            (None, None, None, 3 0
+__________________________________________________________________________________________________
+zero_padding2d_1 (ZeroPadding2D (None, None, None, 3 0           input_1[0][0]
+__________________________________________________________________________________________________
+conv1 (Conv2D)                  (None, None, None, 6 9472        zero_padding2d_1[0][0]
+__________________________________________________________________________________________________
+bn_conv1 (FixedBatchNormalizati (None, None, None, 6 256         conv1[0][0]
+__________________________________________________________________________________________________
+activation_1 (Activation)       (None, None, None, 6 0           bn_conv1[0][0]
+__________________________________________________________________________________________________
+max_pooling2d_1 (MaxPooling2D)  (None, None, None, 6 0           activation_1[0][0]
+__________________________________________________________________________________________________
+res2a_branch2a (Conv2D)         (None, None, None, 6 4160        max_pooling2d_1[0][0]
+__________________________________________________________________________________________________
+bn2a_branch2a (FixedBatchNormal (None, None, None, 6 256         res2a_branch2a[0][0]
+__________________________________________________________________________________________________
+activation_2 (Activation)       (None, None, None, 6 0           bn2a_branch2a[0][0]
+__________________________________________________________________________________________________
+res2a_branch2b (Conv2D)         (None, None, None, 6 36928       activation_2[0][0]
+__________________________________________________________________________________________________
+bn2a_branch2b (FixedBatchNormal (None, None, None, 6 256         res2a_branch2b[0][0]
+__________________________________________________________________________________________________
+activation_3 (Activation)       (None, None, None, 6 0           bn2a_branch2b[0][0]
+__________________________________________________________________________________________________
+res2a_branch2c (Conv2D)         (None, None, None, 1 8320        activation_3[0][0]
+__________________________________________________________________________________________________
+res2a_branch1 (Conv2D)          (None, None, None, 1 8320        max_pooling2d_1[0][0]
+__________________________________________________________________________________________________
+bn2a_branch2c (FixedBatchNormal (None, None, None, 1 512         res2a_branch2c[0][0]
+__________________________________________________________________________________________________
+bn2a_branch1 (FixedBatchNormali (None, None, None, 1 512         res2a_branch1[0][0]
+__________________________________________________________________________________________________
+add_1 (Add)                     (None, None, None, 1 0           bn2a_branch2c[0][0]
+                                                                 bn2a_branch1[0][0]
+__________________________________________________________________________________________________
+activation_4 (Activation)       (None, None, None, 1 0           add_1[0][0]
+__________________________________________________________________________________________________
+res3a_branch2a (Conv2D)         (None, None, None, 1 16512       activation_4[0][0]
+__________________________________________________________________________________________________
+bn3a_branch2a (FixedBatchNormal (None, None, None, 1 512         res3a_branch2a[0][0]
+__________________________________________________________________________________________________
+activation_5 (Activation)       (None, None, None, 1 0           bn3a_branch2a[0][0]
+__________________________________________________________________________________________________
+res3a_branch2b (Conv2D)         (None, None, None, 1 147584      activation_5[0][0]
+__________________________________________________________________________________________________
+bn3a_branch2b (FixedBatchNormal (None, None, None, 1 512         res3a_branch2b[0][0]
+__________________________________________________________________________________________________
+activation_6 (Activation)       (None, None, None, 1 0           bn3a_branch2b[0][0]
+__________________________________________________________________________________________________
+res3a_branch2c (Conv2D)         (None, None, None, 2 33024       activation_6[0][0]
+__________________________________________________________________________________________________
+res3a_branch1 (Conv2D)          (None, None, None, 2 33024       activation_4[0][0]
+__________________________________________________________________________________________________
+bn3a_branch2c (FixedBatchNormal (None, None, None, 2 1024        res3a_branch2c[0][0]
+__________________________________________________________________________________________________
+bn3a_branch1 (FixedBatchNormali (None, None, None, 2 1024        res3a_branch1[0][0]
+__________________________________________________________________________________________________
+add_2 (Add)                     (None, None, None, 2 0           bn3a_branch2c[0][0]
+                                                                 bn3a_branch1[0][0]
+__________________________________________________________________________________________________
+activation_7 (Activation)       (None, None, None, 2 0           add_2[0][0]
+__________________________________________________________________________________________________
+res4a_branch2a (Conv2D)         (None, None, None, 2 65792       activation_7[0][0]
+__________________________________________________________________________________________________
+bn4a_branch2a (FixedBatchNormal (None, None, None, 2 1024        res4a_branch2a[0][0]
+__________________________________________________________________________________________________
+activation_8 (Activation)       (None, None, None, 2 0           bn4a_branch2a[0][0]
+__________________________________________________________________________________________________
+res4a_branch2b (Conv2D)         (None, None, None, 2 590080      activation_8[0][0]
+__________________________________________________________________________________________________
+bn4a_branch2b (FixedBatchNormal (None, None, None, 2 1024        res4a_branch2b[0][0]
+__________________________________________________________________________________________________
+activation_9 (Activation)       (None, None, None, 2 0           bn4a_branch2b[0][0]
+__________________________________________________________________________________________________
+res4a_branch2c (Conv2D)         (None, None, None, 5 131584      activation_9[0][0]
+__________________________________________________________________________________________________
+res4a_branch1 (Conv2D)          (None, None, None, 5 131584      activation_7[0][0]
+__________________________________________________________________________________________________
+bn4a_branch2c (FixedBatchNormal (None, None, None, 5 2048        res4a_branch2c[0][0]
+__________________________________________________________________________________________________
+bn4a_branch1 (FixedBatchNormali (None, None, None, 5 2048        res4a_branch1[0][0]
+__________________________________________________________________________________________________
+add_3 (Add)                     (None, None, None, 5 0           bn4a_branch2c[0][0]
+                                                                 bn4a_branch1[0][0]
+__________________________________________________________________________________________________
+activation_10 (Activation)      (None, None, None, 5 0           add_3[0][0]
+__________________________________________________________________________________________________
+input_2 (InputLayer)            (None, None, 4)      0
+__________________________________________________________________________________________________
+roi_pooling_conv_1 (RoiPoolingC (None, 64, 14, 14, 5 0           activation_10[0][0]
+                                                                 input_2[0][0]
+__________________________________________________________________________________________________
+res5a_branch2a (TimeDistributed (None, 64, 7, 7, 256 131328      roi_pooling_conv_1[0][0]
+__________________________________________________________________________________________________
+bn5a_branch2a (TimeDistributed) (None, 64, 7, 7, 256 1024        res5a_branch2a[0][0]
+__________________________________________________________________________________________________
+activation_11 (Activation)      (None, 64, 7, 7, 256 0           bn5a_branch2a[0][0]
+__________________________________________________________________________________________________
+res5a_branch2b (TimeDistributed (None, 64, 7, 7, 256 590080      activation_11[0][0]
+__________________________________________________________________________________________________
+bn5a_branch2b (TimeDistributed) (None, 64, 7, 7, 256 1024        res5a_branch2b[0][0]
+__________________________________________________________________________________________________
+activation_12 (Activation)      (None, 64, 7, 7, 256 0           bn5a_branch2b[0][0]
+__________________________________________________________________________________________________
+res5a_branch2c (TimeDistributed (None, 64, 7, 7, 102 263168      activation_12[0][0]
+__________________________________________________________________________________________________
+res5a_branch1 (TimeDistributed) (None, 64, 7, 7, 102 525312      roi_pooling_conv_1[0][0]
+__________________________________________________________________________________________________
+bn5a_branch2c (TimeDistributed) (None, 64, 7, 7, 102 4096        res5a_branch2c[0][0]
+__________________________________________________________________________________________________
+bn5a_branch1 (TimeDistributed)  (None, 64, 7, 7, 102 4096        res5a_branch1[0][0]
+__________________________________________________________________________________________________
+add_4 (Add)                     (None, 64, 7, 7, 102 0           bn5a_branch2c[0][0]
+                                                                 bn5a_branch1[0][0]
+__________________________________________________________________________________________________
+activation_13 (Activation)      (None, 64, 7, 7, 102 0           add_4[0][0]
+__________________________________________________________________________________________________
+res5b_branch2a (TimeDistributed (None, 64, 7, 7, 256 262400      activation_13[0][0]
+__________________________________________________________________________________________________
+bn5b_branch2a (TimeDistributed) (None, 64, 7, 7, 256 1024        res5b_branch2a[0][0]
+__________________________________________________________________________________________________
+activation_14 (Activation)      (None, 64, 7, 7, 256 0           bn5b_branch2a[0][0]
+__________________________________________________________________________________________________
+res5b_branch2b (TimeDistributed (None, 64, 7, 7, 256 590080      activation_14[0][0]
+__________________________________________________________________________________________________
+bn5b_branch2b (TimeDistributed) (None, 64, 7, 7, 256 1024        res5b_branch2b[0][0]
+__________________________________________________________________________________________________
+activation_15 (Activation)      (None, 64, 7, 7, 256 0           bn5b_branch2b[0][0]
+__________________________________________________________________________________________________
+res5b_branch2c (TimeDistributed (None, 64, 7, 7, 102 263168      activation_15[0][0]
+__________________________________________________________________________________________________
+bn5b_branch2c (TimeDistributed) (None, 64, 7, 7, 102 4096        res5b_branch2c[0][0]
+__________________________________________________________________________________________________
+add_5 (Add)                     (None, 64, 7, 7, 102 0           bn5b_branch2c[0][0]
+                                                                 activation_13[0][0]
+__________________________________________________________________________________________________
+activation_16 (Activation)      (None, 64, 7, 7, 102 0           add_5[0][0]
+__________________________________________________________________________________________________
+res5c_branch2a (TimeDistributed (None, 64, 7, 7, 256 262400      activation_16[0][0]
+__________________________________________________________________________________________________
+bn5c_branch2a (TimeDistributed) (None, 64, 7, 7, 256 1024        res5c_branch2a[0][0]
+__________________________________________________________________________________________________
+activation_17 (Activation)      (None, 64, 7, 7, 256 0           bn5c_branch2a[0][0]
+__________________________________________________________________________________________________
+res5c_branch2b (TimeDistributed (None, 64, 7, 7, 256 590080      activation_17[0][0]
+__________________________________________________________________________________________________
+bn5c_branch2b (TimeDistributed) (None, 64, 7, 7, 256 1024        res5c_branch2b[0][0]
+__________________________________________________________________________________________________
+activation_18 (Activation)      (None, 64, 7, 7, 256 0           bn5c_branch2b[0][0]
+__________________________________________________________________________________________________
+res5c_branch2c (TimeDistributed (None, 64, 7, 7, 102 263168      activation_18[0][0]
+__________________________________________________________________________________________________
+bn5c_branch2c (TimeDistributed) (None, 64, 7, 7, 102 4096        res5c_branch2c[0][0]
+__________________________________________________________________________________________________
+add_6 (Add)                     (None, 64, 7, 7, 102 0           bn5c_branch2c[0][0]
+                                                                 activation_16[0][0]
+__________________________________________________________________________________________________
+activation_19 (Activation)      (None, 64, 7, 7, 102 0           add_6[0][0]
+__________________________________________________________________________________________________
+avg_pool (TimeDistributed)      (None, 64, 1, 1, 102 0           activation_19[0][0]
+__________________________________________________________________________________________________
+time_distributed_1 (TimeDistrib (None, 64, 1024)     0           avg_pool[0][0]
+__________________________________________________________________________________________________
+dense_class_106 (TimeDistribute (None, 64, 106)      108650      time_distributed_1[0][0]
+__________________________________________________________________________________________________
+dense_regress_106 (TimeDistribu (None, 64, 420)      430500      time_distributed_1[0][0]
+==================================================================================================
+Total params: 5,530,254
+Trainable params: 5,496,718
+Non-trainable params: 33,536
+__________________________________________________________________________________________________
+Summary of muscima_pp_3
+==============================================
+Resizing images, so smallest side has 300 pixel
+Anchor box scales: [1, 2, 4, 8, 16], Anchor box ratios: [[1, 1], [2.0, 0.5], [0.7071067811865475, 1.414213562373095]]
+Data-augmentation: Horizontal flip: False, vertical flip: False, 90° rotation: False
+Image channel mean [0, 0, 0], Image scaling factor 1.0, STD scaling 4.0, classifier regr std [8.0, 8.0, 4.0, 4.0]
+Number of ROIs at once: 64, RPN Stride: 16
+Is the dataset balanced: False
+Region Proposal Network overlap: Minimum 0.3, Maximum 0.7
+Classifier overlap: Minimum 0.1, Maximum 0.5
+
+Starting training
+Epoch 1/200
+Pre-computing anchors for resized images: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 4275/4275 [00:02<00:00, 1504.44it/s]
+1000/1000 [==============================] - 598s 598ms/step - rpn_cls: 1.5365 - rpn_regr: 2.4464 - detector_cls: 0.4876 - detector_regr: 0.1303
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 8.538
+Classifier accuracy for bounding boxes from RPN: 0.867296875
+Loss RPN classifier: 0.8903229431295044
+Loss RPN regression: 2.071040367826819
+Loss Detector classifier: 0.5215909656378129
+Loss Detector regression: 0.16792760569610982
+Elapsed time: 610.5396685600281
+Best loss for training: inf
+Total training loss decreased from inf to 3.651, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3_training.hdf5
+Pre-computing anchors for resized images: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 534/534 [00:00<00:00, 1628.54it/s]
+534/534 [==============================] - 170s 318ms/step - rpn_cls: 0.5136 - rpn_regr: 1.6651 - detector_cls: 0.3659 - detector_regr: 0.1233
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 7.835538752362949
+Classifier accuracy for bounding boxes from RPN: 0.867296875
+Loss RPN classifier: 0.515788775707451
+Loss RPN regression: 1.7087710597988373
+Loss Detector classifier: 0.3745927848654349
+Loss Detector regression: 0.12169607441954329
+Current validation loss: 2.721, Best validation loss: inf at epoch: 0
+Elapsed time: 171.73695707321167
+Total validation loss decreased from inf to 2.721, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3.hdf5
+Epoch 2/200
+1000/1000 [==============================] - 489s 489ms/step - rpn_cls: 0.5340 - rpn_regr: 1.7252 - detector_cls: 0.4631 - detector_regr: 0.1396
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 10.886
+Classifier accuracy for bounding boxes from RPN: 0.878546875
+Loss RPN classifier: 0.5122302036233626
+Loss RPN regression: 1.6843198227584362
+Loss Detector classifier: 0.44161897275736556
+Loss Detector regression: 0.13458099201039295
+Elapsed time: 1271.8144569396973
+Best loss for training: 3.651
+Total training loss decreased from 3.651 to 2.773, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3_training.hdf5
+534/534 [==============================] - 170s 319ms/step - rpn_cls: 0.5552 - rpn_regr: 1.8083 - detector_cls: 0.5670 - detector_regr: 0.1527
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 15.934086629001884
+Classifier accuracy for bounding boxes from RPN: 0.878546875
+Loss RPN classifier: 0.5508526518633233
+Loss RPN regression: 1.781984348784895
+Loss Detector classifier: 0.558746616854873
+Loss Detector regression: 0.14924820965680918
+Current validation loss: 3.041, Best validation loss: 2.721 at epoch: 0
+Elapsed time: 170.57836747169495
+Epoch 3/200
+1000/1000 [==============================] - 494s 494ms/step - rpn_cls: 0.4626 - rpn_regr: 1.4240 - detector_cls: 0.4445 - detector_regr: 0.1237
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 12.249
+Classifier accuracy for bounding boxes from RPN: 0.876328125
+Loss RPN classifier: 0.45694686602502566
+Loss RPN regression: 1.415731892440468
+Loss Detector classifier: 0.4207507640789263
+Loss Detector regression: 0.12048792545613288
+Elapsed time: 1936.1486966609955
+Best loss for training: 2.773
+Total training loss decreased from 2.773 to 2.414, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3_training.hdf5
+534/534 [==============================] - 166s 311ms/step - rpn_cls: 0.4579 - rpn_regr: 1.4221 - detector_cls: 0.3793 - detector_regr: 0.1089
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 12.69433962264151
+Classifier accuracy for bounding boxes from RPN: 0.876328125
+Loss RPN classifier: 0.44312660415441524
+Loss RPN regression: 1.4038571293852973
+Loss Detector classifier: 0.38264170515068463
+Loss Detector regression: 0.10829718528486397
+Current validation loss: 2.338, Best validation loss: 2.721 at epoch: 0
+Elapsed time: 166.25263595581055
+Total validation loss decreased from 2.721 to 2.338, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3.hdf5
+Epoch 4/200
+1000/1000 [==============================] - 492s 492ms/step - rpn_cls: 0.4485 - rpn_regr: 1.3340 - detector_cls: 0.4093 - detector_regr: 0.1099
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 13.326
+Classifier accuracy for bounding boxes from RPN: 0.883765625
+Loss RPN classifier: 0.4444198052644247
+Loss RPN regression: 1.3049641030412167
+Loss Detector classifier: 0.3913810326642706
+Loss Detector regression: 0.10969027288258076
+Elapsed time: 2595.008898973465
+Best loss for training: 2.414
+Total training loss decreased from 2.414 to 2.250, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3_training.hdf5
+533/534 [============================>.] - ETA: 0s - rpn_cls: 0.4545 - rpn_regr: 1.4218 - detector_cls: 0.3611 - detector_regr: 0.1114[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 11.258490566037736
+Classifier accuracy for bounding boxes from RPN: 0.883765625
+Loss RPN classifier: 0.44369788278803524
+Loss RPN regression: 1.3702973990181413
+Loss Detector classifier: 0.3595825302404132
+Loss Detector regression: 0.10770472888273953
+Current validation loss: 2.281, Best validation loss: 2.338 at epoch: 2
+Elapsed time: 167.25499320030212
+Total validation loss decreased from 2.338 to 2.281, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3.hdf5
+Epoch 5/200
+1000/1000 [==============================] - 485s 485ms/step - rpn_cls: 0.4281 - rpn_regr: 1.3448 - detector_cls: 0.3781 - detector_regr: 0.1085
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 13.355
+Classifier accuracy for bounding boxes from RPN: 0.888953125
+Loss RPN classifier: 0.4211063645097349
+Loss RPN regression: 1.3291609602943062
+Loss Detector classifier: 0.36623223535349825
+Loss Detector regression: 0.10496385484657367
+Elapsed time: 3247.8949291706085
+Best loss for training: 2.250
+Total training loss decreased from 2.250 to 2.221, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3_training.hdf5
+534/534 [==============================] - 165s 308ms/step - rpn_cls: 0.4369 - rpn_regr: 1.4426 - detector_cls: 0.3453 - detector_regr: 0.1043
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 10.6045197740113
+Classifier accuracy for bounding boxes from RPN: 0.888953125
+Loss RPN classifier: 0.42698195072591927
+Loss RPN regression: 1.4003855437319377
+Loss Detector classifier: 0.32450686451326705
+Loss Detector regression: 0.10288289535922249
+Current validation loss: 2.255, Best validation loss: 2.281 at epoch: 3
+Elapsed time: 164.76449465751648
+Total validation loss decreased from 2.281 to 2.255, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3.hdf5
+Epoch 6/200
+1000/1000 [==============================] - 494s 494ms/step - rpn_cls: 0.4038 - rpn_regr: 1.2840 - detector_cls: 0.3632 - detector_regr: 0.0979
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 13.521
+Classifier accuracy for bounding boxes from RPN: 0.890671875
+Loss RPN classifier: 0.40026194747874416
+Loss RPN regression: 1.245550460871309
+Loss Detector classifier: 0.35602011504984693
+Loss Detector regression: 0.09830738636369642
+Elapsed time: 3906.3534259796143
+Best loss for training: 2.221
+Total training loss decreased from 2.221 to 2.100, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3_training.hdf5
+534/534 [==============================] - 167s 312ms/step - rpn_cls: 0.4290 - rpn_regr: 1.2645 - detector_cls: 0.3795 - detector_regr: 0.0897
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 12.322033898305085
+Classifier accuracy for bounding boxes from RPN: 0.890671875
+Loss RPN classifier: 0.4214869343034578
+Loss RPN regression: 1.2483850925016715
+Loss Detector classifier: 0.3497660902820611
+Loss Detector regression: 0.09227860914318861
+Current validation loss: 2.112, Best validation loss: 2.255 at epoch: 4
+Elapsed time: 166.8322525024414
+Total validation loss decreased from 2.255 to 2.112, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3.hdf5
+Epoch 7/200
+1000/1000 [==============================] - 490s 490ms/step - rpn_cls: 0.4041 - rpn_regr: 1.1865 - detector_cls: 0.3506 - detector_regr: 0.0926
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 13.169
+Classifier accuracy for bounding boxes from RPN: 0.896828125
+Loss RPN classifier: 0.39661136553339993
+Loss RPN regression: 1.1720045425221324
+Loss Detector classifier: 0.33600157026416855
+Loss Detector regression: 0.09195218920952175
+Elapsed time: 4563.546603918076
+Best loss for training: 2.100
+Total training loss decreased from 2.100 to 1.997, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3_training.hdf5
+534/534 [==============================] - 166s 311ms/step - rpn_cls: 0.4435 - rpn_regr: 1.2034 - detector_cls: 0.3728 - detector_regr: 0.0823
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 13.235404896421846
+Classifier accuracy for bounding boxes from RPN: 0.896828125
+Loss RPN classifier: 0.42245506875871786
+Loss RPN regression: 1.2104763663635496
+Loss Detector classifier: 0.35453730707287034
+Loss Detector regression: 0.08353978643019
+Current validation loss: 2.071, Best validation loss: 2.112 at epoch: 5
+Elapsed time: 166.50503659248352
+Total validation loss decreased from 2.112 to 2.071, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3.hdf5
+Epoch 8/200
+1000/1000 [==============================] - 491s 491ms/step - rpn_cls: 0.3746 - rpn_regr: 1.1525 - detector_cls: 0.3190 - detector_regr: 0.0957
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 13.417
+Classifier accuracy for bounding boxes from RPN: 0.897703125
+Loss RPN classifier: 0.37285367147042653
+Loss RPN regression: 1.1294759690854699
+Loss Detector classifier: 0.32378827122645454
+Loss Detector regression: 0.09332677918119589
+Elapsed time: 5221.130609512329
+Best loss for training: 1.997
+Total training loss decreased from 1.997 to 1.919, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3_training.hdf5
+534/534 [==============================] - 170s 318ms/step - rpn_cls: 0.4004 - rpn_regr: 1.1781 - detector_cls: 0.4122 - detector_regr: 0.1080
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 15.6120527306968
+Classifier accuracy for bounding boxes from RPN: 0.897703125
+Loss RPN classifier: 0.3962915574966343
+Loss RPN regression: 1.2111698055032933
+Loss Detector classifier: 0.4069529864658019
+Loss Detector regression: 0.10973225662092681
+Current validation loss: 2.124, Best validation loss: 2.071 at epoch: 6
+Elapsed time: 170.08364176750183
+Epoch 9/200
+1000/1000 [==============================] - 491s 491ms/step - rpn_cls: 0.3736 - rpn_regr: 1.1576 - detector_cls: 0.3219 - detector_regr: 0.0859
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.323
+Classifier accuracy for bounding boxes from RPN: 0.8949375
+Loss RPN classifier: 0.3768612025609317
+Loss RPN regression: 1.1267140617948026
+Loss Detector classifier: 0.3242508078447718
+Loss Detector regression: 0.08447374705481343
+Elapsed time: 5882.216198205948
+Best loss for training: 1.919
+Total training loss decreased from 1.919 to 1.912, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3_training.hdf5
+534/534 [==============================] - 170s 318ms/step - rpn_cls: 0.3848 - rpn_regr: 1.0706 - detector_cls: 0.3195 - detector_regr: 0.0962
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 13.733082706766917
+Classifier accuracy for bounding boxes from RPN: 0.8949375
+Loss RPN classifier: 0.3975287771899196
+Loss RPN regression: 1.094974650342143
+Loss Detector classifier: 0.32975943259604246
+Loss Detector regression: 0.09552936314132192
+Current validation loss: 1.918, Best validation loss: 2.071 at epoch: 6
+Elapsed time: 169.88353848457336
+Total validation loss decreased from 2.071 to 1.918, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3.hdf5
+Epoch 10/200
+1000/1000 [==============================] - 491s 491ms/step - rpn_cls: 0.3743 - rpn_regr: 1.1127 - detector_cls: 0.2998 - detector_regr: 0.0887
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 13.491
+Classifier accuracy for bounding boxes from RPN: 0.902890625
+Loss RPN classifier: 0.37076328272092895
+Loss RPN regression: 1.1092038244381548
+Loss Detector classifier: 0.2979969459754648
+Loss Detector regression: 0.08466434362030123
+Elapsed time: 6543.340638637543
+Best loss for training: 1.912
+Total training loss decreased from 1.912 to 1.863, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3_training.hdf5
+534/534 [==============================] - 170s 318ms/step - rpn_cls: 0.3861 - rpn_regr: 1.2500 - detector_cls: 0.3110 - detector_regr: 0.0910
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 13.906015037593985
+Classifier accuracy for bounding boxes from RPN: 0.902890625
+Loss RPN classifier: 0.3853743894326804
+Loss RPN regression: 1.2358417389321417
+Loss Detector classifier: 0.337016084920336
+Loss Detector regression: 0.0908653525356869
+Current validation loss: 2.049, Best validation loss: 1.918 at epoch: 8
+Elapsed time: 170.18779635429382
+Epoch 11/200
+1000/1000 [==============================] - 493s 493ms/step - rpn_cls: 0.3525 - rpn_regr: 1.0675 - detector_cls: 0.3054 - detector_regr: 0.0827
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 13.823
+Classifier accuracy for bounding boxes from RPN: 0.90171875
+Loss RPN classifier: 0.35538933246483145
+Loss RPN regression: 1.0614476287662984
+Loss Detector classifier: 0.30125236185640303
+Loss Detector regression: 0.08214577323425329
+Elapsed time: 7206.228882789612
+Best loss for training: 1.863
+Total training loss decreased from 1.863 to 1.800, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3_training.hdf5
+534/534 [==============================] - 168s 314ms/step - rpn_cls: 0.3581 - rpn_regr: 1.0596 - detector_cls: 0.2873 - detector_regr: 0.0794
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 13.660377358490566
+Classifier accuracy for bounding boxes from RPN: 0.90171875
+Loss RPN classifier: 0.36763377445935547
+Loss RPN regression: 1.0574918630417813
+Loss Detector classifier: 0.2952226653384666
+Loss Detector regression: 0.07863922368201398
+Current validation loss: 1.799, Best validation loss: 1.918 at epoch: 8
+Elapsed time: 167.91815090179443
+Total validation loss decreased from 1.918 to 1.799, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3.hdf5
+Epoch 12/200
+1000/1000 [==============================] - 492s 492ms/step - rpn_cls: 0.3582 - rpn_regr: 1.1321 - detector_cls: 0.2860 - detector_regr: 0.0810
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 13.844
+Classifier accuracy for bounding boxes from RPN: 0.90990625
+Loss RPN classifier: 0.35123933659726464
+Loss RPN regression: 1.078116517394781
+Loss Detector classifier: 0.27702187572047116
+Loss Detector regression: 0.07867406144971029
+Elapsed time: 7866.735483407974
+Best loss for training: 1.800
+Total training loss decreased from 1.800 to 1.785, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3_training.hdf5
+534/534 [==============================] - 169s 316ms/step - rpn_cls: 0.3854 - rpn_regr: 1.1027 - detector_cls: 0.2836 - detector_regr: 0.0823
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 12.096045197740112
+Classifier accuracy for bounding boxes from RPN: 0.90990625
+Loss RPN classifier: 0.3875987644387249
+Loss RPN regression: 1.0818398074431812
+Loss Detector classifier: 0.2846586934047967
+Loss Detector regression: 0.0800765967843922
+Current validation loss: 1.834, Best validation loss: 1.799 at epoch: 10
+Elapsed time: 168.82262706756592
+Epoch 13/200
+1000/1000 [==============================] - 492s 492ms/step - rpn_cls: 0.3498 - rpn_regr: 0.9797 - detector_cls: 0.2874 - detector_regr: 0.0715
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 13.952
+Classifier accuracy for bounding boxes from RPN: 0.90821875
+Loss RPN classifier: 0.34603205318039126
+Loss RPN regression: 1.0399501278996468
+Loss Detector classifier: 0.27850327122228735
+Loss Detector regression: 0.07148148322227643
+Elapsed time: 8527.977442741394
+Best loss for training: 1.785
+Total training loss decreased from 1.785 to 1.736, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3_training.hdf5
+534/534 [==============================] - 167s 313ms/step - rpn_cls: 0.3738 - rpn_regr: 1.0840 - detector_cls: 0.3270 - detector_regr: 0.0807
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 15.21320754716981
+Classifier accuracy for bounding boxes from RPN: 0.90821875
+Loss RPN classifier: 0.3707010958165945
+Loss RPN regression: 1.0507801549460334
+Loss Detector classifier: 0.30488878573127065
+Loss Detector regression: 0.07852307144233617
+Current validation loss: 1.805, Best validation loss: 1.799 at epoch: 10
+Elapsed time: 167.41195678710938
+Epoch 14/200
+1000/1000 [==============================] - 490s 490ms/step - rpn_cls: 0.3325 - rpn_regr: 1.0068 - detector_cls: 0.2821 - detector_regr: 0.0724
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 13.965
+Classifier accuracy for bounding boxes from RPN: 0.9075625
+Loss RPN classifier: 0.3411456523152511
+Loss RPN regression: 1.025519876325503
+Loss Detector classifier: 0.2852798568997532
+Loss Detector regression: 0.0736438900140929
+Elapsed time: 9185.885293722153
+Best loss for training: 1.736
+Total training loss decreased from 1.736 to 1.726, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3_training.hdf5
+534/534 [==============================] - 168s 314ms/step - rpn_cls: 0.3954 - rpn_regr: 1.0469 - detector_cls: 0.3518 - detector_regr: 0.0705
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 13.020715630885123
+Classifier accuracy for bounding boxes from RPN: 0.9075625
+Loss RPN classifier: 0.3846420979459853
+Loss RPN regression: 1.0404924994076459
+Loss Detector classifier: 0.330461275774274
+Loss Detector regression: 0.07394639655749517
+Current validation loss: 1.830, Best validation loss: 1.799 at epoch: 10
+Elapsed time: 168.1284556388855
+Epoch 15/200
+1000/1000 [==============================] - 491s 491ms/step - rpn_cls: 0.3336 - rpn_regr: 1.0590 - detector_cls: 0.2812 - detector_regr: 0.0749
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.087
+Classifier accuracy for bounding boxes from RPN: 0.908015625
+Loss RPN classifier: 0.3381539796421819
+Loss RPN regression: 1.0190165683031083
+Loss Detector classifier: 0.27950379765918476
+Loss Detector regression: 0.0769157593183918
+Elapsed time: 9845.41356420517
+Best loss for training: 1.726
+Total training loss decreased from 1.726 to 1.714, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3_training.hdf5
+534/534 [==============================] - 167s 313ms/step - rpn_cls: 0.3832 - rpn_regr: 0.9883 - detector_cls: 0.3534 - detector_regr: 0.0802
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.225988700564972
+Classifier accuracy for bounding boxes from RPN: 0.908015625
+Loss RPN classifier: 0.3688312870271481
+Loss RPN regression: 1.0169788916710387
+Loss Detector classifier: 0.3381294176245827
+Loss Detector regression: 0.0812196054854069
+Current validation loss: 1.805, Best validation loss: 1.799 at epoch: 10
+Elapsed time: 167.54535555839539
+Epoch 16/200
+1000/1000 [==============================] - 491s 491ms/step - rpn_cls: 0.3410 - rpn_regr: 0.9844 - detector_cls: 0.3054 - detector_regr: 0.0727
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.087
+Classifier accuracy for bounding boxes from RPN: 0.9069375
+Loss RPN classifier: 0.33701949992540686
+Loss RPN regression: 0.9568406215142459
+Loss Detector classifier: 0.28212895240541547
+Loss Detector regression: 0.07078434833001665
+Elapsed time: 10504.407474517822
+Best loss for training: 1.714
+Total training loss decreased from 1.714 to 1.647, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3_training.hdf5
+534/534 [==============================] - 167s 313ms/step - rpn_cls: 0.3749 - rpn_regr: 0.9956 - detector_cls: 0.2806 - detector_regr: 0.0760
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 12.913370998116761
+Classifier accuracy for bounding boxes from RPN: 0.9069375
+Loss RPN classifier: 0.3658598531243172
+Loss RPN regression: 1.035650731200415
+Loss Detector classifier: 0.2759667158515754
+Loss Detector regression: 0.07554754301580967
+Current validation loss: 1.753, Best validation loss: 1.799 at epoch: 10
+Elapsed time: 167.1248323917389
+Total validation loss decreased from 1.799 to 1.753, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3.hdf5
+Epoch 17/200
+1000/1000 [==============================] - 491s 491ms/step - rpn_cls: 0.3325 - rpn_regr: 0.9655 - detector_cls: 0.2846 - detector_regr: 0.0733
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.555
+Classifier accuracy for bounding boxes from RPN: 0.907203125
+Loss RPN classifier: 0.3412571744529246
+Loss RPN regression: 0.9693247648440302
+Loss Detector classifier: 0.2763097750563413
+Loss Detector regression: 0.0715695912054216
+Elapsed time: 11162.745556354523
+Best loss for training: 1.647
+534/534 [==============================] - 169s 316ms/step - rpn_cls: 0.3500 - rpn_regr: 0.9543 - detector_cls: 0.2551 - detector_regr: 0.0692
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.186440677966102
+Classifier accuracy for bounding boxes from RPN: 0.907203125
+Loss RPN classifier: 0.35276311088532813
+Loss RPN regression: 0.967974761480026
+Loss Detector classifier: 0.26989646984459587
+Loss Detector regression: 0.07141435384342804
+Current validation loss: 1.662, Best validation loss: 1.753 at epoch: 15
+Elapsed time: 168.60979914665222
+Total validation loss decreased from 1.753 to 1.662, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3.hdf5
+Epoch 18/200
+1000/1000 [==============================] - 492s 492ms/step - rpn_cls: 0.3154 - rpn_regr: 0.9904 - detector_cls: 0.2737 - detector_regr: 0.0770
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.814
+Classifier accuracy for bounding boxes from RPN: 0.907171875
+Loss RPN classifier: 0.31440160863649624
+Loss RPN regression: 0.9750607691630722
+Loss Detector classifier: 0.2742178842051653
+Loss Detector regression: 0.07332967530881433
+Elapsed time: 11823.288435697556
+Best loss for training: 1.647
+Total training loss decreased from 1.647 to 1.637, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3_training.hdf5
+534/534 [==============================] - 169s 317ms/step - rpn_cls: 0.3757 - rpn_regr: 0.9768 - detector_cls: 0.2769 - detector_regr: 0.0707
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.684905660377359
+Classifier accuracy for bounding boxes from RPN: 0.907171875
+Loss RPN classifier: 0.3807084896531224
+Loss RPN regression: 0.9642180402306247
+Loss Detector classifier: 0.2924625271101123
+Loss Detector regression: 0.07196459531109015
+Current validation loss: 1.709, Best validation loss: 1.662 at epoch: 16
+Elapsed time: 169.401695728302
+Epoch 19/200
+1000/1000 [==============================] - 489s 489ms/step - rpn_cls: 0.3362 - rpn_regr: 1.0001 - detector_cls: 0.2633 - detector_regr: 0.0693
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 13.728
+Classifier accuracy for bounding boxes from RPN: 0.91425
+Loss RPN classifier: 0.3265141282349561
+Loss RPN regression: 0.9621971266809851
+Loss Detector classifier: 0.26168951209168884
+Loss Detector regression: 0.06935624246124644
+Elapsed time: 12481.514968633652
+Best loss for training: 1.637
+Total training loss decreased from 1.637 to 1.620, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3_training.hdf5
+534/534 [==============================] - 167s 313ms/step - rpn_cls: 0.3306 - rpn_regr: 0.9876 - detector_cls: 0.2637 - detector_regr: 0.0682
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.558490566037737
+Classifier accuracy for bounding boxes from RPN: 0.91425
+Loss RPN classifier: 0.3371078738392185
+Loss RPN regression: 0.9888714840321728
+Loss Detector classifier: 0.26956054422313747
+Loss Detector regression: 0.06682803459367051
+Current validation loss: 1.662, Best validation loss: 1.662 at epoch: 16
+Elapsed time: 167.44873523712158
+Epoch 20/200
+1000/1000 [==============================] - 491s 491ms/step - rpn_cls: 0.3346 - rpn_regr: 0.9321 - detector_cls: 0.2452 - detector_regr: 0.0675
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 13.973
+Classifier accuracy for bounding boxes from RPN: 0.91490625
+Loss RPN classifier: 0.32616311717417173
+Loss RPN regression: 0.9044604887869209
+Loss Detector classifier: 0.2500247971508652
+Loss Detector regression: 0.06570057780388742
+Elapsed time: 13139.816598176956
+Best loss for training: 1.620
+Total training loss decreased from 1.620 to 1.546, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3_training.hdf5
+534/534 [==============================] - 169s 316ms/step - rpn_cls: 0.3472 - rpn_regr: 1.0174 - detector_cls: 0.3110 - detector_regr: 0.0682
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 13.625235404896422
+Classifier accuracy for bounding boxes from RPN: 0.91490625
+Loss RPN classifier: 0.34791306747381984
+Loss RPN regression: 1.0087570469226508
+Loss Detector classifier: 0.30290730803339894
+Loss Detector regression: 0.06887138428728644
+Current validation loss: 1.728, Best validation loss: 1.662 at epoch: 16
+Elapsed time: 169.1560513973236
+Epoch 21/200
+1000/1000 [==============================] - 492s 492ms/step - rpn_cls: 0.3312 - rpn_regr: 0.9182 - detector_cls: 0.2562 - detector_regr: 0.0677
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.113
+Classifier accuracy for bounding boxes from RPN: 0.9155
+Loss RPN classifier: 0.33029353169652326
+Loss RPN regression: 0.9375526640005409
+Loss Detector classifier: 0.2521342915876303
+Loss Detector regression: 0.06544211568241008
+Elapsed time: 13800.80077958107
+Best loss for training: 1.546
+534/534 [==============================] - 167s 313ms/step - rpn_cls: 0.3485 - rpn_regr: 1.0055 - detector_cls: 0.2955 - detector_regr: 0.0670
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.49811320754717
+Classifier accuracy for bounding boxes from RPN: 0.9155
+Loss RPN classifier: 0.3334355332693277
+Loss RPN regression: 0.9728506868321463
+Loss Detector classifier: 0.2864266565428831
+Loss Detector regression: 0.0682209764371443
+Current validation loss: 1.661, Best validation loss: 1.662 at epoch: 16
+Elapsed time: 167.30429601669312
+Total validation loss decreased from 1.662 to 1.661, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3.hdf5
+Epoch 22/200
+1000/1000 [==============================] - 493s 493ms/step - rpn_cls: 0.3047 - rpn_regr: 0.9476 - detector_cls: 0.2393 - detector_regr: 0.0682
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 13.962
+Classifier accuracy for bounding boxes from RPN: 0.917234375
+Loss RPN classifier: 0.30758021874137115
+Loss RPN regression: 0.9438166202716529
+Loss Detector classifier: 0.2438601164603606
+Loss Detector regression: 0.06734864226571517
+Elapsed time: 14460.927315235138
+Best loss for training: 1.546
+534/534 [==============================] - 168s 314ms/step - rpn_cls: 0.3477 - rpn_regr: 0.9402 - detector_cls: 0.3011 - detector_regr: 0.0714
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.668549905838042
+Classifier accuracy for bounding boxes from RPN: 0.917234375
+Loss RPN classifier: 0.34645658998915413
+Loss RPN regression: 0.9660172458975279
+Loss Detector classifier: 0.2859384490103785
+Loss Detector regression: 0.0710151444498356
+Current validation loss: 1.669, Best validation loss: 1.661 at epoch: 20
+Elapsed time: 167.70527362823486
+Epoch 23/200
+1000/1000 [==============================] - 490s 490ms/step - rpn_cls: 0.3209 - rpn_regr: 0.9191 - detector_cls: 0.2573 - detector_regr: 0.0685
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.257
+Classifier accuracy for bounding boxes from RPN: 0.9158125
+Loss RPN classifier: 0.3138499516433722
+Loss RPN regression: 0.9140765230376273
+Loss Detector classifier: 0.24889011049643187
+Loss Detector regression: 0.06426772167070158
+Elapsed time: 15118.730713367462
+Best loss for training: 1.546
+Total training loss decreased from 1.546 to 1.541, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3_training.hdf5
+534/534 [==============================] - 165s 309ms/step - rpn_cls: 0.3576 - rpn_regr: 0.9568 - detector_cls: 0.3068 - detector_regr: 0.0693
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 13.979284369114877
+Classifier accuracy for bounding boxes from RPN: 0.9158125
+Loss RPN classifier: 0.3499770129357895
+Loss RPN regression: 0.993244418839502
+Loss Detector classifier: 0.2808008749458297
+Loss Detector regression: 0.07155843568058826
+Current validation loss: 1.696, Best validation loss: 1.661 at epoch: 20
+Elapsed time: 165.39805245399475
+Epoch 24/200
+1000/1000 [==============================] - 491s 491ms/step - rpn_cls: 0.3047 - rpn_regr: 0.8657 - detector_cls: 0.2253 - detector_regr: 0.0599
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.395
+Classifier accuracy for bounding boxes from RPN: 0.92084375
+Loss RPN classifier: 0.3054500415806788
+Loss RPN regression: 0.8725691353775328
+Loss Detector classifier: 0.23307191559512286
+Loss Detector regression: 0.06065627804966062
+Elapsed time: 15775.629878997803
+Best loss for training: 1.541
+Total training loss decreased from 1.541 to 1.472, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3_training.hdf5
+534/534 [==============================] - 165s 310ms/step - rpn_cls: 0.3412 - rpn_regr: 0.9740 - detector_cls: 0.2722 - detector_regr: 0.0643
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.858757062146893
+Classifier accuracy for bounding boxes from RPN: 0.92084375
+Loss RPN classifier: 0.34355709233210335
+Loss RPN regression: 0.9584980803622065
+Loss Detector classifier: 0.2779084569207752
+Loss Detector regression: 0.06356274744767945
+Current validation loss: 1.644, Best validation loss: 1.661 at epoch: 20
+Elapsed time: 165.73518085479736
+Total validation loss decreased from 1.661 to 1.644, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3.hdf5
+Epoch 25/200
+1000/1000 [==============================] - 492s 492ms/step - rpn_cls: 0.3118 - rpn_regr: 0.9010 - detector_cls: 0.2404 - detector_regr: 0.0589
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 13.919
+Classifier accuracy for bounding boxes from RPN: 0.91878125
+Loss RPN classifier: 0.2942944114652364
+Loss RPN regression: 0.8953825301229954
+Loss Detector classifier: 0.23665830556799483
+Loss Detector regression: 0.06323696472411393
+Elapsed time: 16433.610939979553
+Best loss for training: 1.472
+534/534 [==============================] - 168s 315ms/step - rpn_cls: 0.3104 - rpn_regr: 0.9699 - detector_cls: 0.3159 - detector_regr: 0.0811
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 15.962406015037594
+Classifier accuracy for bounding boxes from RPN: 0.91878125
+Loss RPN classifier: 0.3421465035859145
+Loss RPN regression: 0.9989320032842709
+Loss Detector classifier: 0.3424365657198261
+Loss Detector regression: 0.08293235368077734
+Current validation loss: 1.766, Best validation loss: 1.644 at epoch: 23
+Elapsed time: 168.0194070339203
+Epoch 26/200
+1000/1000 [==============================] - 490s 490ms/step - rpn_cls: 0.3114 - rpn_regr: 0.8908 - detector_cls: 0.2506 - detector_regr: 0.0604
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.324
+Classifier accuracy for bounding boxes from RPN: 0.918
+Loss RPN classifier: 0.3106057104796246
+Loss RPN regression: 0.89093467541039
+Loss Detector classifier: 0.244152446842083
+Loss Detector regression: 0.06163425236789044
+Elapsed time: 17091.880433559418
+Best loss for training: 1.472
+534/534 [==============================] - 169s 316ms/step - rpn_cls: 0.3116 - rpn_regr: 0.9609 - detector_cls: 0.2583 - detector_regr: 0.0736
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 13.739622641509435
+Classifier accuracy for bounding boxes from RPN: 0.918
+Loss RPN classifier: 0.3348568931926055
+Loss RPN regression: 0.9497972054455834
+Loss Detector classifier: 0.28058891865526836
+Loss Detector regression: 0.07104820884371824
+Current validation loss: 1.636, Best validation loss: 1.644 at epoch: 23
+Elapsed time: 168.59407019615173
+Total validation loss decreased from 1.644 to 1.636, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3.hdf5
+Epoch 27/200
+1000/1000 [==============================] - 486s 486ms/step - rpn_cls: 0.3023 - rpn_regr: 0.8954 - detector_cls: 0.2342 - detector_regr: 0.0592
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 13.708
+Classifier accuracy for bounding boxes from RPN: 0.9203125
+Loss RPN classifier: 0.2975985361369021
+Loss RPN regression: 0.8958500059600919
+Loss Detector classifier: 0.23590304807084614
+Loss Detector regression: 0.06027525348585914
+Elapsed time: 17746.651629924774
+Best loss for training: 1.472
+534/534 [==============================] - 167s 313ms/step - rpn_cls: 0.3179 - rpn_regr: 0.9283 - detector_cls: 0.2493 - detector_regr: 0.0625
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 12.054716981132076
+Classifier accuracy for bounding boxes from RPN: 0.9203125
+Loss RPN classifier: 0.33115627185698787
+Loss RPN regression: 0.9253342619675041
+Loss Detector classifier: 0.25481733182826244
+Loss Detector regression: 0.06316629460037673
+Current validation loss: 1.574, Best validation loss: 1.636 at epoch: 25
+Elapsed time: 167.43354988098145
+Total validation loss decreased from 1.636 to 1.574, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3.hdf5
+Epoch 28/200
+1000/1000 [==============================] - 491s 491ms/step - rpn_cls: 0.2813 - rpn_regr: 0.8333 - detector_cls: 0.2257 - detector_regr: 0.0581
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.334
+Classifier accuracy for bounding boxes from RPN: 0.921390625
+Loss RPN classifier: 0.28872398518170017
+Loss RPN regression: 0.8728454954698682
+Loss Detector classifier: 0.23010760704474523
+Loss Detector regression: 0.0608476601926377
+Elapsed time: 18405.558935642242
+Best loss for training: 1.472
+Total training loss decreased from 1.472 to 1.453, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3_training.hdf5
+534/534 [==============================] - 169s 316ms/step - rpn_cls: 0.3276 - rpn_regr: 0.9801 - detector_cls: 0.2672 - detector_regr: 0.0624
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 13.589453860640301
+Classifier accuracy for bounding boxes from RPN: 0.921390625
+Loss RPN classifier: 0.32908696137405924
+Loss RPN regression: 0.954466573231285
+Loss Detector classifier: 0.27066494834701765
+Loss Detector regression: 0.0630077402587348
+Current validation loss: 1.617, Best validation loss: 1.574 at epoch: 26
+Elapsed time: 169.0211319923401
+Epoch 29/200
+1000/1000 [==============================] - 494s 494ms/step - rpn_cls: 0.2977 - rpn_regr: 0.8590 - detector_cls: 0.2451 - detector_regr: 0.0591
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.361
+Classifier accuracy for bounding boxes from RPN: 0.920609375
+Loss RPN classifier: 0.30037490809277834
+Loss RPN regression: 0.866233876587823
+Loss Detector classifier: 0.23365381814469582
+Loss Detector regression: 0.059951235181084486
+Elapsed time: 19068.488847970963
+Best loss for training: 1.453
+534/534 [==============================] - 167s 313ms/step - rpn_cls: 0.3640 - rpn_regr: 0.9570 - detector_cls: 0.2727 - detector_regr: 0.0635
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 13.330188679245284
+Classifier accuracy for bounding boxes from RPN: 0.920609375
+Loss RPN classifier: 0.3526718370179717
+Loss RPN regression: 0.9661763140701511
+Loss Detector classifier: 0.27185109331231555
+Loss Detector regression: 0.06508775940962008
+Current validation loss: 1.656, Best validation loss: 1.574 at epoch: 26
+Elapsed time: 167.08657240867615
+Epoch 30/200
+1000/1000 [==============================] - 490s 490ms/step - rpn_cls: 0.3158 - rpn_regr: 0.9011 - detector_cls: 0.2174 - detector_regr: 0.0574
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 13.713
+Classifier accuracy for bounding boxes from RPN: 0.92515625
+Loss RPN classifier: 0.2993990083606386
+Loss RPN regression: 0.8578185287695378
+Loss Detector classifier: 0.22116930353199132
+Loss Detector regression: 0.05929090539738536
+Elapsed time: 19725.499770879745
+Best loss for training: 1.453
+Total training loss decreased from 1.453 to 1.438, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3_training.hdf5
+534/534 [==============================] - 167s 313ms/step - rpn_cls: 0.3204 - rpn_regr: 0.8946 - detector_cls: 0.3065 - detector_regr: 0.0663
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.595103578154426
+Classifier accuracy for bounding boxes from RPN: 0.92515625
+Loss RPN classifier: 0.3283726775988432
+Loss RPN regression: 0.9047934538667345
+Loss Detector classifier: 0.2905727239065779
+Loss Detector regression: 0.06673089136592274
+Current validation loss: 1.590, Best validation loss: 1.574 at epoch: 26
+Elapsed time: 167.5480134487152
+Epoch 31/200
+1000/1000 [==============================] - 491s 491ms/step - rpn_cls: 0.2773 - rpn_regr: 0.7928 - detector_cls: 0.2308 - detector_regr: 0.0580
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.889
+Classifier accuracy for bounding boxes from RPN: 0.923515625
+Loss RPN classifier: 0.28379766755690505
+Loss RPN regression: 0.7815964788710699
+Loss Detector classifier: 0.22421360826771705
+Loss Detector regression: 0.059544231204257815
+Elapsed time: 20383.975222349167
+Best loss for training: 1.438
+Total training loss decreased from 1.438 to 1.349, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3_training.hdf5
+534/534 [==============================] - 168s 314ms/step - rpn_cls: 0.3277 - rpn_regr: 0.9988 - detector_cls: 0.3701 - detector_regr: 0.0702
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 16.28813559322034
+Classifier accuracy for bounding boxes from RPN: 0.923515625
+Loss RPN classifier: 0.3316399001024931
+Loss RPN regression: 0.9789318255801103
+Loss Detector classifier: 0.34927560828324433
+Loss Detector regression: 0.07176448319308562
+Current validation loss: 1.732, Best validation loss: 1.574 at epoch: 26
+Elapsed time: 167.8780472278595
+Epoch 32/200
+1000/1000 [==============================] - 491s 491ms/step - rpn_cls: 0.2847 - rpn_regr: 0.8423 - detector_cls: 0.2304 - detector_regr: 0.0587
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.182
+Classifier accuracy for bounding boxes from RPN: 0.924703125
+Loss RPN classifier: 0.28492435526290716
+Loss RPN regression: 0.8371264193854294
+Loss Detector classifier: 0.22526421213160075
+Loss Detector regression: 0.05740956669814477
+Elapsed time: 21042.538549423218
+Best loss for training: 1.349
+534/534 [==============================] - 167s 314ms/step - rpn_cls: 0.3415 - rpn_regr: 0.9717 - detector_cls: 0.2586 - detector_regr: 0.0637
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 13.473684210526315
+Classifier accuracy for bounding boxes from RPN: 0.924703125
+Loss RPN classifier: 0.33945776295617996
+Loss RPN regression: 0.9589099434626459
+Loss Detector classifier: 0.269530180860869
+Loss Detector regression: 0.06520888866511126
+Current validation loss: 1.633, Best validation loss: 1.574 at epoch: 26
+Elapsed time: 167.4801321029663
+Epoch 33/200
+1000/1000 [==============================] - 492s 492ms/step - rpn_cls: 0.2723 - rpn_regr: 0.8372 - detector_cls: 0.2176 - detector_regr: 0.0573
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.171
+Classifier accuracy for bounding boxes from RPN: 0.92253125
+Loss RPN classifier: 0.2837469280219024
+Loss RPN regression: 0.8388920384831726
+Loss Detector classifier: 0.22507538422349171
+Loss Detector regression: 0.05797936074934114
+Elapsed time: 21702.21405029297
+Best loss for training: 1.349
+534/534 [==============================] - 169s 316ms/step - rpn_cls: 0.3044 - rpn_regr: 0.8554 - detector_cls: 0.2648 - detector_regr: 0.0674
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.468926553672317
+Classifier accuracy for bounding boxes from RPN: 0.92253125
+Loss RPN classifier: 0.31300639404773256
+Loss RPN regression: 0.8859806978754169
+Loss Detector classifier: 0.27982955256892084
+Loss Detector regression: 0.0675637331089283
+Current validation loss: 1.546, Best validation loss: 1.574 at epoch: 26
+Elapsed time: 168.72689008712769
+Total validation loss decreased from 1.574 to 1.546, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3.hdf5
+Epoch 34/200
+1000/1000 [==============================] - 491s 491ms/step - rpn_cls: 0.2767 - rpn_regr: 0.8334 - detector_cls: 0.2225 - detector_regr: 0.0595
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 13.903
+Classifier accuracy for bounding boxes from RPN: 0.924796875
+Loss RPN classifier: 0.28644604715350236
+Loss RPN regression: 0.855362632907927
+Loss Detector classifier: 0.21500590022774804
+Loss Detector regression: 0.057438497298848236
+Elapsed time: 22361.71919441223
+Best loss for training: 1.349
+534/534 [==============================] - 169s 316ms/step - rpn_cls: 0.3097 - rpn_regr: 0.9366 - detector_cls: 0.2550 - detector_regr: 0.0651
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 12.554716981132076
+Classifier accuracy for bounding boxes from RPN: 0.924796875
+Loss RPN classifier: 0.32454851301654486
+Loss RPN regression: 0.9441060098760137
+Loss Detector classifier: 0.27107218193057714
+Loss Detector regression: 0.06399729450234698
+Current validation loss: 1.604, Best validation loss: 1.546 at epoch: 32
+Elapsed time: 168.7674753665924
+Epoch 35/200
+1000/1000 [==============================] - 490s 490ms/step - rpn_cls: 0.2707 - rpn_regr: 0.7925 - detector_cls: 0.2150 - detector_regr: 0.0558
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.235
+Classifier accuracy for bounding boxes from RPN: 0.925328125
+Loss RPN classifier: 0.278570415103924
+Loss RPN regression: 0.7834533613892272
+Loss Detector classifier: 0.21534969446551985
+Loss Detector regression: 0.056079453304002526
+Elapsed time: 23020.694215774536
+Best loss for training: 1.349
+Total training loss decreased from 1.349 to 1.333, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3_training.hdf5
+534/534 [==============================] - 168s 315ms/step - rpn_cls: 0.2994 - rpn_regr: 0.9236 - detector_cls: 0.2820 - detector_regr: 0.0652
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 13.787193973634652
+Classifier accuracy for bounding boxes from RPN: 0.925328125
+Loss RPN classifier: 0.31437826569633137
+Loss RPN regression: 0.9151878596356745
+Loss Detector classifier: 0.28373269546839797
+Loss Detector regression: 0.0659974319414857
+Current validation loss: 1.579, Best validation loss: 1.546 at epoch: 32
+Elapsed time: 168.3888509273529
+Epoch 36/200
+1000/1000 [==============================] - 491s 491ms/step - rpn_cls: 0.2651 - rpn_regr: 0.7877 - detector_cls: 0.2002 - detector_regr: 0.0521
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.176
+Classifier accuracy for bounding boxes from RPN: 0.92790625
+Loss RPN classifier: 0.26979681456938887
+Loss RPN regression: 0.811303998908028
+Loss Detector classifier: 0.20789790385800005
+Loss Detector regression: 0.054479159793096185
+Elapsed time: 23680.31977367401
+Best loss for training: 1.333
+534/534 [==============================] - 168s 315ms/step - rpn_cls: 0.2947 - rpn_regr: 0.9433 - detector_cls: 0.2494 - detector_regr: 0.0607
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 13.441509433962263
+Classifier accuracy for bounding boxes from RPN: 0.92790625
+Loss RPN classifier: 0.3106210544812411
+Loss RPN regression: 0.9252638215136327
+Loss Detector classifier: 0.2644624564627077
+Loss Detector regression: 0.0633448290062539
+Current validation loss: 1.564, Best validation loss: 1.546 at epoch: 32
+Elapsed time: 168.49635338783264
+Epoch 37/200
+1000/1000 [==============================] - 492s 492ms/step - rpn_cls: 0.2670 - rpn_regr: 0.8437 - detector_cls: 0.2048 - detector_regr: 0.0568
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 13.912
+Classifier accuracy for bounding boxes from RPN: 0.929484375
+Loss RPN classifier: 0.2671123941066636
+Loss RPN regression: 0.8036914047831669
+Loss Detector classifier: 0.20719762415532023
+Loss Detector regression: 0.054770157749291684
+Elapsed time: 24340.680044412613
+Best loss for training: 1.333
+Total training loss decreased from 1.333 to 1.333, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3_training.hdf5
+534/534 [==============================] - 168s 315ms/step - rpn_cls: 0.3329 - rpn_regr: 0.8798 - detector_cls: 0.2722 - detector_regr: 0.0636
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 13.732075471698113
+Classifier accuracy for bounding boxes from RPN: 0.929484375
+Loss RPN classifier: 0.32512308579425064
+Loss RPN regression: 0.8961748811050078
+Loss Detector classifier: 0.26817935452123315
+Loss Detector regression: 0.06357921576903103
+Current validation loss: 1.553, Best validation loss: 1.546 at epoch: 32
+Elapsed time: 168.5355179309845
+Epoch 38/200
+1000/1000 [==============================] - 491s 491ms/step - rpn_cls: 0.2751 - rpn_regr: 0.7925 - detector_cls: 0.2238 - detector_regr: 0.0569
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.452
+Classifier accuracy for bounding boxes from RPN: 0.924171875
+Loss RPN classifier: 0.2701735561646603
+Loss RPN regression: 0.8156476522572339
+Loss Detector classifier: 0.22248722641088534
+Loss Detector regression: 0.05760571758834703
+Elapsed time: 25000.424128055573
+Best loss for training: 1.333
+534/534 [==============================] - 168s 315ms/step - rpn_cls: 0.3280 - rpn_regr: 0.9438 - detector_cls: 0.2938 - detector_regr: 0.0668
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 12.962335216572505
+Classifier accuracy for bounding boxes from RPN: 0.924171875
+Loss RPN classifier: 0.3279933096262823
+Loss RPN regression: 0.9251346124705861
+Loss Detector classifier: 0.28793365405419014
+Loss Detector regression: 0.06843421877373503
+Current validation loss: 1.609, Best validation loss: 1.546 at epoch: 32
+Elapsed time: 168.36504864692688
+Epoch 39/200
+1000/1000 [==============================] - 487s 487ms/step - rpn_cls: 0.2765 - rpn_regr: 0.8106 - detector_cls: 0.2173 - detector_regr: 0.0544
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.599
+Classifier accuracy for bounding boxes from RPN: 0.92734375
+Loss RPN classifier: 0.27593591590102523
+Loss RPN regression: 0.7894687186479569
+Loss Detector classifier: 0.21067140384255253
+Loss Detector regression: 0.052636500261259246
+Elapsed time: 25656.079569339752
+Best loss for training: 1.333
+Total training loss decreased from 1.333 to 1.329, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3_training.hdf5
+534/534 [==============================] - 167s 313ms/step - rpn_cls: 0.3163 - rpn_regr: 0.9180 - detector_cls: 0.2676 - detector_regr: 0.0566
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 13.259887005649718
+Classifier accuracy for bounding boxes from RPN: 0.92734375
+Loss RPN classifier: 0.30430617766129653
+Loss RPN regression: 0.9033023050152574
+Loss Detector classifier: 0.2572494581222276
+Loss Detector regression: 0.05803046371708187
+Current validation loss: 1.523, Best validation loss: 1.546 at epoch: 32
+Elapsed time: 167.16275572776794
+Total validation loss decreased from 1.546 to 1.523, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3.hdf5
+Epoch 40/200
+1000/1000 [==============================] - 494s 494ms/step - rpn_cls: 0.2687 - rpn_regr: 0.7616 - detector_cls: 0.2021 - detector_regr: 0.0538
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.616
+Classifier accuracy for bounding boxes from RPN: 0.929
+Loss RPN classifier: 0.27023530810493
+Loss RPN regression: 0.7664882935155183
+Loss Detector classifier: 0.2029203707178822
+Loss Detector regression: 0.05351317260832002
+Elapsed time: 26317.259826660156
+Best loss for training: 1.329
+Total training loss decreased from 1.329 to 1.293, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3_training.hdf5
+534/534 [==============================] - 166s 311ms/step - rpn_cls: 0.3262 - rpn_regr: 0.9237 - detector_cls: 0.2956 - detector_regr: 0.0650
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.459510357815443
+Classifier accuracy for bounding boxes from RPN: 0.929
+Loss RPN classifier: 0.3138099354074933
+Loss RPN regression: 0.9191488075289833
+Loss Detector classifier: 0.2876513295541849
+Loss Detector regression: 0.06471007725593218
+Current validation loss: 1.585, Best validation loss: 1.523 at epoch: 38
+Elapsed time: 166.315345287323
+Epoch 41/200
+1000/1000 [==============================] - 493s 493ms/step - rpn_cls: 0.2557 - rpn_regr: 0.8265 - detector_cls: 0.1999 - detector_regr: 0.0530
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.231
+Classifier accuracy for bounding boxes from RPN: 0.930140625
+Loss RPN classifier: 0.2568199560372168
+Loss RPN regression: 0.8075965121686458
+Loss Detector classifier: 0.20564354577344285
+Loss Detector regression: 0.05483941733013489
+Elapsed time: 26976.58202958107
+Best loss for training: 1.293
+534/534 [==============================] - 169s 316ms/step - rpn_cls: 0.3025 - rpn_regr: 0.8545 - detector_cls: 0.2829 - detector_regr: 0.0659
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.774011299435028
+Classifier accuracy for bounding boxes from RPN: 0.930140625
+Loss RPN classifier: 0.30485430724096685
+Loss RPN regression: 0.879367627712727
+Loss Detector classifier: 0.29210708631213045
+Loss Detector regression: 0.06419470541753954
+Current validation loss: 1.541, Best validation loss: 1.523 at epoch: 38
+Elapsed time: 168.78505182266235
+Epoch 42/200
+1000/1000 [==============================] - 496s 496ms/step - rpn_cls: 0.2672 - rpn_regr: 0.7653 - detector_cls: 0.2083 - detector_regr: 0.0552
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.187
+Classifier accuracy for bounding boxes from RPN: 0.9276875
+Loss RPN classifier: 0.25747600113150326
+Loss RPN regression: 0.7806537024406717
+Loss Detector classifier: 0.21133408065442927
+Loss Detector regression: 0.05471648779883253
+Elapsed time: 27641.042494535446
+Best loss for training: 1.293
+534/534 [==============================] - 169s 317ms/step - rpn_cls: 0.3044 - rpn_regr: 0.8741 - detector_cls: 0.2598 - detector_regr: 0.0634
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.818867924528302
+Classifier accuracy for bounding boxes from RPN: 0.9276875
+Loss RPN classifier: 0.3068163840522087
+Loss RPN regression: 0.9001858255822449
+Loss Detector classifier: 0.26272987976970513
+Loss Detector regression: 0.061273670327142093
+Current validation loss: 1.531, Best validation loss: 1.523 at epoch: 38
+Elapsed time: 169.50320744514465
+Epoch 43/200
+1000/1000 [==============================] - 492s 492ms/step - rpn_cls: 0.2682 - rpn_regr: 0.8105 - detector_cls: 0.1933 - detector_regr: 0.0502
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.13
+Classifier accuracy for bounding boxes from RPN: 0.932828125
+Loss RPN classifier: 0.26149773808952037
+Loss RPN regression: 0.7816714187674224
+Loss Detector classifier: 0.19588579583124374
+Loss Detector regression: 0.050951956430450085
+Elapsed time: 28302.93394470215
+Best loss for training: 1.293
+Total training loss decreased from 1.293 to 1.290, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3_training.hdf5
+534/534 [==============================] - 169s 316ms/step - rpn_cls: 0.3319 - rpn_regr: 0.9156 - detector_cls: 0.2778 - detector_regr: 0.0615
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.719397363465161
+Classifier accuracy for bounding boxes from RPN: 0.932828125
+Loss RPN classifier: 0.32543559906714914
+Loss RPN regression: 0.8998493664036418
+Loss Detector classifier: 0.28471347050935775
+Loss Detector regression: 0.06159131384154169
+Current validation loss: 1.572, Best validation loss: 1.523 at epoch: 38
+Elapsed time: 169.02468943595886
+Epoch 44/200
+1000/1000 [==============================] - 490s 490ms/step - rpn_cls: 0.2616 - rpn_regr: 0.7584 - detector_cls: 0.1958 - detector_regr: 0.0533
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 13.997
+Classifier accuracy for bounding boxes from RPN: 0.932578125
+Loss RPN classifier: 0.25590629068355886
+Loss RPN regression: 0.7469758440516889
+Loss Detector classifier: 0.19657728985381254
+Loss Detector regression: 0.052441006304710755
+Elapsed time: 28961.92913722992
+Best loss for training: 1.290
+Total training loss decreased from 1.290 to 1.252, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3_training.hdf5
+534/534 [==============================] - 169s 316ms/step - rpn_cls: 0.2898 - rpn_regr: 0.8915 - detector_cls: 0.3057 - detector_regr: 0.0640
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 15.220754716981132
+Classifier accuracy for bounding boxes from RPN: 0.932578125
+Loss RPN classifier: 0.30122257504274863
+Loss RPN regression: 0.8822329728428121
+Loss Detector classifier: 0.30106491616729575
+Loss Detector regression: 0.06471992393836556
+Current validation loss: 1.549, Best validation loss: 1.523 at epoch: 38
+Elapsed time: 169.0228488445282
+Epoch 45/200
+1000/1000 [==============================] - 493s 493ms/step - rpn_cls: 0.2649 - rpn_regr: 0.7240 - detector_cls: 0.2108 - detector_regr: 0.0556
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.541
+Classifier accuracy for bounding boxes from RPN: 0.929734375
+Loss RPN classifier: 0.257219124267912
+Loss RPN regression: 0.73546957958024
+Loss Detector classifier: 0.20599324275543404
+Loss Detector regression: 0.0542201680309372
+Elapsed time: 29624.168308734894
+Best loss for training: 1.252
+534/534 [==============================] - 170s 319ms/step - rpn_cls: 0.3074 - rpn_regr: 0.9122 - detector_cls: 0.2782 - detector_regr: 0.0645
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.636534839924671
+Classifier accuracy for bounding boxes from RPN: 0.929734375
+Loss RPN classifier: 0.30299816043185446
+Loss RPN regression: 0.8833995133722097
+Loss Detector classifier: 0.2827908621319615
+Loss Detector regression: 0.06393334776918111
+Current validation loss: 1.533, Best validation loss: 1.523 at epoch: 38
+Elapsed time: 170.30295968055725
+Epoch 46/200
+1000/1000 [==============================] - 494s 494ms/step - rpn_cls: 0.2661 - rpn_regr: 0.7820 - detector_cls: 0.2130 - detector_regr: 0.0539
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.77
+Classifier accuracy for bounding boxes from RPN: 0.928484375
+Loss RPN classifier: 0.24901966735140074
+Loss RPN regression: 0.7782656923821196
+Loss Detector classifier: 0.20926089000853243
+Loss Detector regression: 0.054238034046262325
+Elapsed time: 30288.686539173126
+Best loss for training: 1.252
+534/534 [==============================] - 167s 313ms/step - rpn_cls: 0.3017 - rpn_regr: 0.9548 - detector_cls: 0.3009 - detector_regr: 0.0622
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.416981132075472
+Classifier accuracy for bounding boxes from RPN: 0.928484375
+Loss RPN classifier: 0.2982754804407399
+Loss RPN regression: 0.918507980817601
+Loss Detector classifier: 0.28639378143905675
+Loss Detector regression: 0.06232149720022783
+Current validation loss: 1.565, Best validation loss: 1.523 at epoch: 38
+Elapsed time: 167.44127559661865
+Epoch 47/200
+1000/1000 [==============================] - 492s 492ms/step - rpn_cls: 0.2646 - rpn_regr: 0.7621 - detector_cls: 0.2001 - detector_regr: 0.0527
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.384
+Classifier accuracy for bounding boxes from RPN: 0.93240625
+Loss RPN classifier: 0.25424978925023406
+Loss RPN regression: 0.7425626563327387
+Loss Detector classifier: 0.19900594111358624
+Loss Detector regression: 0.05329890442902979
+Elapsed time: 30948.112728834152
+Best loss for training: 1.252
+Total training loss decreased from 1.252 to 1.249, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3_training.hdf5
+534/534 [==============================] - 169s 316ms/step - rpn_cls: 0.3318 - rpn_regr: 0.9000 - detector_cls: 0.3139 - detector_regr: 0.0620
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.448210922787194
+Classifier accuracy for bounding boxes from RPN: 0.93240625
+Loss RPN classifier: 0.3134545468463188
+Loss RPN regression: 0.890181675699822
+Loss Detector classifier: 0.278156728378603
+Loss Detector regression: 0.06076529280704726
+Current validation loss: 1.543, Best validation loss: 1.523 at epoch: 38
+Elapsed time: 168.85908460617065
+Epoch 48/200
+1000/1000 [==============================] - 492s 492ms/step - rpn_cls: 0.2513 - rpn_regr: 0.7574 - detector_cls: 0.1956 - detector_regr: 0.0538
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.593
+Classifier accuracy for bounding boxes from RPN: 0.932671875
+Loss RPN classifier: 0.25194574234720013
+Loss RPN regression: 0.7519416854698211
+Loss Detector classifier: 0.19774269710015505
+Loss Detector regression: 0.0522961374102706
+Elapsed time: 31608.844539403915
+Best loss for training: 1.249
+534/534 [==============================] - 167s 313ms/step - rpn_cls: 0.3382 - rpn_regr: 0.8986 - detector_cls: 0.3147 - detector_regr: 0.0603
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 15.463276836158192
+Classifier accuracy for bounding boxes from RPN: 0.932671875
+Loss RPN classifier: 0.31544352904572226
+Loss RPN regression: 0.905361438644457
+Loss Detector classifier: 0.3038884573597906
+Loss Detector regression: 0.060418503890283894
+Current validation loss: 1.585, Best validation loss: 1.523 at epoch: 38
+Elapsed time: 167.03040051460266
+Not improved validation accuracy for 8 epochs. Reducing learning rate from 1.0 to 0.5
+Epoch 49/200
+1000/1000 [==============================] - 499s 499ms/step - rpn_cls: 0.2332 - rpn_regr: 0.6700 - detector_cls: 0.1767 - detector_regr: 0.0429
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.449
+Classifier accuracy for bounding boxes from RPN: 0.937515625
+Loss RPN classifier: 0.22930117362446073
+Loss RPN regression: 0.6729157750979066
+Loss Detector classifier: 0.17544484060615662
+Loss Detector regression: 0.04381797744310461
+Elapsed time: 32275.93834710121
+Best loss for training: 1.249
+Total training loss decreased from 1.249 to 1.121, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3_training.hdf5
+534/534 [==============================] - 172s 323ms/step - rpn_cls: 0.3227 - rpn_regr: 0.8149 - detector_cls: 0.2734 - detector_regr: 0.0572
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.502824858757062
+Classifier accuracy for bounding boxes from RPN: 0.937515625
+Loss RPN classifier: 0.3039782911155669
+Loss RPN regression: 0.8376007891689123
+Loss Detector classifier: 0.26884061413422955
+Loss Detector regression: 0.056159154827494256
+Current validation loss: 1.467, Best validation loss: 1.523 at epoch: 38
+Elapsed time: 172.64806365966797
+Total validation loss decreased from 1.523 to 1.467, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3.hdf5
+Epoch 50/200
+1000/1000 [==============================] - 502s 502ms/step - rpn_cls: 0.2318 - rpn_regr: 0.6953 - detector_cls: 0.1693 - detector_regr: 0.0444
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.003
+Classifier accuracy for bounding boxes from RPN: 0.942796875
+Loss RPN classifier: 0.2266875187313628
+Loss RPN regression: 0.6702255378956906
+Loss Detector classifier: 0.16300288996865855
+Loss Detector regression: 0.04353437078400748
+Elapsed time: 32950.44160985947
+Best loss for training: 1.121
+Total training loss decreased from 1.121 to 1.103, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3_training.hdf5
+534/534 [==============================] - 174s 326ms/step - rpn_cls: 0.2946 - rpn_regr: 0.8130 - detector_cls: 0.2781 - detector_regr: 0.0553
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.977358490566038
+Classifier accuracy for bounding boxes from RPN: 0.942796875
+Loss RPN classifier: 0.3061077061511404
+Loss RPN regression: 0.838862555422419
+Loss Detector classifier: 0.28763931091737605
+Loss Detector regression: 0.05685254596190386
+Current validation loss: 1.489, Best validation loss: 1.467 at epoch: 48
+Elapsed time: 174.23976302146912
+Epoch 51/200
+1000/1000 [==============================] - 501s 501ms/step - rpn_cls: 0.2160 - rpn_regr: 0.5866 - detector_cls: 0.1588 - detector_regr: 0.0396
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.708
+Classifier accuracy for bounding boxes from RPN: 0.945203125
+Loss RPN classifier: 0.21896677138719964
+Loss RPN regression: 0.6222729636484291
+Loss Detector classifier: 0.15609293659829473
+Loss Detector regression: 0.04021315651170187
+Elapsed time: 33625.49130010605
+Best loss for training: 1.103
+Total training loss decreased from 1.103 to 1.038, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3_training.hdf5
+534/534 [==============================] - 175s 327ms/step - rpn_cls: 0.3082 - rpn_regr: 0.8638 - detector_cls: 0.2827 - detector_regr: 0.0694
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 15.746240601503759
+Classifier accuracy for bounding boxes from RPN: 0.945203125
+Loss RPN classifier: 0.3208833637842103
+Loss RPN regression: 0.8675249580726418
+Loss Detector classifier: 0.29510570860019186
+Loss Detector regression: 0.06864253094412606
+Current validation loss: 1.552, Best validation loss: 1.467 at epoch: 48
+Elapsed time: 174.7125222682953
+Epoch 52/200
+1000/1000 [==============================] - 501s 501ms/step - rpn_cls: 0.2211 - rpn_regr: 0.6039 - detector_cls: 0.1548 - detector_regr: 0.0456
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.788
+Classifier accuracy for bounding boxes from RPN: 0.943171875
+Loss RPN classifier: 0.22584235430530902
+Loss RPN regression: 0.623146278778091
+Loss Detector classifier: 0.16308321303924095
+Loss Detector regression: 0.04413789144801922
+Elapsed time: 34301.52307367325
+Best loss for training: 1.038
+534/534 [==============================] - 173s 324ms/step - rpn_cls: 0.2627 - rpn_regr: 0.8357 - detector_cls: 0.2621 - detector_regr: 0.0589
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.681132075471698
+Classifier accuracy for bounding boxes from RPN: 0.943171875
+Loss RPN classifier: 0.2872589962504561
+Loss RPN regression: 0.8326115865776601
+Loss Detector classifier: 0.26802648692743386
+Loss Detector regression: 0.05762334330043228
+Current validation loss: 1.446, Best validation loss: 1.467 at epoch: 48
+Elapsed time: 173.0356605052948
+Total validation loss decreased from 1.467 to 1.446, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3.hdf5
+Epoch 53/200
+1000/1000 [==============================] - 501s 501ms/step - rpn_cls: 0.2268 - rpn_regr: 0.6780 - detector_cls: 0.1545 - detector_regr: 0.0438
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.779
+Classifier accuracy for bounding boxes from RPN: 0.9439375
+Loss RPN classifier: 0.22197480070128056
+Loss RPN regression: 0.6543105195406824
+Loss Detector classifier: 0.1566819228743234
+Loss Detector regression: 0.042714415690890746
+Elapsed time: 34976.16597867012
+Best loss for training: 1.038
+534/534 [==============================] - 174s 327ms/step - rpn_cls: 0.2689 - rpn_regr: 0.8569 - detector_cls: 0.2713 - detector_regr: 0.0569
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.536723163841808
+Classifier accuracy for bounding boxes from RPN: 0.9439375
+Loss RPN classifier: 0.27753247865828595
+Loss RPN regression: 0.8342507027563978
+Loss Detector classifier: 0.2753887332204773
+Loss Detector regression: 0.05577548508890831
+Current validation loss: 1.443, Best validation loss: 1.446 at epoch: 51
+Elapsed time: 174.43113732337952
+Total validation loss decreased from 1.446 to 1.443, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3.hdf5
+Epoch 54/200
+1000/1000 [==============================] - 500s 500ms/step - rpn_cls: 0.2178 - rpn_regr: 0.6413 - detector_cls: 0.1558 - detector_regr: 0.0434
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.218
+Classifier accuracy for bounding boxes from RPN: 0.94759375
+Loss RPN classifier: 0.21350676985516684
+Loss RPN regression: 0.6250566996512934
+Loss Detector classifier: 0.15102426855310477
+Loss Detector regression: 0.041850631118355526
+Elapsed time: 35650.466482162476
+Best loss for training: 1.038
+Total training loss decreased from 1.038 to 1.031, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3_training.hdf5
+534/534 [==============================] - 172s 323ms/step - rpn_cls: 0.3030 - rpn_regr: 0.8891 - detector_cls: 0.2876 - detector_regr: 0.0564
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 13.649056603773586
+Classifier accuracy for bounding boxes from RPN: 0.94759375
+Loss RPN classifier: 0.2980132573701911
+Loss RPN regression: 0.854284631123257
+Loss Detector classifier: 0.28058293695469594
+Loss Detector regression: 0.05561134226259588
+Current validation loss: 1.488, Best validation loss: 1.443 at epoch: 52
+Elapsed time: 172.6217381954193
+Epoch 55/200
+1000/1000 [==============================] - 501s 501ms/step - rpn_cls: 0.2206 - rpn_regr: 0.5783 - detector_cls: 0.1502 - detector_regr: 0.0415
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.59
+Classifier accuracy for bounding boxes from RPN: 0.946953125
+Loss RPN classifier: 0.21549937430175128
+Loss RPN regression: 0.5789515301929786
+Loss Detector classifier: 0.14876732779697704
+Loss Detector regression: 0.04125448141505331
+Elapsed time: 36324.09904193878
+Best loss for training: 1.031
+Total training loss decreased from 1.031 to 0.984, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3_training.hdf5
+534/534 [==============================] - 174s 326ms/step - rpn_cls: 0.3265 - rpn_regr: 0.8584 - detector_cls: 0.3284 - detector_regr: 0.0603
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 15.263157894736842
+Classifier accuracy for bounding boxes from RPN: 0.946953125
+Loss RPN classifier: 0.3044133748081288
+Loss RPN regression: 0.8561501872519987
+Loss Detector classifier: 0.31213145270993586
+Loss Detector regression: 0.060940509445817644
+Current validation loss: 1.534, Best validation loss: 1.443 at epoch: 52
+Elapsed time: 174.26703000068665
+Epoch 56/200
+1000/1000 [==============================] - 501s 501ms/step - rpn_cls: 0.2090 - rpn_regr: 0.6056 - detector_cls: 0.1551 - detector_regr: 0.0421
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.52
+Classifier accuracy for bounding boxes from RPN: 0.945640625
+Loss RPN classifier: 0.21702752834430025
+Loss RPN regression: 0.6186105435458011
+Loss Detector classifier: 0.15096477607511974
+Loss Detector regression: 0.041142029243535945
+Elapsed time: 36999.14113283157
+Best loss for training: 0.984
+534/534 [==============================] - 173s 323ms/step - rpn_cls: 0.3406 - rpn_regr: 0.8222 - detector_cls: 0.2828 - detector_regr: 0.0575
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.680451127819548
+Classifier accuracy for bounding boxes from RPN: 0.945640625
+Loss RPN classifier: 0.3140300846941625
+Loss RPN regression: 0.8514395254604825
+Loss Detector classifier: 0.2796416685886888
+Loss Detector regression: 0.05720508231575871
+Current validation loss: 1.502, Best validation loss: 1.443 at epoch: 52
+Elapsed time: 172.6934425830841
+Epoch 57/200
+1000/1000 [==============================] - 503s 503ms/step - rpn_cls: 0.2137 - rpn_regr: 0.6519 - detector_cls: 0.1419 - detector_regr: 0.0394
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.056
+Classifier accuracy for bounding boxes from RPN: 0.9475625
+Loss RPN classifier: 0.21378738872602893
+Loss RPN regression: 0.6360228246096522
+Loss Detector classifier: 0.1457874661938032
+Loss Detector regression: 0.0397685676854453
+Elapsed time: 37674.45131325722
+Best loss for training: 0.984
+534/534 [==============================] - 172s 323ms/step - rpn_cls: 0.3218 - rpn_regr: 0.7855 - detector_cls: 0.3006 - detector_regr: 0.0603
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.638418079096045
+Classifier accuracy for bounding boxes from RPN: 0.9475625
+Loss RPN classifier: 0.31021627931093704
+Loss RPN regression: 0.829575156360474
+Loss Detector classifier: 0.29671060005922584
+Loss Detector regression: 0.06008315150724611
+Current validation loss: 1.497, Best validation loss: 1.443 at epoch: 52
+Elapsed time: 172.3140046596527
+Epoch 58/200
+1000/1000 [==============================] - 501s 501ms/step - rpn_cls: 0.2043 - rpn_regr: 0.6097 - detector_cls: 0.1388 - detector_regr: 0.0403
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.55
+Classifier accuracy for bounding boxes from RPN: 0.95159375
+Loss RPN classifier: 0.21177690676267721
+Loss RPN regression: 0.5906161671278533
+Loss Detector classifier: 0.13731687902944395
+Loss Detector regression: 0.039887382400075694
+Elapsed time: 38347.72672653198
+Best loss for training: 0.984
+Total training loss decreased from 0.984 to 0.980, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3_training.hdf5
+534/534 [==============================] - 174s 325ms/step - rpn_cls: 0.2645 - rpn_regr: 0.8126 - detector_cls: 0.2759 - detector_regr: 0.0555
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.566854990583805
+Classifier accuracy for bounding boxes from RPN: 0.95159375
+Loss RPN classifier: 0.27570448898001154
+Loss RPN regression: 0.8279969445168135
+Loss Detector classifier: 0.2928527087419656
+Loss Detector regression: 0.057064766798817314
+Current validation loss: 1.454, Best validation loss: 1.443 at epoch: 52
+Elapsed time: 173.93499970436096
+Epoch 59/200
+1000/1000 [==============================] - 501s 501ms/step - rpn_cls: 0.2047 - rpn_regr: 0.5688 - detector_cls: 0.1391 - detector_regr: 0.0381
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 13.987
+Classifier accuracy for bounding boxes from RPN: 0.9515
+Loss RPN classifier: 0.2057002417151323
+Loss RPN regression: 0.5761170287528076
+Loss Detector classifier: 0.13633427524794023
+Loss Detector regression: 0.03833844084838347
+Elapsed time: 39022.840852975845
+Best loss for training: 0.980
+Total training loss decreased from 0.980 to 0.956, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3_training.hdf5
+534/534 [==============================] - 174s 326ms/step - rpn_cls: 0.2741 - rpn_regr: 0.8496 - detector_cls: 0.2977 - detector_regr: 0.0572
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.507547169811321
+Classifier accuracy for bounding boxes from RPN: 0.9515
+Loss RPN classifier: 0.2865899242159869
+Loss RPN regression: 0.843188885536589
+Loss Detector classifier: 0.31108581935982516
+Loss Detector regression: 0.056090151074777814
+Current validation loss: 1.497, Best validation loss: 1.443 at epoch: 52
+Elapsed time: 174.61485743522644
+Epoch 60/200
+1000/1000 [==============================] - 506s 506ms/step - rpn_cls: 0.2099 - rpn_regr: 0.5854 - detector_cls: 0.1445 - detector_regr: 0.0394
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.134
+Classifier accuracy for bounding boxes from RPN: 0.947890625
+Loss RPN classifier: 0.20486424827162994
+Loss RPN regression: 0.5917044137939811
+Loss Detector classifier: 0.14387007150924375
+Loss Detector regression: 0.03975553459343064
+Elapsed time: 39703.39953541756
+Best loss for training: 0.956
+534/534 [==============================] - 174s 326ms/step - rpn_cls: 0.2862 - rpn_regr: 0.8391 - detector_cls: 0.3054 - detector_regr: 0.0615
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 15.526415094339622
+Classifier accuracy for bounding boxes from RPN: 0.947890625
+Loss RPN classifier: 0.2951036817169471
+Loss RPN regression: 0.8396302464868078
+Loss Detector classifier: 0.3059005296524963
+Loss Detector regression: 0.06094835741623002
+Current validation loss: 1.502, Best validation loss: 1.443 at epoch: 52
+Elapsed time: 174.0291473865509
+Epoch 61/200
+1000/1000 [==============================] - 502s 502ms/step - rpn_cls: 0.2103 - rpn_regr: 0.5936 - detector_cls: 0.1497 - detector_regr: 0.0409
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.645
+Classifier accuracy for bounding boxes from RPN: 0.947515625
+Loss RPN classifier: 0.20715094031457726
+Loss RPN regression: 0.6061268970733509
+Loss Detector classifier: 0.1523123939360403
+Loss Detector regression: 0.04094001128326636
+Elapsed time: 40379.65773653984
+Best loss for training: 0.956
+534/534 [==============================] - 174s 326ms/step - rpn_cls: 0.2765 - rpn_regr: 0.8256 - detector_cls: 0.2673 - detector_regr: 0.0580
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 13.919020715630886
+Classifier accuracy for bounding boxes from RPN: 0.947515625
+Loss RPN classifier: 0.2804696926635566
+Loss RPN regression: 0.8234723083123788
+Loss Detector classifier: 0.2716509210935301
+Loss Detector regression: 0.0571694259120936
+Current validation loss: 1.433, Best validation loss: 1.443 at epoch: 52
+Elapsed time: 174.25661301612854
+Total validation loss decreased from 1.443 to 1.433, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3.hdf5
+Epoch 62/200
+1000/1000 [==============================] - 501s 501ms/step - rpn_cls: 0.1999 - rpn_regr: 0.6075 - detector_cls: 0.1314 - detector_regr: 0.0396
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.609
+Classifier accuracy for bounding boxes from RPN: 0.951671875
+Loss RPN classifier: 0.19628818185350294
+Loss RPN regression: 0.5748773362440989
+Loss Detector classifier: 0.13242766618502663
+Loss Detector regression: 0.03970966704422608
+Elapsed time: 41055.33248472214
+Best loss for training: 0.956
+Total training loss decreased from 0.956 to 0.943, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3_training.hdf5
+534/534 [==============================] - 172s 322ms/step - rpn_cls: 0.3121 - rpn_regr: 0.8884 - detector_cls: 0.2916 - detector_regr: 0.0543
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 13.60377358490566
+Classifier accuracy for bounding boxes from RPN: 0.951671875
+Loss RPN classifier: 0.2967158142479268
+Loss RPN regression: 0.8579698862361439
+Loss Detector classifier: 0.28472309520074157
+Loss Detector regression: 0.053660609634844085
+Current validation loss: 1.493, Best validation loss: 1.433 at epoch: 60
+Elapsed time: 171.8742425441742
+Epoch 63/200
+1000/1000 [==============================] - 500s 500ms/step - rpn_cls: 0.1950 - rpn_regr: 0.5692 - detector_cls: 0.1324 - detector_regr: 0.0405
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.499
+Classifier accuracy for bounding boxes from RPN: 0.951296875
+Loss RPN classifier: 0.20442176366073306
+Loss RPN regression: 0.5522699136864394
+Loss Detector classifier: 0.13883755406650744
+Loss Detector regression: 0.03930347312753293
+Elapsed time: 41726.92853355408
+Best loss for training: 0.943
+Total training loss decreased from 0.943 to 0.935, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3_training.hdf5
+534/534 [==============================] - 174s 325ms/step - rpn_cls: 0.2978 - rpn_regr: 0.8348 - detector_cls: 0.3510 - detector_regr: 0.0559
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.790960451977401
+Classifier accuracy for bounding boxes from RPN: 0.951296875
+Loss RPN classifier: 0.29246203706805124
+Loss RPN regression: 0.8556299884611748
+Loss Detector classifier: 0.3311815999022924
+Loss Detector regression: 0.05640137635076916
+Current validation loss: 1.536, Best validation loss: 1.433 at epoch: 60
+Elapsed time: 173.94677686691284
+Epoch 64/200
+1000/1000 [==============================] - 501s 501ms/step - rpn_cls: 0.2022 - rpn_regr: 0.5860 - detector_cls: 0.1371 - detector_regr: 0.0383
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.315
+Classifier accuracy for bounding boxes from RPN: 0.949796875
+Loss RPN classifier: 0.2051683547644285
+Loss RPN regression: 0.5800554575971327
+Loss Detector classifier: 0.14026410096415748
+Loss Detector regression: 0.03788732516793243
+Elapsed time: 42401.77635383606
+Best loss for training: 0.935
+534/534 [==============================] - 172s 322ms/step - rpn_cls: 0.2977 - rpn_regr: 0.7900 - detector_cls: 0.3333 - detector_regr: 0.0555
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.037664783427495
+Classifier accuracy for bounding boxes from RPN: 0.949796875
+Loss RPN classifier: 0.28084224490428
+Loss RPN regression: 0.8240058676022269
+Loss Detector classifier: 0.3043514891765875
+Loss Detector regression: 0.0559087111271157
+Current validation loss: 1.465, Best validation loss: 1.433 at epoch: 60
+Elapsed time: 171.91036200523376
+Epoch 65/200
+1000/1000 [==============================] - 503s 503ms/step - rpn_cls: 0.1956 - rpn_regr: 0.5749 - detector_cls: 0.1356 - detector_regr: 0.0381
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.251
+Classifier accuracy for bounding boxes from RPN: 0.951015625
+Loss RPN classifier: 0.19466603971565508
+Loss RPN regression: 0.5739880284979008
+Loss Detector classifier: 0.13845131964527269
+Loss Detector regression: 0.03872624199610436
+Elapsed time: 43076.2585811615
+Best loss for training: 0.935
+534/534 [==============================] - 171s 321ms/step - rpn_cls: 0.3244 - rpn_regr: 0.8844 - detector_cls: 0.2996 - detector_regr: 0.0583
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.583804143126176
+Classifier accuracy for bounding boxes from RPN: 0.951015625
+Loss RPN classifier: 0.3092059849519395
+Loss RPN regression: 0.8566933195159007
+Loss Detector classifier: 0.3024248516473653
+Loss Detector regression: 0.05691404717172974
+Current validation loss: 1.525, Best validation loss: 1.433 at epoch: 60
+Elapsed time: 171.49912524223328
+Epoch 66/200
+1000/1000 [==============================] - 501s 501ms/step - rpn_cls: 0.1828 - rpn_regr: 0.4948 - detector_cls: 0.1210 - detector_regr: 0.0365
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 15.028
+Classifier accuracy for bounding boxes from RPN: 0.953296875
+Loss RPN classifier: 0.20136807873927703
+Loss RPN regression: 0.5230939591175411
+Loss Detector classifier: 0.13146809709789262
+Loss Detector regression: 0.03816556620127085
+Elapsed time: 43748.96348309517
+Best loss for training: 0.935
+Total training loss decreased from 0.935 to 0.894, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3_training.hdf5
+534/534 [==============================] - 175s 328ms/step - rpn_cls: 0.3012 - rpn_regr: 0.7924 - detector_cls: 0.2817 - detector_regr: 0.0549
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.472693032015066
+Classifier accuracy for bounding boxes from RPN: 0.953296875
+Loss RPN classifier: 0.3147102270944146
+Loss RPN regression: 0.8225427811881632
+Loss Detector classifier: 0.3017258914527777
+Loss Detector regression: 0.0570840456719091
+Current validation loss: 1.496, Best validation loss: 1.433 at epoch: 60
+Elapsed time: 175.33553504943848
+Epoch 67/200
+1000/1000 [==============================] - 502s 502ms/step - rpn_cls: 0.1994 - rpn_regr: 0.5312 - detector_cls: 0.1312 - detector_regr: 0.0352
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 13.853
+Classifier accuracy for bounding boxes from RPN: 0.95578125
+Loss RPN classifier: 0.19060342018539586
+Loss RPN regression: 0.5401783163836226
+Loss Detector classifier: 0.12480832964762067
+Loss Detector regression: 0.036391441037259935
+Elapsed time: 44426.65724492073
+Best loss for training: 0.894
+Total training loss decreased from 0.894 to 0.892, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3_training.hdf5
+534/534 [==============================] - 175s 327ms/step - rpn_cls: 0.2764 - rpn_regr: 0.8671 - detector_cls: 0.2728 - detector_regr: 0.0575
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 13.49436090225564
+Classifier accuracy for bounding boxes from RPN: 0.95578125
+Loss RPN classifier: 0.30060261640834474
+Loss RPN regression: 0.8542635877606239
+Loss Detector classifier: 0.29183103732524046
+Loss Detector regression: 0.05709182973114775
+Current validation loss: 1.504, Best validation loss: 1.433 at epoch: 60
+Elapsed time: 175.06541800498962
+Epoch 68/200
+1000/1000 [==============================] - 501s 501ms/step - rpn_cls: 0.1989 - rpn_regr: 0.6352 - detector_cls: 0.1223 - detector_regr: 0.0368
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 13.858
+Classifier accuracy for bounding boxes from RPN: 0.954
+Loss RPN classifier: 0.1997928590616818
+Loss RPN regression: 0.5890180141183082
+Loss Detector classifier: 0.1306679507283461
+Loss Detector regression: 0.038285103555070234
+Elapsed time: 45102.569452762604
+Best loss for training: 0.892
+534/534 [==============================] - 174s 325ms/step - rpn_cls: 0.2850 - rpn_regr: 0.8306 - detector_cls: 0.2872 - detector_regr: 0.0572
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.666666666666666
+Classifier accuracy for bounding boxes from RPN: 0.954
+Loss RPN classifier: 0.2972719237261989
+Loss RPN regression: 0.8393357591598891
+Loss Detector classifier: 0.30115494435049195
+Loss Detector regression: 0.05609377201911362
+Current validation loss: 1.494, Best validation loss: 1.433 at epoch: 60
+Elapsed time: 173.70825839042664
+Epoch 69/200
+1000/1000 [==============================] - 500s 500ms/step - rpn_cls: 0.2106 - rpn_regr: 0.5573 - detector_cls: 0.1435 - detector_regr: 0.0377
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.47
+Classifier accuracy for bounding boxes from RPN: 0.953
+Loss RPN classifier: 0.20505782940989595
+Loss RPN regression: 0.5642270332428161
+Loss Detector classifier: 0.13856391145218366
+Loss Detector regression: 0.038589236953965156
+Elapsed time: 45776.574353694916
+Best loss for training: 0.892
+534/534 [==============================] - 175s 327ms/step - rpn_cls: 0.2856 - rpn_regr: 0.8523 - detector_cls: 0.3021 - detector_regr: 0.0593
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.479323308270677
+Classifier accuracy for bounding boxes from RPN: 0.953
+Loss RPN classifier: 0.30298976537959355
+Loss RPN regression: 0.8422894457613261
+Loss Detector classifier: 0.305644833494578
+Loss Detector regression: 0.05657542939637127
+Current validation loss: 1.507, Best validation loss: 1.433 at epoch: 60
+Elapsed time: 174.66569018363953
+Epoch 70/200
+1000/1000 [==============================] - 501s 501ms/step - rpn_cls: 0.1821 - rpn_regr: 0.5116 - detector_cls: 0.1219 - detector_regr: 0.0362
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.27
+Classifier accuracy for bounding boxes from RPN: 0.957015625
+Loss RPN classifier: 0.19067686807380227
+Loss RPN regression: 0.5218238530771341
+Loss Detector classifier: 0.12535582654856445
+Loss Detector regression: 0.03592996879709244
+Elapsed time: 46452.304570674896
+Best loss for training: 0.892
+Total training loss decreased from 0.892 to 0.874, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3_training.hdf5
+534/534 [==============================] - 173s 323ms/step - rpn_cls: 0.2802 - rpn_regr: 0.8373 - detector_cls: 0.3055 - detector_regr: 0.0560
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.049056603773584
+Classifier accuracy for bounding boxes from RPN: 0.957015625
+Loss RPN classifier: 0.28282798853899516
+Loss RPN regression: 0.8466274782052535
+Loss Detector classifier: 0.3085603115418323
+Loss Detector regression: 0.05664395583936697
+Current validation loss: 1.495, Best validation loss: 1.433 at epoch: 60
+Elapsed time: 172.7976999282837
+Not improved validation accuracy for 8 epochs. Reducing learning rate from 0.5 to 0.25
+Epoch 71/200
+1000/1000 [==============================] - 505s 505ms/step - rpn_cls: 0.1802 - rpn_regr: 0.4961 - detector_cls: 0.1122 - detector_regr: 0.0338
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.518
+Classifier accuracy for bounding boxes from RPN: 0.960203125
+Loss RPN classifier: 0.18763086885458752
+Loss RPN regression: 0.5187764144800603
+Loss Detector classifier: 0.11183046464710697
+Loss Detector regression: 0.03395963512317394
+Elapsed time: 47129.66140174866
+Best loss for training: 0.874
+Total training loss decreased from 0.874 to 0.852, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3_training.hdf5
+534/534 [==============================] - 174s 325ms/step - rpn_cls: 0.3004 - rpn_regr: 0.8027 - detector_cls: 0.3251 - detector_regr: 0.0568
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.389830508474576
+Classifier accuracy for bounding boxes from RPN: 0.960203125
+Loss RPN classifier: 0.3030284917646061
+Loss RPN regression: 0.8181821934962541
+Loss Detector classifier: 0.31718336857402357
+Loss Detector regression: 0.05671852614571772
+Current validation loss: 1.495, Best validation loss: 1.433 at epoch: 60
+Elapsed time: 173.77831029891968
+Not improved validation accuracy for 8 epochs. Reducing learning rate from 0.25 to 0.125
+Epoch 72/200
+1000/1000 [==============================] - 500s 500ms/step - rpn_cls: 0.2031 - rpn_regr: 0.4887 - detector_cls: 0.1089 - detector_regr: 0.0330
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.593
+Classifier accuracy for bounding boxes from RPN: 0.962921875
+Loss RPN classifier: 0.19845478158392627
+Loss RPN regression: 0.5028846421758645
+Loss Detector classifier: 0.10537758942362645
+Loss Detector regression: 0.03159282099979464
+Elapsed time: 47802.97870492935
+Best loss for training: 0.852
+Total training loss decreased from 0.852 to 0.838, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3_training.hdf5
+534/534 [==============================] - 172s 323ms/step - rpn_cls: 0.3074 - rpn_regr: 0.8334 - detector_cls: 0.3123 - detector_regr: 0.0538
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.634651600753296
+Classifier accuracy for bounding boxes from RPN: 0.962921875
+Loss RPN classifier: 0.3028670092451104
+Loss RPN regression: 0.8171454274587417
+Loss Detector classifier: 0.30288292969497904
+Loss Detector regression: 0.05382390232186689
+Current validation loss: 1.477, Best validation loss: 1.433 at epoch: 60
+Elapsed time: 172.63725590705872
+Not improved validation accuracy for 8 epochs. Reducing learning rate from 0.125 to 0.0625
+Epoch 73/200
+1000/1000 [==============================] - 503s 503ms/step - rpn_cls: 0.1667 - rpn_regr: 0.4540 - detector_cls: 0.0962 - detector_regr: 0.0299
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.318
+Classifier accuracy for bounding boxes from RPN: 0.967296875
+Loss RPN classifier: 0.1686133107704393
+Loss RPN regression: 0.44013945100980345
+Loss Detector classifier: 0.09093247579392039
+Loss Detector regression: 0.029573007272047105
+Elapsed time: 48479.11238718033
+Best loss for training: 0.838
+Total training loss decreased from 0.838 to 0.729, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3_training.hdf5
+534/534 [==============================] - 173s 324ms/step - rpn_cls: 0.3126 - rpn_regr: 0.8358 - detector_cls: 0.3036 - detector_regr: 0.0534
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.564971751412429
+Classifier accuracy for bounding boxes from RPN: 0.967296875
+Loss RPN classifier: 0.304601451065589
+Loss RPN regression: 0.8255357570102096
+Loss Detector classifier: 0.3213545202287653
+Loss Detector regression: 0.05378277829574016
+Current validation loss: 1.505, Best validation loss: 1.433 at epoch: 60
+Elapsed time: 172.9388780593872
+Not improved validation accuracy for 8 epochs. Reducing learning rate from 0.0625 to 0.03125
+Epoch 74/200
+1000/1000 [==============================] - 502s 502ms/step - rpn_cls: 0.1832 - rpn_regr: 0.4454 - detector_cls: 0.0851 - detector_regr: 0.0274
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.999
+Classifier accuracy for bounding boxes from RPN: 0.970015625
+Loss RPN classifier: 0.17743920644910932
+Loss RPN regression: 0.448659057894547
+Loss Detector classifier: 0.08207560617578293
+Loss Detector regression: 0.028157832607103046
+Elapsed time: 49154.519238233566
+Best loss for training: 0.729
+534/534 [==============================] - 174s 325ms/step - rpn_cls: 0.3185 - rpn_regr: 0.7935 - detector_cls: 0.3147 - detector_regr: 0.0527
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.702448210922787
+Classifier accuracy for bounding boxes from RPN: 0.970015625
+Loss RPN classifier: 0.30834681298511873
+Loss RPN regression: 0.805472472218678
+Loss Detector classifier: 0.32079535367176665
+Loss Detector regression: 0.05237788950275222
+Current validation loss: 1.487, Best validation loss: 1.433 at epoch: 60
+Elapsed time: 173.57493090629578
+Not improved validation accuracy for 8 epochs. Reducing learning rate from 0.03125 to 0.015625
+Epoch 75/200
+1000/1000 [==============================] - 502s 502ms/step - rpn_cls: 0.1752 - rpn_regr: 0.4597 - detector_cls: 0.0883 - detector_regr: 0.0288
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.584
+Classifier accuracy for bounding boxes from RPN: 0.970015625
+Loss RPN classifier: 0.17508308683974377
+Loss RPN regression: 0.43675820488249883
+Loss Detector classifier: 0.08524800708307452
+Loss Detector regression: 0.028908052038937967
+Elapsed time: 49830.42715835571
+Best loss for training: 0.729
+Total training loss decreased from 0.729 to 0.726, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3_training.hdf5
+534/534 [==============================] - 175s 328ms/step - rpn_cls: 0.2934 - rpn_regr: 0.8001 - detector_cls: 0.3030 - detector_regr: 0.0536
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.403773584905661
+Classifier accuracy for bounding boxes from RPN: 0.970015625
+Loss RPN classifier: 0.3072420167811206
+Loss RPN regression: 0.8158715806085239
+Loss Detector classifier: 0.3141368458735851
+Loss Detector regression: 0.052951072233023054
+Current validation loss: 1.490, Best validation loss: 1.433 at epoch: 60
+Elapsed time: 175.26936554908752
+Not improved validation accuracy for 8 epochs. Reducing learning rate from 0.015625 to 0.0078125
+Epoch 76/200
+1000/1000 [==============================] - 504s 504ms/step - rpn_cls: 0.1715 - rpn_regr: 0.4617 - detector_cls: 0.0850 - detector_regr: 0.0274
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.374
+Classifier accuracy for bounding boxes from RPN: 0.970578125
+Loss RPN classifier: 0.1691024550318893
+Loss RPN regression: 0.4516786937417928
+Loss Detector classifier: 0.08448143378777968
+Loss Detector regression: 0.027727102609485427
+Elapsed time: 50509.6688144207
+Best loss for training: 0.726
+534/534 [==============================] - 174s 326ms/step - rpn_cls: 0.3066 - rpn_regr: 0.8064 - detector_cls: 0.3252 - detector_regr: 0.0535
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.314500941619587
+Classifier accuracy for bounding boxes from RPN: 0.970578125
+Loss RPN classifier: 0.32212048657721093
+Loss RPN regression: 0.808296191792112
+Loss Detector classifier: 0.3177757529430096
+Loss Detector regression: 0.052766296845890265
+Current validation loss: 1.501, Best validation loss: 1.433 at epoch: 60
+Elapsed time: 174.01796674728394
+Not improved validation accuracy for 8 epochs. Reducing learning rate from 0.0078125 to 0.00390625
+Epoch 77/200
+1000/1000 [==============================] - 501s 501ms/step - rpn_cls: 0.1663 - rpn_regr: 0.4533 - detector_cls: 0.0806 - detector_regr: 0.0281
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.545
+Classifier accuracy for bounding boxes from RPN: 0.971640625
+Loss RPN classifier: 0.173947284655658
+Loss RPN regression: 0.44363429833273405
+Loss Detector classifier: 0.08268112456871496
+Loss Detector regression: 0.02768938104702829
+Elapsed time: 51184.32399177551
+Best loss for training: 0.726
+534/534 [==============================] - 174s 327ms/step - rpn_cls: 0.2825 - rpn_regr: 0.8218 - detector_cls: 0.2957 - detector_regr: 0.0515
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.258490566037736
+Classifier accuracy for bounding boxes from RPN: 0.971640625
+Loss RPN classifier: 0.30170228029523233
+Loss RPN regression: 0.8192587572495255
+Loss Detector classifier: 0.3101809606804968
+Loss Detector regression: 0.05219593454418533
+Current validation loss: 1.483, Best validation loss: 1.433 at epoch: 60
+Elapsed time: 174.52584266662598
+Not improved validation accuracy for 8 epochs. Reducing learning rate from 0.00390625 to 0.001953125
+Epoch 78/200
+1000/1000 [==============================] - 500s 500ms/step - rpn_cls: 0.1635 - rpn_regr: 0.4252 - detector_cls: 0.0796 - detector_regr: 0.0289
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.5
+Classifier accuracy for bounding boxes from RPN: 0.972234375
+Loss RPN classifier: 0.16541794955222688
+Loss RPN regression: 0.43968037054827436
+Loss Detector classifier: 0.07737370270104293
+Loss Detector regression: 0.027546719181904336
+Elapsed time: 51858.806703329086
+Best loss for training: 0.726
+Total training loss decreased from 0.726 to 0.710, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3_training.hdf5
+534/534 [==============================] - 174s 327ms/step - rpn_cls: 0.3035 - rpn_regr: 0.8067 - detector_cls: 0.3282 - detector_regr: 0.0536
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.537735849056604
+Classifier accuracy for bounding boxes from RPN: 0.972234375
+Loss RPN classifier: 0.3077901646917334
+Loss RPN regression: 0.8133719306969353
+Loss Detector classifier: 0.3232854161055112
+Loss Detector regression: 0.05328217191115417
+Current validation loss: 1.498, Best validation loss: 1.433 at epoch: 60
+Elapsed time: 174.65097737312317
+Not improved validation accuracy for 8 epochs. Reducing learning rate from 0.001953125 to 0.0009765625
+Epoch 79/200
+1000/1000 [==============================] - 502s 502ms/step - rpn_cls: 0.1839 - rpn_regr: 0.4631 - detector_cls: 0.0827 - detector_regr: 0.0268
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.702
+Classifier accuracy for bounding boxes from RPN: 0.97046875
+Loss RPN classifier: 0.18120971591433097
+Loss RPN regression: 0.46186664669495076
+Loss Detector classifier: 0.08210869775214388
+Loss Detector regression: 0.027850450852340145
+Elapsed time: 52535.776466846466
+Best loss for training: 0.710
+534/534 [==============================] - 174s 325ms/step - rpn_cls: 0.3106 - rpn_regr: 0.8439 - detector_cls: 0.3283 - detector_regr: 0.0534
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.502824858757062
+Classifier accuracy for bounding boxes from RPN: 0.97046875
+Loss RPN classifier: 0.3077148000449688
+Loss RPN regression: 0.8200877679490977
+Loss Detector classifier: 0.32420128002395576
+Loss Detector regression: 0.05308163597832669
+Current validation loss: 1.505, Best validation loss: 1.433 at epoch: 60
+Elapsed time: 173.55975556373596
+Not improved validation accuracy for 8 epochs. Reducing learning rate from 0.0009765625 to 0.00048828125
+Epoch 80/200
+1000/1000 [==============================] - 501s 501ms/step - rpn_cls: 0.1716 - rpn_regr: 0.4311 - detector_cls: 0.0810 - detector_regr: 0.0269
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.379
+Classifier accuracy for bounding boxes from RPN: 0.9714375
+Loss RPN classifier: 0.16788985446617755
+Loss RPN regression: 0.43387659450783395
+Loss Detector classifier: 0.0829268221707721
+Loss Detector regression: 0.027507690653999817
+Elapsed time: 53210.677237033844
+Best loss for training: 0.710
+534/534 [==============================] - 174s 325ms/step - rpn_cls: 0.3121 - rpn_regr: 0.8246 - detector_cls: 0.3263 - detector_regr: 0.0529
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.589453860640301
+Classifier accuracy for bounding boxes from RPN: 0.9714375
+Loss RPN classifier: 0.30746721180159564
+Loss RPN regression: 0.8158450715369387
+Loss Detector classifier: 0.32222789389481143
+Loss Detector regression: 0.05262802169489602
+Current validation loss: 1.498, Best validation loss: 1.433 at epoch: 60
+Elapsed time: 173.707275390625
+Not improved validation accuracy for 8 epochs. Reducing learning rate from 0.00048828125 to 0.000244140625
+Epoch 81/200
+1000/1000 [==============================] - 945s 945ms/step - rpn_cls: 0.1713 - rpn_regr: 0.4220 - detector_cls: 0.0772 - detector_regr: 0.0264
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.389
+Classifier accuracy for bounding boxes from RPN: 0.9726875
+Loss RPN classifier: 0.17252068876533694
+Loss RPN regression: 0.4136368067278527
+Loss Detector classifier: 0.07656973268182991
+Loss Detector regression: 0.02680604553046396
+Elapsed time: 54329.67076468468
+Best loss for training: 0.710
+Total training loss decreased from 0.710 to 0.690, saving weights to 2017-11-28_SimpleResNet_muscima_pp_3_training.hdf5
+534/534 [==============================] - 194s 364ms/step - rpn_cls: 0.3365 - rpn_regr: 0.8204 - detector_cls: 0.3386 - detector_regr: 0.0527
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.668549905838042
+Classifier accuracy for bounding boxes from RPN: 0.9726875
+Loss RPN classifier: 0.3174541803444558
+Loss RPN regression: 0.824246840181757
+Loss Detector classifier: 0.3314526496726329
+Loss Detector regression: 0.05309625293427426
+Current validation loss: 1.526, Best validation loss: 1.433 at epoch: 60
+Elapsed time: 194.94664978981018
+Not improved validation accuracy for 8 epochs. Reducing learning rate from 0.000244140625 to 0.0001220703125
+Epoch 82/200
+1000/1000 [==============================] - 513s 513ms/step - rpn_cls: 0.1697 - rpn_regr: 0.4281 - detector_cls: 0.0826 - detector_regr: 0.0268
+[INFO TRAINING]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.544
+Classifier accuracy for bounding boxes from RPN: 0.97140625
+Loss RPN classifier: 0.16888979806581964
+Loss RPN regression: 0.43982418978144416
+Loss Detector classifier: 0.07975420200185454
+Loss Detector regression: 0.027063672168333143
+Elapsed time: 55037.875647068024
+Best loss for training: 0.690
+534/534 [==============================] - 175s 327ms/step - rpn_cls: 0.3118 - rpn_regr: 0.7822 - detector_cls: 0.3108 - detector_regr: 0.0521
+[INFO VALIDATION]
+Mean number of bounding boxes from RPN overlapping ground truth boxes: 14.689265536723164
+Classifier accuracy for bounding boxes from RPN: 0.97140625
+Loss RPN classifier: 0.30955901438399863
+Loss RPN regression: 0.8081291439569789
+Loss Detector classifier: 0.31809340033894457
+Loss Detector regression: 0.052267967569942404
+Current validation loss: 1.488, Best validation loss: 1.433 at epoch: 60
+Elapsed time: 174.8172574043274
+Early stopping training after 21 epochs without improvement on validation set
+Execution time: 55212.7s
+Uploading results to Google Spreadsheet and appending at first empty line 23
+**********************
+Windows PowerShell transcript end
+End time: 20171128090447
+**********************
