@@ -22,85 +22,98 @@ from object_detection.utils.object_detection_evaluation import \
     ObjectDetectionEvaluation
 from tqdm import tqdm
 
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("ground_truth", type=str,
-                        help="Path to ground_truth file")
-    parser.add_argument("detection", type=str,
-                        help="Path to detection results file")
-    args = parser.parse_args()
-    print("Evaluating for", args.detection)
+    parser.add_argument("-gt", "--ground_truth_annotations_file_path", type=str,
+                        dest="ground_truth_annotations_file_path",
+                        help="Path to file that contains annotations for the ground truth detections")
+    parser.add_argument("-detect", "--detected_bounding_boxes_file_path", type=str,
+                        dest="detected_bounding_boxes_file_path",
+                        help="Path to the file that contains the detected bounding boxed and confidence scores")
+
+    options, unparsed = parser.parse_known_args()
+
+    if not options.ground_truth_annotations_file_path:
+        raise ValueError('Error: Must provide a valid file path to the annotations file containing the ground-truth. '
+                         'Pass --ground_truth_annotations_file_path <FileName> to command line')
+    if not options.detected_bounding_boxes_file_path:
+        raise ValueError('Error: Must provide a valid file path to the file containing the detected bounding boxes. '
+                         'Pass --detected_bounding_boxes_file_path <FileName> to command line')
+
+    ground_truth_annotations_file_path = options.ground_truth_annotations_file_path
+    detected_bounding_boxes_file_path = options.detected_bounding_boxes_file_path
 
     # load ground-truth and detections
-    gt = np.genfromtxt(
-        args.ground_truth, dtype=None, delimiter=',')
-    detect = np.genfromtxt(
-        args.detection, dtype=None, delimiter=',')
+    ground_truth_file_reader = np.genfromtxt(ground_truth_annotations_file_path, dtype=None, delimiter=',')
+    detection_results_file_reader = np.genfromtxt(detected_bounding_boxes_file_path, dtype=None, delimiter=',')
+
     # process class labels
-    class_labels = list(set([x[5].decode() for x in gt]))
-    le = preprocessing.LabelEncoder()
-    le.fit(class_labels)
-    num_groundtruth_classes = len(class_labels)
-    print(num_groundtruth_classes)
+    class_labels = list(set([x[5].decode() for x in ground_truth_file_reader]))
+    label_encoder = preprocessing.LabelEncoder()
+    label_encoder.fit(class_labels)
+
+    number_of_ground_truth_classes = len(class_labels)
+    print("Number of ground truth classes: {0}".format(number_of_ground_truth_classes))
+
     # filter out non used gt files
-    gt_filenames = np.array([x[0] for x in gt])
-    detect_filenames = np.array(list(set([x[0] for x in detect])))
+    file_names_in_ground_truth = np.array([x[0] for x in ground_truth_file_reader])
+    file_names_in_detection_results = np.array(list(set([x[0] for x in detection_results_file_reader])))
+
     indexes = np.array([], dtype=int)
     not_found = []
-    for f in tqdm(detect_filenames):
-        if len(np.where(gt_filenames == f)[0]) == 0:
+    for f in tqdm(file_names_in_detection_results):
+        if len(np.where(file_names_in_ground_truth == f)[0]) == 0:
             print(f, "not found")
             not_found.append(f)
-        indexes = np.append(indexes, np.where(gt_filenames == f)[0])
-    gt = gt[indexes]
-    gt_filenames = set([x[0] for x in gt] + not_found)
-    detect_filenames = set([x[0] for x in detect])
-    print(len(gt_filenames), len(detect_filenames))
-    assert(set(gt_filenames) == set(detect_filenames))
+        indexes = np.append(indexes, np.where(file_names_in_ground_truth == f)[0])
+    ground_truth_file_reader = ground_truth_file_reader[indexes]
+    file_names_in_ground_truth = set([x[0] for x in ground_truth_file_reader] + not_found)
+    file_names_in_detection_results = set([x[0] for x in detection_results_file_reader])
+    print(len(file_names_in_ground_truth), len(file_names_in_detection_results))
+    assert (set(file_names_in_ground_truth) == set(file_names_in_detection_results))
 
     evaluator = ObjectDetectionEvaluation(
-        num_groundtruth_classes)
+        number_of_ground_truth_classes)
     gt_dic: Dict = {}
-    for (image_key, xmin, ymin, xmax, ymax, class_label) in tqdm(gt):
+    for (image_key, x_min, y_min, x_max, y_max, class_label) in tqdm(ground_truth_file_reader):
         if image_key not in gt_dic:
             gt_dic[image_key] = {}
             gt_dic[image_key]["boxes"] = []
             gt_dic[image_key]["class_labels"] = []
-        gt_dic[image_key]["boxes"].append([ymin, xmin, ymax, xmax])
+        gt_dic[image_key]["boxes"].append([y_min, x_min, y_max, x_max])
         gt_dic[image_key]["class_labels"].append(class_label)
     for key, value in tqdm(gt_dic.items()):
         evaluator.add_single_ground_truth_image_info(
             key, np.array(value["boxes"], dtype="float32"),
-            le.transform(value["class_labels"]))
+            label_encoder.transform(value["class_labels"]))
 
     detect_dic: Dict = {}
-    for (image_key, xmin, ymin, xmax, ymax, class_label, score) in tqdm(detect):
+    for (image_key, x_min, y_min, x_max, y_max, class_label, score) in tqdm(detection_results_file_reader):
         if image_key not in detect_dic:
             detect_dic[image_key] = {}
             detect_dic[image_key]["boxes"] = []
             detect_dic[image_key]["class_labels"] = []
             detect_dic[image_key]["scores"] = []
-        detect_dic[image_key]["boxes"].append([ymin, xmin, ymax, xmax])
+        detect_dic[image_key]["boxes"].append([y_min, x_min, y_max, x_max])
         detect_dic[image_key]["class_labels"].append(class_label)
         detect_dic[image_key]["scores"].append(score / 100.)
     for key, value in detect_dic.items():
         evaluator.add_single_detected_image_info(
             key, np.array(value["boxes"], dtype="float32"),
-            np.array(value["scores"]), le.transform(value["class_labels"]))
-    AP_per_class, mAP, precisions_per_class, recalls_per_class, \
-        corloc_per_class, mean_corloc = evaluator.evaluate()
-    print("mAP:", mAP)
+            np.array(value["scores"]), label_encoder.transform(value["class_labels"]))
+    average_precision_per_class, mean_average_precision, precisions_per_class, recalls_per_class, \
+    corloc_per_class, mean_corloc = evaluator.evaluate()
+    print("mAP:", mean_average_precision)
     # print("mean, std precision:", np.mean(precisions_per_class),
-          # np.std(precisions_per_class))
+    # np.std(precisions_per_class))
     # print("mean, std recall:", np.mean(precisions_per_class),
-          # np.std(precisions_per_class))
+    # np.std(precisions_per_class))
     print("mean corlocs:", mean_corloc)
-    filename = args.detection.replace("Results", "Metrics")
+    filename = detected_bounding_boxes_file_path.replace("Results", "Metrics")
     if not os.path.exists(os.path.split(filename)[0]):
         os.makedirs(os.path.split(filename)[0])
     f = open(filename, "w")
-    f.write(args.detection + "\n")
-    f.write("mAP: " + str(mAP) + "\n")
+    f.write(detected_bounding_boxes_file_path + "\n")
+    f.write("mAP: " + str(mean_average_precision) + "\n")
     f.write("mean corlocs: " + str(mean_corloc) + "\n")
     f.close()
