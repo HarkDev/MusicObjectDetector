@@ -38,13 +38,90 @@ The easiest way to start the training is to run `TrainModel.ps` from the PowerSh
 ### Manually start the training
 For manually starting the training, make sure to first compile the tools 
 
-    cd keras_frcnn/py_faster_rcnn
-    python setup.py build_ext --inplace
-    
+```commandline
+cd keras_frcnn/py_faster_rcnn
+python setup.py build_ext --inplace
+```
+
 then run TrainModel like this
 
     MusicObjectDetector> python TrainModel.py --network resnet50 --output_weight_path "resnet50.hdf5"
-    
+
+## Evaluate results
+
+Since we are using the evaluation tools from the Google Object Detection API, we need to install a few things first (as indicated by the requirements.txt file):
+
+### Linux
+See the travis.yml file for an automatic way of installing the required dependencies.
+Basically you need to make sure you have [protocol buffers](https://developers.google.com/protocol-buffers/docs/downloads) installed first to be able to run `protoc`.
+
+Clone https://github.com/tensorflow/models, e.g. 
+
+`git clone https://github.com/tensorflow/models tensorflow-models`
+
+Then build the required libraries
+
+```commandline
+cd tensorflow-models/research
+protoc object_detection/protos/*.proto --python_out=.
+cd slim
+python setup.py install
+cd ..
+python setup.py install
+```
+
+### Windows
+First, make sure you have [protocol buffers](https://developers.google.com/protocol-buffers/docs/downloads) installed, by heading over to [the download page](https://github.com/google/protobuf/releases/tag/v2.6.0) and download the version 2.6.0. Extract and copy the protoc.exe to a place, where you can run it from later on.  
+
+Clone https://github.com/tensorflow/models, e.g. 
+
+`git clone https://github.com/tensorflow/models tensorflow-models`
+
+```commandline
+cd tensorflow-models\research
+protoc object_detection/protos/*.proto --python_out=.
+```
+if protoc does not understand the *-operator, build the files individually:
+```commandline
+protoc object_detection\protos\anchor_generator.proto               --python_out=.
+protoc object_detection\protos\argmax_matcher.proto                 --python_out=.
+protoc object_detection\protos\bipartite_matcher.proto              --python_out=.
+protoc object_detection\protos\box_coder.proto                      --python_out=.
+protoc object_detection\protos\box_predictor.proto                  --python_out=.
+protoc object_detection\protos\eval.proto                           --python_out=.
+protoc object_detection\protos\faster_rcnn.proto                    --python_out=.
+protoc object_detection\protos\faster_rcnn_box_coder.proto          --python_out=.
+protoc object_detection\protos\grid_anchor_generator.proto          --python_out=.
+protoc object_detection\protos\hyperparams.proto                    --python_out=.
+protoc object_detection\protos\image_resizer.proto                  --python_out=.
+protoc object_detection\protos\input_reader.proto                   --python_out=.
+protoc object_detection\protos\keypoint_box_coder.proto             --python_out=.
+protoc object_detection\protos\losses.proto                         --python_out=.
+protoc object_detection\protos\matcher.proto                        --python_out=.
+protoc object_detection\protos\mean_stddev_box_coder.proto          --python_out=.
+protoc object_detection\protos\model.proto                          --python_out=.
+protoc object_detection\protos\optimizer.proto                      --python_out=.
+protoc object_detection\protos\pipeline.proto                       --python_out=.
+protoc object_detection\protos\post_processing.proto                --python_out=.
+protoc object_detection\protos\preprocessor.proto                   --python_out=.
+protoc object_detection\protos\region_similarity_calculator.proto   --python_out=.
+protoc object_detection\protos\square_box_coder.proto               --python_out=.
+protoc object_detection\protos\ssd.proto                            --python_out=.
+protoc object_detection\protos\ssd_anchor_generator.proto           --python_out=.
+protoc object_detection\protos\string_int_label_map.proto           --python_out=.
+protoc object_detection\protos\train.proto                          --python_out=.
+```
+
+Install the python packages
+```commandline
+cd slim
+python setup.py install
+cd ..
+python setup.py install
+```
+If you get the exception `error: could not create 'build': Cannot create a file when that file already exists` here, delete the `BUILD` file inside first
+
+Now add the [source to the python path](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/installation.md#add-libraries-to-pythonpath) or copy the `object_detection` folder and the `slim` folder into your `[Anaconda3]/Lib/site-packages` directory. 
 
 # Dataset
 If you are just interested in the dataset, the split and the annotations used in this project, you can run the following scripts to reproduce the dataset locally:
