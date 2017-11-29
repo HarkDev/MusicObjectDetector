@@ -57,7 +57,9 @@ Basically you need to make sure you have [protocol buffers](https://developers.g
 
 Clone https://github.com/tensorflow/models, e.g. 
 
-`git clone https://github.com/tensorflow/models tensorflow-models`
+```
+git clone https://github.com/tensorflow/models tensorflow-models
+```
 
 Then build the required libraries
 
@@ -75,7 +77,9 @@ First, make sure you have [protocol buffers](https://developers.google.com/proto
 
 Clone https://github.com/tensorflow/models, e.g. 
 
-`git clone https://github.com/tensorflow/models tensorflow-models`
+```
+git clone https://github.com/tensorflow/models tensorflow-models
+```
 
 ```commandline
 cd tensorflow-models\research
