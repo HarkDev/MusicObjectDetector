@@ -28,5 +28,4 @@ Cython
 # Optional for reporting
 telegram_send >= 0.14
 google-api-python-client == 1.6.2 # if pip install does not work, run "pip install --upgrade google-api-python-client"
-object_detection # install by cloning https://github.com/tensorflow/models, then run: "cd models/research; protoc object_detection/protos/*.proto --python_out=.; cd slim; python setup.py install; cd ..; python setup.py install"
-# In case you don't have protocol-buffer installed, download it from https://developers.google.com/protocol-buffers/docs/downloads for your platform and make sure that the protoc command is added to your path, so you can run it from the command line
+object_detection # See README for more information
