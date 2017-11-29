@@ -5,6 +5,10 @@ language: python
 python:
   - "3.6"
 
+before_install:
+  - sudo apt-get -qq update
+  - sudo apt-get install -y protobuf-compiler python-pil python-lxml
+
 install:
   # code below is taken from http://conda.pydata.org/docs/travis.html
   - wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh;
@@ -24,6 +28,16 @@ install:
   
   # install Pillow for processing images
   - conda install Pillow;
+
+  # Install Dependencies for object_detection
+  - git clone https://github.com/tensorflow/models tensorflow-models
+  - cd tensorflow-models/research
+  - protoc object_detection/protos/*.proto --python_out=.
+  - cd slim
+  - python setup.py install # in tensorflow-models/research/slim
+  - cd ..
+  - python setup.py install # back in tensorflow-models/research
+  - cd ../.. # back in root directory
 
   # Install additional requirements (Keras and Tensorflow CPU-Version)
   - pip install -r requirements.txt
