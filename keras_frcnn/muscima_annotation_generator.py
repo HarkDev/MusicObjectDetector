@@ -28,7 +28,7 @@ def create_annotations_in_pascal_voc_format(annotations_folder: str,
                                             image_width: int,
                                             image_height: int,
                                             image_depth: int):
-    os.mkdir(annotations_folder)
+    os.makedirs(annotations_folder, exist_ok=True)
 
     groups = [list(it) for k, it in
               groupby(objects_appearing_in_cropped_image, lambda annotation_tuple: annotation_tuple[0])]

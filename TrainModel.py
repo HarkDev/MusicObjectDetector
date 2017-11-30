@@ -91,7 +91,7 @@ def train_model(dataset_directory: str, model_name: str, delete_and_recreate_dat
 
         cut_images(muscima_image_directory, os.path.join(dataset_directory, "Staff-Vertical-Positions.txt"),
                    muscima_cropped_directory, muscima_pp_raw_dataset_directory,
-                   os.path.join(dataset_directory, "Annotations.txt"))
+                   os.path.join(dataset_directory, "Annotations.txt"), os.path.join(dataset_directory, "Annotations"))
 
         dataset_splitter = DatasetSplitter(muscima_cropped_directory, dataset_directory)
         dataset_splitter.split_images_into_training_validation_and_test_set()

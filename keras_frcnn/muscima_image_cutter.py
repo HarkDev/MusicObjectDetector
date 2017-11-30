@@ -1,6 +1,7 @@
 import glob
 import os
 import re
+import shutil
 from glob import glob
 from typing import Tuple, List
 
@@ -10,11 +11,12 @@ from omrdatasettools.image_generators.MuscimaPlusPlusImageGenerator import Musci
 from tqdm import tqdm
 
 from keras_frcnn.data_generators import intersection, area
-from keras_frcnn.muscima_annotation_generator import create_annotations_in_plain_format
+from keras_frcnn.muscima_annotation_generator import create_annotations_in_plain_format, \
+    create_annotations_in_pascal_voc_format
 
 
 def cut_images(muscima_image_directory: str, staff_vertical_positions_file: str, output_path: str,
-               muscima_pp_raw_data_directory: str, exported_annotations_file_path: str):
+               muscima_pp_raw_data_directory: str, exported_annotations_file_path: str, annotations_path:str):
     image_paths = [y for x in os.walk(muscima_image_directory) for y in glob(os.path.join(x[0], '*.png'))]
     os.makedirs(output_path, exist_ok=True)
 
@@ -23,6 +25,8 @@ def cut_images(muscima_image_directory: str, staff_vertical_positions_file: str,
 
     if os.path.exists(exported_annotations_file_path):
         os.remove(exported_annotations_file_path)
+
+    shutil.rmtree(annotations_path, ignore_errors=True)
 
     crop_object_annotations: List[Tuple[str, str, List[CropObject]]] = []
 
@@ -90,9 +94,12 @@ def cut_images(muscima_image_directory: str, staff_vertical_positions_file: str,
                                                                image_crop_bounding_box_top_left_bottom_right,
                                                                objects_appearing_in_image)
 
-                create_annotations_in_plain_format(exported_annotations_file_path, objects_appearing_in_cropped_image, image_width, image_height, image_depth)
-
                 cropped_image = image.crop(image_crop_bounding_box).convert('RGB')
+
+                create_annotations_in_plain_format(exported_annotations_file_path, objects_appearing_in_cropped_image)
+                create_annotations_in_pascal_voc_format(annotations_path, objects_appearing_in_cropped_image,
+                                                        cropped_image.width, cropped_image.height, 3)
+
                 # draw_bounding_boxes(cropped_image, objects_appearing_in_cropped_image)
                 output_file = os.path.join(output_path, file_name)
                 cropped_image.save(output_file)
@@ -157,23 +164,23 @@ if __name__ == "__main__":
     muscima_pp_raw_dataset_directory = os.path.join(dataset_directory, "muscima_pp_raw")
     muscima_image_directory = os.path.join(dataset_directory, "cvcmuscima_staff_removal")
 
-    # print("Deleting dataset directory {0}".format(dataset_directory))
-    # if os.path.exists(dataset_directory):
-    #     shutil.rmtree(dataset_directory, ignore_errors=True)
-    #
-    # downloader = MuscimaPlusPlusDatasetDownloader(muscima_pp_raw_dataset_directory)
-    # downloader.download_and_extract_dataset()
-    #
-    # downloader = CvcMuscimaDatasetDownloader(muscima_image_directory, CvcMuscimaDataset.StaffRemoval)
-    # downloader.download_and_extract_dataset()
-    #
-    # delete_unused_images(muscima_image_directory)
-    #
-    # inverter = ImageInverter()
-    # # We would like to work with black-on-white images instead of white-on-black images
-    # inverter.invert_images(muscima_image_directory, "*.png")
-    #
-    # shutil.copy("Staff-Vertical-Positions.txt", dataset_directory)
+    print("Deleting dataset directory {0}".format(dataset_directory))
+    if os.path.exists(dataset_directory):
+        shutil.rmtree(dataset_directory, ignore_errors=True)
+
+    downloader = MuscimaPlusPlusDatasetDownloader(muscima_pp_raw_dataset_directory)
+    downloader.download_and_extract_dataset()
+
+    downloader = CvcMuscimaDatasetDownloader(muscima_image_directory, CvcMuscimaDataset.StaffRemoval)
+    downloader.download_and_extract_dataset()
+
+    delete_unused_images(muscima_image_directory)
+
+    inverter = ImageInverter()
+    # We would like to work with black-on-white images instead of white-on-black images
+    inverter.invert_images(muscima_image_directory, "*.png")
+
+    shutil.copy("Staff-Vertical-Positions.txt", dataset_directory)
 
     cut_images("data/cvcmuscima_staff_removal", "data/Staff-Vertical-Positions.txt",
-               "data/muscima_pp_cropped_images", "data/muscima_pp_raw", "data/Annotations.txt")
+               "data/muscima_pp_cropped_images", "data/muscima_pp_raw", "data/Annotations.txt", "data/Annotations")
