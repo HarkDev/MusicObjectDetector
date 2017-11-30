@@ -21,101 +21,95 @@ def cut_images(muscima_image_directory: str, staff_vertical_positions_file: str,
     image_paths = [y for x in os.walk(muscima_image_directory) for y in glob(os.path.join(x[0], '*.png'))]
     os.makedirs(output_path, exist_ok=True)
 
-    with open(exported_annotations_file_path, "w") as annotations_file:
+    image_generator = MuscimaPlusPlusImageGenerator()
+    all_xml_files = image_generator.get_all_xml_file_paths(muscima_pp_raw_data_directory)
 
-        image_generator = MuscimaPlusPlusImageGenerator()
-        all_xml_files = image_generator.get_all_xml_file_paths(muscima_pp_raw_data_directory)
+    if os.path.exists(exported_annotations_file_path):
+        os.remove(exported_annotations_file_path)
 
-        crop_object_annotations: List[Tuple[str, str, List[CropObject]]] = []
+    crop_object_annotations: List[Tuple[str, str, List[CropObject]]] = []
 
-        for xml_file in tqdm(all_xml_files, desc='Parsing annotation files'):
-            crop_objects = image_generator.load_crop_objects_from_xml_file(xml_file)
-            doc = crop_objects[0].doc
-            result = re.match(r"CVC-MUSCIMA_W-(?P<writer>\d+)_N-(?P<page>\d+)_D-ideal", doc)
-            writer = result.group("writer")
-            page = result.group("page")
-            crop_object_annotations.append(('w-' + writer, 'p' + page.zfill(3), crop_objects))
+    for xml_file in tqdm(all_xml_files, desc='Parsing annotation files'):
+        crop_objects = image_generator.load_crop_objects_from_xml_file(xml_file)
+        doc = crop_objects[0].doc
+        result = re.match(r"CVC-MUSCIMA_W-(?P<writer>\d+)_N-(?P<page>\d+)_D-ideal", doc)
+        writer = result.group("writer")
+        page = result.group("page")
+        crop_object_annotations.append(('w-' + writer, 'p' + page.zfill(3), crop_objects))
 
-        with open(staff_vertical_positions_file) as f:
-            content = f.readlines()
-        # you may also want to remove whitespace characters like `\n` at the end of each line
-        annotations = [x.strip().split(';') for x in content]
+    with open(staff_vertical_positions_file) as f:
+        content = f.readlines()
+    # you may also want to remove whitespace characters like `\n` at the end of each line
+    annotations = [x.strip().split(';') for x in content]
 
-        images_to_cut: List[Tuple[str, str, str, str]] = []
+    images_to_cut: List[Tuple[str, str, str, str]] = []
 
-        for image_path in image_paths:
-            result = re.match(r".*(?P<writer>w-\d+).*(?P<page>p\d+).png", image_path)
-            writer = result.group("writer")
-            page = result.group("page")
-            coordinates = None
-            for annotation in annotations:
-                if annotation[0] == writer and annotation[1] == page:
-                    coordinates = annotation[2]
-                    break
+    for image_path in image_paths:
+        result = re.match(r".*(?P<writer>w-\d+).*(?P<page>p\d+).png", image_path)
+        writer = result.group("writer")
+        page = result.group("page")
+        coordinates = None
+        for annotation in annotations:
+            if annotation[0] == writer and annotation[1] == page:
+                coordinates = annotation[2]
+                break
 
-            if coordinates is not None:
-                images_to_cut.append((image_path, writer, page, coordinates))
+        if coordinates is not None:
+            images_to_cut.append((image_path, writer, page, coordinates))
 
-        for image_to_cut in tqdm(images_to_cut, desc="Cutting images"):
-            path, writer, page, coordinates = image_to_cut
-            staff_line_pairs = coordinates.split(',')
-            image = Image.open(path, "r")  # type: Image.Image
-            width = image.width
-            objects_appearing_in_image: List[CropObject] = None
-            for crop_object_annotation in crop_object_annotations:
-                if writer == crop_object_annotation[0] and page == crop_object_annotation[1]:
-                    objects_appearing_in_image = crop_object_annotation[2]
-                    break
+    for image_to_cut in tqdm(images_to_cut, desc="Cutting images"):
+        path, writer, page, coordinates = image_to_cut
+        staff_line_pairs = coordinates.split(',')
+        image = Image.open(path, "r")  # type: Image.Image
+        width = image.width
+        objects_appearing_in_image: List[CropObject] = None
+        for crop_object_annotation in crop_object_annotations:
+            if writer == crop_object_annotation[0] and page == crop_object_annotation[1]:
+                objects_appearing_in_image = crop_object_annotation[2]
+                break
 
-            if objects_appearing_in_image is None:
-                # Image has annotated staff-lines, but does not have corresponding crop-object annotations, so skip it
-                continue
+        if objects_appearing_in_image is None:
+            # Image has annotated staff-lines, but does not have corresponding crop-object annotations, so skip it
+            continue
 
-            i = 1
-            for pair in staff_line_pairs:
-                y_top, y_bottom = map(int, pair.split(':'))
-                previous_width = 0
-                overlap = 100
-                for crop_width in range(500, 3501, 500):
+        i = 1
+        for pair in staff_line_pairs:
+            y_top, y_bottom = map(int, pair.split(':'))
+            previous_width = 0
+            overlap = 100
+            for crop_width in range(500, 3501, 500):
 
-                    if crop_width > width:
-                        crop_width = width
-                    image_crop_bounding_box = (previous_width, y_top, crop_width, y_bottom)
-                    image_crop_bounding_box_top_left_bottom_right = (y_top, previous_width, y_bottom, crop_width)
+                if crop_width > width:
+                    crop_width = width
+                image_crop_bounding_box = (previous_width, y_top, crop_width, y_bottom)
+                image_crop_bounding_box_top_left_bottom_right = (y_top, previous_width, y_bottom, crop_width)
+                previous_width = crop_width - overlap
 
-                    file_name = "{0}_{1}_{2}.png".format(writer, page, i)
+                file_name = "{0}_{1}_{2}.png".format(writer, page, i)
+                i += 1
 
-                    objects_appearing_in_cropped_image = \
-                        compute_objects_appearing_in_cropped_image(image_crop_bounding_box_top_left_bottom_right,
-                                                                   objects_appearing_in_image,
-                                                                   previous_width,
-                                                                   y_top)
-
-                    for object_appearing_in_cropped_image in objects_appearing_in_cropped_image:
-                        class_name = object_appearing_in_cropped_image[0]
-                        translated_bounding_box = object_appearing_in_cropped_image[1]
-                        trans_top, trans_left, trans_bottom, trans_right = translated_bounding_box
-                        annotations_file.write("{0},{1},{2},{3},{4},{5}\n".format(file_name,
-                                                                                  trans_left,
-                                                                                  trans_top,
-                                                                                  trans_right,
-                                                                                  trans_bottom,
-                                                                                  class_name))
-
-                    cropped_image = image.crop(image_crop_bounding_box).convert('RGB')
-                    # draw_bounding_boxes(cropped_image, objects_appearing_in_cropped_image)
-                    output_file = os.path.join(output_path, file_name)
-                    cropped_image.save(output_file)
-                    i += 1
-                    previous_width = crop_width - overlap
+                objects_appearing_in_cropped_image = \
+                    compute_objects_appearing_in_cropped_image(file_name,
+                                                               image_crop_bounding_box_top_left_bottom_right,
+                                                               objects_appearing_in_image)
 
 
-def compute_objects_appearing_in_cropped_image(image_crop_bounding_box_top_left_bottom_right: Tuple[int, int, int, int],
-                                               all_music_objects_appearing_in_image: List[CropObject],
-                                               x_translation_for_cropped_image: int,
-                                               y_translation_for_cropped_image: int) \
-        -> List[Tuple[str, Tuple[int, int, int, int]]]:
-    objects_appearing_in_cropped_image: List[Tuple[str, Tuple[int, int, int, int]]] = []
+                create_annotations_in_plain_format(exported_annotations_file_path, objects_appearing_in_cropped_image)
+
+                cropped_image = image.crop(image_crop_bounding_box).convert('RGB')
+                # draw_bounding_boxes(cropped_image, objects_appearing_in_cropped_image)
+                output_file = os.path.join(output_path, file_name)
+                cropped_image.save(output_file)
+
+
+def compute_objects_appearing_in_cropped_image(file_name: str,
+                                               image_crop_bounding_box_top_left_bottom_right: Tuple[int, int, int, int],
+                                               all_music_objects_appearing_in_image: List[CropObject]) \
+        -> List[Tuple[str, str, Tuple[int, int, int, int]]]:
+    x_translation_for_cropped_image = image_crop_bounding_box_top_left_bottom_right[1]
+    y_translation_for_cropped_image = image_crop_bounding_box_top_left_bottom_right[0]
+
+    objects_appearing_in_cropped_image: List[Tuple[str, str, Tuple[int, int, int, int]]] = []
     for music_object in all_music_objects_appearing_in_image:
         # crop_fully_contains_bounding_box = bounding_box_in(image_crop_bounding_box, music_object.bounding_box)
         # if crop_fully_contains_bounding_box:
@@ -127,9 +121,26 @@ def compute_objects_appearing_in_cropped_image(image_crop_bounding_box_top_left_
             translated_bounding_box = (
                 top - y_translation_for_cropped_image, left - x_translation_for_cropped_image,
                 bottom - y_translation_for_cropped_image, right - x_translation_for_cropped_image)
-            objects_appearing_in_cropped_image.append((music_object.clsname, translated_bounding_box))
+            objects_appearing_in_cropped_image.append((file_name, music_object.clsname, translated_bounding_box))
 
     return objects_appearing_in_cropped_image
+
+
+def create_annotations_in_plain_format(exported_annotations_file_path: str,
+                                       objects_appearing_in_cropped_image: List[
+                                           Tuple[str, str, Tuple[int, int, int, int]]]):
+    with open(exported_annotations_file_path, "a") as annotations_file:
+        for object_appearing_in_cropped_image in objects_appearing_in_cropped_image:
+            file_name = object_appearing_in_cropped_image[0]
+            class_name = object_appearing_in_cropped_image[1]
+            translated_bounding_box = object_appearing_in_cropped_image[2]
+            trans_top, trans_left, trans_bottom, trans_right = translated_bounding_box
+            annotations_file.write("{0},{1},{2},{3},{4},{5}\n".format(file_name,
+                                                                      trans_left,
+                                                                      trans_top,
+                                                                      trans_right,
+                                                                      trans_bottom,
+                                                                      class_name))
 
 
 def bounding_box_in(image_crop_bounding_box: Tuple[int, int, int, int],
