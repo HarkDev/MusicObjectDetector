@@ -31,7 +31,8 @@ class MuscimaAnnotationGeneratorTest(unittest.TestCase):
         shutil.rmtree(annotations_folder, ignore_errors=True)
 
         # Act
-        create_annotations_in_pascal_voc_format(annotations_folder, objects_appearing_in_cropped_image, 100, 100, 3)
+        create_annotations_in_pascal_voc_format(annotations_folder, "file2", objects_appearing_in_cropped_image, 100,
+                                                100, 3)
 
         # Assert
         self.assertTrue(os.path.exists(annotations_folder))
@@ -49,11 +50,12 @@ class MuscimaAnnotationGeneratorTest(unittest.TestCase):
         # Arrange
         objects_appearing_in_cropped_image = self.get_file2_fake_annotations()
         current_folder = os.path.dirname(os.path.realpath(__file__))
-        annotations_folder = os.path.join(current_folder,"Test-Annotations")
+        annotations_folder = os.path.join(current_folder, "Test-Annotations")
         shutil.rmtree(annotations_folder, ignore_errors=True)
 
         # Act
-        create_annotations_in_pascal_voc_format(annotations_folder, objects_appearing_in_cropped_image, 150, 200, 3)
+        create_annotations_in_pascal_voc_format(annotations_folder, "file2", objects_appearing_in_cropped_image, 150,
+                                                200, 3)
 
         # Assert
         self.assertTrue(os.path.exists(annotations_folder))
