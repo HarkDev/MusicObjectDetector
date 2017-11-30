@@ -1,20 +1,16 @@
+import glob
 import os
 import re
-import shutil
 from glob import glob
-from itertools import groupby
-from typing import Tuple, List, Dict
+from typing import Tuple, List
 
-import cv2
-import numpy as np
 from PIL import Image, ImageDraw
 from muscima.cropobject import CropObject
-from omrdatasettools.converters.ImageInverter import ImageInverter
-from omrdatasettools.downloaders.CvcMuscimaDatasetDownloader import CvcMuscimaDatasetDownloader, CvcMuscimaDataset
-from omrdatasettools.downloaders.MuscimaPlusPlusDatasetDownloader import MuscimaPlusPlusDatasetDownloader
 from omrdatasettools.image_generators.MuscimaPlusPlusImageGenerator import MuscimaPlusPlusImageGenerator
 from tqdm import tqdm
+
 from keras_frcnn.data_generators import intersection, area
+from keras_frcnn.muscima_annotation_generator import create_annotations_in_plain_format
 
 
 def cut_images(muscima_image_directory: str, staff_vertical_positions_file: str, output_path: str,
@@ -94,7 +90,7 @@ def cut_images(muscima_image_directory: str, staff_vertical_positions_file: str,
                                                                image_crop_bounding_box_top_left_bottom_right,
                                                                objects_appearing_in_image)
 
-                create_annotations_in_plain_format(exported_annotations_file_path, objects_appearing_in_cropped_image)
+                create_annotations_in_plain_format(exported_annotations_file_path, objects_appearing_in_cropped_image, image_width, image_height, image_depth)
 
                 cropped_image = image.crop(image_crop_bounding_box).convert('RGB')
                 # draw_bounding_boxes(cropped_image, objects_appearing_in_cropped_image)
@@ -124,36 +120,6 @@ def compute_objects_appearing_in_cropped_image(file_name: str,
             objects_appearing_in_cropped_image.append((file_name, music_object.clsname, translated_bounding_box))
 
     return objects_appearing_in_cropped_image
-
-
-def create_annotations_in_plain_format(exported_annotations_file_path: str,
-                                       objects_appearing_in_cropped_image: List[
-                                           Tuple[str, str, Tuple[int, int, int, int]]]):
-    with open(exported_annotations_file_path, "a") as annotations_file:
-        for object_appearing_in_cropped_image in objects_appearing_in_cropped_image:
-            file_name = object_appearing_in_cropped_image[0]
-            class_name = object_appearing_in_cropped_image[1]
-            translated_bounding_box = object_appearing_in_cropped_image[2]
-            trans_top, trans_left, trans_bottom, trans_right = translated_bounding_box
-            annotations_file.write("{0},{1},{2},{3},{4},{5}\n".format(file_name,
-                                                                      trans_left,
-                                                                      trans_top,
-                                                                      trans_right,
-                                                                      trans_bottom,
-                                                                      class_name))
-
-
-def create_annotations_in_pascal_voc_format(annotations_folder: str,
-                                            objects_appearing_in_cropped_image: List[
-                                                Tuple[str, str, Tuple[int, int, int, int]]]):
-    os.mkdir(annotations_folder)
-    groups = [list(it) for k, it in groupby(objects_appearing_in_cropped_image, lambda annotation_tuple: annotation_tuple[0])]
-
-    for group in groups:
-        # Write results to file
-        file_name = "a"
-        with open(os.path.join(annotations_folder, file_name + ".xml"), "w") as xml_file:
-            xml_file.write("Test")
 
 
 def bounding_box_in(image_crop_bounding_box: Tuple[int, int, int, int],
