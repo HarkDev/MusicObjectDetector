@@ -7,6 +7,9 @@ from typing import Tuple, List
 
 from PIL import Image, ImageDraw
 from muscima.cropobject import CropObject
+from omrdatasettools.converters.ImageInverter import ImageInverter
+from omrdatasettools.downloaders.CvcMuscimaDatasetDownloader import CvcMuscimaDatasetDownloader
+from omrdatasettools.downloaders.MuscimaPlusPlusDatasetDownloader import MuscimaPlusPlusDatasetDownloader
 from omrdatasettools.image_generators.MuscimaPlusPlusImageGenerator import MuscimaPlusPlusImageGenerator
 from tqdm import tqdm
 
@@ -97,7 +100,7 @@ def cut_images(muscima_image_directory: str, staff_vertical_positions_file: str,
                 cropped_image = image.crop(image_crop_bounding_box).convert('RGB')
 
                 create_annotations_in_plain_format(exported_annotations_file_path, objects_appearing_in_cropped_image)
-                create_annotations_in_pascal_voc_format(annotations_path, objects_appearing_in_cropped_image,
+                create_annotations_in_pascal_voc_format(annotations_path, file_name, objects_appearing_in_cropped_image,
                                                         cropped_image.width, cropped_image.height, 3)
 
                 # draw_bounding_boxes(cropped_image, objects_appearing_in_cropped_image)
