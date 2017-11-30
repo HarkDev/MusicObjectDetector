@@ -8,7 +8,7 @@ from typing import Tuple, List
 from PIL import Image, ImageDraw
 from muscima.cropobject import CropObject
 from omrdatasettools.converters.ImageInverter import ImageInverter
-from omrdatasettools.downloaders.CvcMuscimaDatasetDownloader import CvcMuscimaDatasetDownloader
+from omrdatasettools.downloaders.CvcMuscimaDatasetDownloader import CvcMuscimaDatasetDownloader, CvcMuscimaDataset
 from omrdatasettools.downloaders.MuscimaPlusPlusDatasetDownloader import MuscimaPlusPlusDatasetDownloader
 from omrdatasettools.image_generators.MuscimaPlusPlusImageGenerator import MuscimaPlusPlusImageGenerator
 from tqdm import tqdm
@@ -105,7 +105,7 @@ def cut_images(muscima_image_directory: str, staff_vertical_positions_file: str,
 
                 # draw_bounding_boxes(cropped_image, objects_appearing_in_cropped_image)
                 output_file = os.path.join(output_path, file_name)
-                cropped_image.save(output_file)
+                cropped_image.save(output_file, "JPEG")
 
 
 def compute_objects_appearing_in_cropped_image(file_name: str,
