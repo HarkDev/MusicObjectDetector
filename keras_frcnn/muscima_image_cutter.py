@@ -105,7 +105,7 @@ def cut_images(muscima_image_directory: str, staff_vertical_positions_file: str,
 
                 # draw_bounding_boxes(cropped_image, objects_appearing_in_cropped_image)
                 output_file = os.path.join(output_path, file_name)
-                cropped_image.save(output_file, "JPEG")
+                cropped_image.save(output_file, "JPEG", quality=95)
 
 
 def compute_objects_appearing_in_cropped_image(file_name: str,
@@ -167,22 +167,22 @@ if __name__ == "__main__":
     muscima_pp_raw_dataset_directory = os.path.join(dataset_directory, "muscima_pp_raw")
     muscima_image_directory = os.path.join(dataset_directory, "cvcmuscima_staff_removal")
 
-    print("Deleting dataset directory {0}".format(dataset_directory))
-    if os.path.exists(dataset_directory):
-        shutil.rmtree(dataset_directory, ignore_errors=True)
-
-    downloader = MuscimaPlusPlusDatasetDownloader(muscima_pp_raw_dataset_directory)
-    downloader.download_and_extract_dataset()
-
-    downloader = CvcMuscimaDatasetDownloader(muscima_image_directory, CvcMuscimaDataset.StaffRemoval)
-    downloader.download_and_extract_dataset()
-
-    delete_unused_images(muscima_image_directory)
-
-    inverter = ImageInverter()
-    # We would like to work with black-on-white images instead of white-on-black images
-    inverter.invert_images(muscima_image_directory, "*.png")
-
+    # print("Deleting dataset directory {0}".format(dataset_directory))
+    # if os.path.exists(dataset_directory):
+    #     shutil.rmtree(dataset_directory, ignore_errors=True)
+    #
+    # downloader = MuscimaPlusPlusDatasetDownloader(muscima_pp_raw_dataset_directory)
+    # downloader.download_and_extract_dataset()
+    #
+    # downloader = CvcMuscimaDatasetDownloader(muscima_image_directory, CvcMuscimaDataset.StaffRemoval)
+    # downloader.download_and_extract_dataset()
+    #
+    # delete_unused_images(muscima_image_directory)
+    #
+    # inverter = ImageInverter()
+    # # We would like to work with black-on-white images instead of white-on-black images
+    # inverter.invert_images(muscima_image_directory, "*.png")
+    #
     shutil.copy("Staff-Vertical-Positions.txt", dataset_directory)
 
     cut_images("data/cvcmuscima_staff_removal", "data/Staff-Vertical-Positions.txt",
