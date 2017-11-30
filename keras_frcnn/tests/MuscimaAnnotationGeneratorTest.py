@@ -48,7 +48,8 @@ class MuscimaAnnotationGeneratorTest(unittest.TestCase):
     def test_create_annotations_in_pascal_voc_format_expect_files_to_contain_annotations(self):
         # Arrange
         objects_appearing_in_cropped_image = self.get_file2_fake_annotations()
-        annotations_folder = "Test-Annotations"
+        current_folder = os.path.dirname(os.path.realpath(__file__))
+        annotations_folder = os.path.join(current_folder,"Test-Annotations")
         shutil.rmtree(annotations_folder, ignore_errors=True)
 
         # Act
@@ -58,9 +59,10 @@ class MuscimaAnnotationGeneratorTest(unittest.TestCase):
         self.assertTrue(os.path.exists(annotations_folder))
         number_of_generated_annotation_files = len(os.listdir(annotations_folder))
         self.assertEqual(number_of_generated_annotation_files, 1, "Expecting 1 file per image file")
-        with open("expected_annotation_results.xml", "r") as expected_file:
+
+        with open(os.path.join(current_folder, "expected_annotation_results.xml"), "r") as expected_file:
             expected_xml_document = expected_file.read()
-        with open("Test-Annotations/file2.xml", "r") as actual_file:
+        with open(os.path.join(annotations_folder, "file2.xml"), "r") as actual_file:
             actual_xml_document = actual_file.read()
 
         self.assertEqual(expected_xml_document, actual_xml_document)
