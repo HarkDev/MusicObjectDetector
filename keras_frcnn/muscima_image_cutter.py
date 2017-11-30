@@ -2,6 +2,7 @@ import os
 import re
 import shutil
 from glob import glob
+from itertools import groupby
 from typing import Tuple, List, Dict
 
 import cv2
@@ -93,7 +94,6 @@ def cut_images(muscima_image_directory: str, staff_vertical_positions_file: str,
                                                                image_crop_bounding_box_top_left_bottom_right,
                                                                objects_appearing_in_image)
 
-
                 create_annotations_in_plain_format(exported_annotations_file_path, objects_appearing_in_cropped_image)
 
                 cropped_image = image.crop(image_crop_bounding_box).convert('RGB')
@@ -141,6 +141,19 @@ def create_annotations_in_plain_format(exported_annotations_file_path: str,
                                                                       trans_right,
                                                                       trans_bottom,
                                                                       class_name))
+
+
+def create_annotations_in_pascal_voc_format(annotations_folder: str,
+                                            objects_appearing_in_cropped_image: List[
+                                                Tuple[str, str, Tuple[int, int, int, int]]]):
+    os.mkdir(annotations_folder)
+    groups = [list(it) for k, it in groupby(objects_appearing_in_cropped_image, lambda annotation_tuple: annotation_tuple[0])]
+
+    for group in groups:
+        # Write results to file
+        file_name = "a"
+        with open(os.path.join(annotations_folder, file_name + ".xml"), "w") as xml_file:
+            xml_file.write("Test")
 
 
 def bounding_box_in(image_crop_bounding_box: Tuple[int, int, int, int],
