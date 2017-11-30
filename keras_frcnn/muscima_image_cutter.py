@@ -89,7 +89,7 @@ def cut_images(muscima_image_directory: str, staff_vertical_positions_file: str,
                 image_crop_bounding_box_top_left_bottom_right = (y_top, previous_width, y_bottom, crop_width)
                 previous_width = crop_width - overlap
 
-                file_name = "{0}_{1}_{2}.png".format(writer, page, i)
+                file_name = "{0}_{1}_{2}.jpg".format(writer, page, i)
                 i += 1
 
                 objects_appearing_in_cropped_image = \
