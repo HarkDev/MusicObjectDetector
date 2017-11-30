@@ -111,6 +111,22 @@ def train_model(dataset_directory: str, model_name: str, delete_and_recreate_dat
 
     C.class_mapping = class_mapping
 
+    s = ""
+    object_classes = list(class_mapping.keys())
+    object_classes.sort()
+    i = 1
+    for object_class in object_classes:
+        if object_class is "bg":
+            continue
+        s += "item {\n"
+        s += "  id: {0}\n".format(i)
+        s += "  name: {0}\n".format(object_class)
+        s += "}\n\n"
+        i += 1
+
+    with open("mapping.txt", "w") as mapping:
+        mapping.write(s)
+
     # inv_map = {v: k for k, v in class_mapping.items()}
 
     print('Training images per class:')
