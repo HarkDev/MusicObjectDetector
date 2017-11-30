@@ -56,11 +56,10 @@ def cut_images(muscima_image_directory: str, staff_vertical_positions_file: str,
             if coordinates is not None:
                 images_to_cut.append((image_path, writer, page, coordinates))
 
-        crop_bounding_boxes: Dict[str, List[Tuple[int, int, int, int]]] = {}
         for image_to_cut in tqdm(images_to_cut, desc="Cutting images"):
             path, writer, page, coordinates = image_to_cut
             staff_line_pairs = coordinates.split(',')
-            image = Image.open(path, "r")
+            image = Image.open(path, "r")  # type: Image.Image
             width = image.width
             objects_appearing_in_image: List[CropObject] = None
             for crop_object_annotation in crop_object_annotations:
@@ -78,7 +77,7 @@ def cut_images(muscima_image_directory: str, staff_vertical_positions_file: str,
                 previous_width = 0
                 overlap = 100
                 for crop_width in range(500, 3501, 500):
-                    objects_appearing_in_cropped_image: List[Tuple[str, Tuple[int, int, int, int]]] = []
+
                     if crop_width > width:
                         crop_width = width
                     image_crop_bounding_box = (previous_width, y_top, crop_width, y_bottom)
@@ -86,37 +85,51 @@ def cut_images(muscima_image_directory: str, staff_vertical_positions_file: str,
 
                     file_name = "{0}_{1}_{2}.png".format(writer, page, i)
 
-                    for music_object in objects_appearing_in_image:
-                        # crop_fully_contains_bounding_box = bounding_box_in(image_crop_bounding_box, music_object.bounding_box)
-                        # if crop_fully_contains_bounding_box:
-                        intersection_over_area = intersection(image_crop_bounding_box_top_left_bottom_right,
-                                                              music_object.bounding_box) / area(
-                            music_object.bounding_box)
-                        if intersection_over_area > 0.8:
-                            top, left, bottom, right = music_object.bounding_box
-                            translated_bounding_box = (
-                                top - y_top, left - previous_width, bottom - y_top, right - previous_width)
-                            trans_top, trans_left, trans_bottom, trans_right = translated_bounding_box
-                            objects_appearing_in_cropped_image.append((music_object.clsname, translated_bounding_box))
-                            annotations_file.write("{0},{1},{2},{3},{4},{5}\n".format(file_name,
-                                                                                      trans_left,
-                                                                                      trans_top,
-                                                                                      trans_right,
-                                                                                      trans_bottom,
-                                                                                      music_object.clsname))
+                    objects_appearing_in_cropped_image = \
+                        compute_objects_appearing_in_cropped_image(image_crop_bounding_box_top_left_bottom_right,
+                                                                   objects_appearing_in_image,
+                                                                   previous_width,
+                                                                   y_top)
+
+                    for object_appearing_in_cropped_image in objects_appearing_in_cropped_image:
+                        class_name = object_appearing_in_cropped_image[0]
+                        translated_bounding_box = object_appearing_in_cropped_image[1]
+                        trans_top, trans_left, trans_bottom, trans_right = translated_bounding_box
+                        annotations_file.write("{0},{1},{2},{3},{4},{5}\n".format(file_name,
+                                                                                  trans_left,
+                                                                                  trans_top,
+                                                                                  trans_right,
+                                                                                  trans_bottom,
+                                                                                  class_name))
 
                     cropped_image = image.crop(image_crop_bounding_box).convert('RGB')
-                    if file_name not in crop_bounding_boxes.keys():
-                        crop_bounding_boxes[file_name] = []
-                    crop_bounding_boxes[file_name].append(image_crop_bounding_box)
-
                     # draw_bounding_boxes(cropped_image, objects_appearing_in_cropped_image)
-
                     output_file = os.path.join(output_path, file_name)
                     cropped_image.save(output_file)
                     i += 1
                     previous_width = crop_width - overlap
-    np.savez(os.path.join(output_path, "crop_bounding_boxes.npz"), crop_bounding_boxes=crop_bounding_boxes)
+
+
+def compute_objects_appearing_in_cropped_image(image_crop_bounding_box_top_left_bottom_right: Tuple[int, int, int, int],
+                                               all_music_objects_appearing_in_image: List[CropObject],
+                                               x_translation_for_cropped_image: int,
+                                               y_translation_for_cropped_image: int) \
+        -> List[Tuple[str, Tuple[int, int, int, int]]]:
+    objects_appearing_in_cropped_image: List[Tuple[str, Tuple[int, int, int, int]]] = []
+    for music_object in all_music_objects_appearing_in_image:
+        # crop_fully_contains_bounding_box = bounding_box_in(image_crop_bounding_box, music_object.bounding_box)
+        # if crop_fully_contains_bounding_box:
+        intersection_over_area = intersection(image_crop_bounding_box_top_left_bottom_right,
+                                              music_object.bounding_box) / area(
+            music_object.bounding_box)
+        if intersection_over_area > 0.8:
+            top, left, bottom, right = music_object.bounding_box
+            translated_bounding_box = (
+                top - y_translation_for_cropped_image, left - x_translation_for_cropped_image,
+                bottom - y_translation_for_cropped_image, right - x_translation_for_cropped_image)
+            objects_appearing_in_cropped_image.append((music_object.clsname, translated_bounding_box))
+
+    return objects_appearing_in_cropped_image
 
 
 def bounding_box_in(image_crop_bounding_box: Tuple[int, int, int, int],
@@ -129,10 +142,11 @@ def bounding_box_in(image_crop_bounding_box: Tuple[int, int, int, int],
     return False
 
 
-def draw_bounding_boxes(cropped_image, objects_of_cropped_image):
+def draw_bounding_boxes(cropped_image: Image,
+                        objects_appearing_in_cropped_image: List[Tuple[str, Tuple[int, int, int, int]]]):
     draw = ImageDraw.Draw(cropped_image)
     red = (255, 0, 0)
-    for object_in_image in objects_of_cropped_image:
+    for object_in_image in objects_appearing_in_cropped_image:
         top, left, bottom, right = object_in_image[1]
         draw.rectangle((left, top, right, bottom), fill=None, outline=red)
 
@@ -153,23 +167,23 @@ if __name__ == "__main__":
     muscima_pp_raw_dataset_directory = os.path.join(dataset_directory, "muscima_pp_raw")
     muscima_image_directory = os.path.join(dataset_directory, "cvcmuscima_staff_removal")
 
-    print("Deleting dataset directory {0}".format(dataset_directory))
-    if os.path.exists(dataset_directory):
-        shutil.rmtree(dataset_directory, ignore_errors=True)
-
-    downloader = MuscimaPlusPlusDatasetDownloader(muscima_pp_raw_dataset_directory)
-    downloader.download_and_extract_dataset()
-
-    downloader = CvcMuscimaDatasetDownloader(muscima_image_directory, CvcMuscimaDataset.StaffRemoval)
-    downloader.download_and_extract_dataset()
-
-    delete_unused_images(muscima_image_directory)
-
-    inverter = ImageInverter()
-    # We would like to work with black-on-white images instead of white-on-black images
-    inverter.invert_images(muscima_image_directory, "*.png")
-
-    shutil.copy("Staff-Vertical-Positions.txt", dataset_directory)
+    # print("Deleting dataset directory {0}".format(dataset_directory))
+    # if os.path.exists(dataset_directory):
+    #     shutil.rmtree(dataset_directory, ignore_errors=True)
+    #
+    # downloader = MuscimaPlusPlusDatasetDownloader(muscima_pp_raw_dataset_directory)
+    # downloader.download_and_extract_dataset()
+    #
+    # downloader = CvcMuscimaDatasetDownloader(muscima_image_directory, CvcMuscimaDataset.StaffRemoval)
+    # downloader.download_and_extract_dataset()
+    #
+    # delete_unused_images(muscima_image_directory)
+    #
+    # inverter = ImageInverter()
+    # # We would like to work with black-on-white images instead of white-on-black images
+    # inverter.invert_images(muscima_image_directory, "*.png")
+    #
+    # shutil.copy("Staff-Vertical-Positions.txt", dataset_directory)
 
     cut_images("data/cvcmuscima_staff_removal", "data/Staff-Vertical-Positions.txt",
                "data/muscima_pp_cropped_images", "data/muscima_pp_raw", "data/Annotations.txt")
