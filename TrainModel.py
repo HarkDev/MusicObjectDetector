@@ -120,7 +120,7 @@ def train_model(dataset_directory: str, model_name: str, delete_and_recreate_dat
             continue
         s += "item {\n"
         s += "  id: {0}\n".format(i)
-        s += "  name: {0}\n".format(object_class)
+        s += "  name: '{0}'\n".format(object_class)
         s += "}\n\n"
         i += 1
 
