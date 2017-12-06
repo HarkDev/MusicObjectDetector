@@ -13,7 +13,7 @@
     <module name="MusicObjectDetector" />
     <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
     <option name="SCRIPT_NAME" value="$PROJECT_DIR$/keras_frcnn/reporting/evaluation.py" />
-    <option name="PARAMETERS" value="--ground_truth_annotations_file_path C:\Users\Alex\Repositories\MusicObjectDetector\data\Annotations.txt --detected_bounding_boxes_file_path C:\Users\Alex\Repositories\MusicObjectDetector\results\Detection_Results_with_Confidence_Scores\Results_2017-11-29_600-region-proposal_Vgg16_muscima_pp_3_32-rois_600-boxes_0.7-overlap_0.4-accuracy-threshold.txt" />
+    <option name="PARAMETERS" value="--ground_truth_annotations_file_path C:\Users\Alex\Repositories\MusicObjectDetector\data\Annotations.txt --detected_bounding_boxes_file_path C:\Users\Alex\Repositories\MusicObjectDetector\results\Detection_Results_with_Confidence_Scores\" />
     <option name="SHOW_COMMAND_LINE" value="false" />
     <option name="EMULATE_TERMINAL" value="false" />
     <method />
