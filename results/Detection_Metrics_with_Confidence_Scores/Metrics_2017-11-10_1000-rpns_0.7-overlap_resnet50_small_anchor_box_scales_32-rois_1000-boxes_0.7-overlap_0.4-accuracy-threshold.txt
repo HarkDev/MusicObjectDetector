@@ -1,0 +1,3 @@
+C:\Users\Alex\Repositories\MusicObjectDetector\results\Detection_Results_with_Confidence_Scores\Results_2017-11-10_1000-rpns_0.7-overlap_resnet50_small_anchor_box_scales_32-rois_1000-boxes_0.7-overlap_0.4-accuracy-threshold.txt
+mAP: 0.28265007316
+mean corlocs: 0.361143524756

@@ -1,0 +1,3 @@
+C:\Users\Alex\Repositories\MusicObjectDetector\results\Detection_Results_with_Confidence_Scores\Results_2017-11-27_SimpleResNet_muscima_pp_2_32-rois_300-boxes_0.7-overlap_0.4-accuracy-threshold.txt
+mAP: 0.0706391799675
+mean corlocs: 0.112398460339

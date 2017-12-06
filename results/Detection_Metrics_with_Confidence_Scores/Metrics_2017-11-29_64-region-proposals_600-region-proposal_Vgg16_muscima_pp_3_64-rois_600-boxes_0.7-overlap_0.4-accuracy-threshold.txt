@@ -1,0 +1,3 @@
+C:\Users\Alex\Repositories\MusicObjectDetector\results\Detection_Results_with_Confidence_Scores\Results_2017-11-29_64-region-proposals_600-region-proposal_Vgg16_muscima_pp_3_64-rois_600-boxes_0.7-overlap_0.4-accuracy-threshold.txt
+mAP: 0.122757321764
+mean corlocs: 0.178939077605

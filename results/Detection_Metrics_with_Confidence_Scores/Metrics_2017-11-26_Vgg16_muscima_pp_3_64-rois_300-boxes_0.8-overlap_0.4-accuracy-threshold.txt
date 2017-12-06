@@ -1,0 +1,3 @@
+C:\Users\Alex\Repositories\MusicObjectDetector\results\Detection_Results_with_Confidence_Scores\Results_2017-11-26_Vgg16_muscima_pp_3_64-rois_300-boxes_0.8-overlap_0.4-accuracy-threshold.txt
+mAP: 0.0946839778482
+mean corlocs: 0.143648627881
